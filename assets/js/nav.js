@@ -68,7 +68,7 @@ function navSelect(){
         .slice(-1)[0]
         .replace(".html", "-page");
 
-    document.querySelector(`#${page}`).classList += " active";
+    document.querySelector(`#${page}`).classList.add("active");
 }
 
 function checkUser(){

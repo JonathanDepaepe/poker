@@ -7,16 +7,105 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="assets/images/logo-hptp512.ico">
     <link rel="stylesheet" href="assets/css/bootstrap/bootstrap.css">
-    <link rel="stylesheet" href="assets/css/nav.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+
+
 </head>
-<body class="d-flex bg-secondary" >
+<body class="d-flex bg-secondary">
 <nav>
 </nav>
-<main class="p-4">
+<main class="w-100">
+    <div id="login-register" class="m-auto w mt-2 w-50 bg-white rounded-3 p-4">
+        <ul class=" nav nav-pills nav-justified mb-3">
+            <li class="nav-item">
+                <a class="nav-link" id="tab-login">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" id="tab-register">Register</a>
+            </li>
+        </ul>
 
+        <div class="tab-content">
+            <div id="login-form" class="tab-pane fade">
+                <form>
+                    <div class="form-outline mb-3">
+                        <label class="form-label" for="loginName">Email</label>
+                        <input type="email" placeholder="Your email" id="loginName" class="form-control border-0"/>
+                    </div>
+
+                    <div class="form-outline mb-3">
+                        <label class="form-label" for="loginPassword">Password</label>
+                        <input type="password" placeholder="Your password" id="loginPassword" class="form-control border-0"/>
+                    </div>
+
+
+                    <div class="text-center  d-flex flex-column">
+                        <p>Sign in with:</p>
+                        <button type="button" class="btn btn-primary btn-block mb-3">
+                            <i class="fab fa-google"></i> Login with Google
+                        </button>
+
+
+                        <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
+                    </div>
+
+                </form>
+            </div>
+            <div id="register-form" class="tab-pane hiding show active">
+                <form>
+                    <div class="form-outline mb-3">
+                        <label class="form-label" for="registerName">Name</label>
+                        <input type="text" placeholder="Your Name" id="registerName" class="form-control border-0"/>
+                    </div>
+
+                    <div class="form-outline mb-3">
+                        <label class="form-label" for="registerUsername">Username</label>
+                        <input type="text" placeholder="Your Username" id="registerUsername" class="form-control border-0"/>
+                    </div>
+
+                    <div class="form-outline mb-3">
+                        <label class="form-label" for="registerEmail">Email</label>
+                        <input type="email" placeholder="Your Email" id="registerEmail" class="form-control border-0"/>
+                    </div>
+
+                    <div class="form-outline mb-3">
+                        <label class="form-label" for="registerPassword">Password</label>
+                        <input type="password" placeholder="Your Password" id="registerPassword" class="form-control border-0"/>
+                    </div>
+
+                    <div class="form-outline mb-3">
+                        <label class="form-label" for="registerRepeatPassword">Repeat password</label>
+                        <input type="password" placeholder='Your Repeat password' id="registerRepeatPassword" class="form-control border-0"/>
+                    </div>
+
+                    <div class="form-check d-flex justify-content-center mb-3">
+                        <input class="form-check-input me-2" type="checkbox" value="" id="registerCheck" checked
+                               aria-describedby="registerCheckHelpText"/>
+                        <label class="form-check-label" for="registerCheck">
+                            I have read and agree to the terms
+                        </label>
+                    </div>
+                    <div class="text-center  d-flex flex-column">
+                        <button type="button" class="btn btn-primary btn-block mb-3">
+                            <i class="fab fa-google"></i> Register with Google
+                        </button>
+
+
+                        <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
 </main>
 
+
 <script src="assets/js/nav.js"></script>
+<script src="assets/js/login.js"></script>
+<script src="https://kit.fontawesome.com/292541dd5f.js" crossorigin="anonymous"></script>
+
 
 </body>
 </html>
