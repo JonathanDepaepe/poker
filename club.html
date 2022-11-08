@@ -5,24 +5,26 @@
     <title>Poker Manager - Club</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="assets/js/nav.js"></script>
     <link rel="icon" type="image/x-icon" href="assets/images/logo-hptp512.ico">
-    <link rel="stylesheet" href="assets/css/bootstrap/bootstrap.css">
+    <link rel="stylesheet" href="assets/css/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <script src="assets/js/bootstrap/bootstrap.bundle.js"></script>
+
 </head>
-<body class="d-flex bg-secondary">
+<body class="d-flex bg-secondary modal-open">
 <nav>
 </nav>
 <main class="p-4 w-100">
-    <div class="d-flex justify-content-between">
-        <button class="btn btn-primary">+ Create Club</button>
+    <div class="d-flex flex-wrap justify-content-between">
+        <button class="btn btn-primary" data-toggle="modal" data-target="#createClub">+ Create Club</button>
         <div class="d-flex">
             <input  class="form-control rounded-0 rounded-start" placeholder="Invite Code" type="text">
             <button class="btn btn-primary rounded-0 rounded-end" >Join</button>
         </div>
     </div>
 
-    <article class="d-flex">
+    <article class="d-flex flex-wrap">
         <section class="card m-2">
             <img class="card-img-top" src="assets/images/placeholder.png" alt="placeholder">
             <div class="card-body text-center">
@@ -49,8 +51,44 @@
         </section>
     </article>
 
-</main>
 
-<script src="assets/js/nav.js"></script>
+    <div class="modal fade show" id="createClub" tabindex="-1" role="dialog" aria-labelledby="createClub" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" >Create club</h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="d-flex flex-column">
+                        <div class="d-flex align-items-end">
+                        <img src="assets/images/placeholder.png" width="300" height="150" style="object-fit: cover" id="display-image" alt="club img">
+
+                        <label for="club-img" class="btn btn-primary d-flex ms-1 min-content"><i class="m-auto mx-2 fa-solid fa-arrow-up-from-bracket"></i>Upload</label>
+                        <input type="file" id="club-img" name="img" hidden accept="image/*">
+                        </div>
+                        <label class="form-label" for="club-name">Club Name</label>
+                        <input class="form-control" type="text" required id="club-name">
+                        <div class="d-flex mt-2">
+                        <label class="form-label"  for="club-private">Private</label>
+                        <input type="checkbox" class="ms-2 form-check" name="private" id="club-private">
+                        </div>
+                        
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Create Club</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</main>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="assets/js/club.js"></script>
+<script src="https://kit.fontawesome.com/292541dd5f.js" crossorigin="anonymous"></script>
 </body>
 </html>
