@@ -19,7 +19,7 @@ function loadMobileNav() { //Mobile
 function loadNav (){
     document.querySelector("nav").innerHTML = `
     <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" id="sidebar-wrapper" style="width: 280px; ">
-        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+        <a href="index.html" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
             <img class="bi pe-none me-2" width="40" height="40" src="assets/images/logo.png" alt="HPTM logo">
             <span class="fs-4">Poker Manager</span>
         </a>
@@ -32,7 +32,7 @@ function loadNav (){
                 </a>
             </li>
             <li>
-                <a href="#" id="club-page" class="nav-link text-white">
+                <a href="club.html" id="club-page" class="nav-link text-white">
 
                     <img src="assets/images/icons/club-icon.svg" class="bi pe-none me-2" width="16" height="16" alt="club icon">
                     Club

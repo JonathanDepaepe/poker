@@ -28,6 +28,16 @@ main{
     border-radius: 0;
 }
 
+.card{
+    width: 15rem;
+}
+
+.min-content{
+    width: min-content !important;
+    width: -moz-min-content !important;
+    height: min-content !important;
+}
+
 @media screen and (max-width: 850px) {
     #sidebar-wrapper{
         display: none !important;
