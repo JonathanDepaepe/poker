@@ -92,6 +92,20 @@ main{
     border: 1px solid  rgb(33, 37, 41)
 }
 
+.img-club-member {
+    border-radius: 50%;
+    width: 6rem;
+    height: 6rem;
+    object-fit: cover;
+    border: 1px solid  rgb(33, 37, 41)
+}
+
+.total-members {
+    position:absolute;
+    bottom:0;
+    right:0;
+}
+
 .achievement{
     border: gray;
     display: flex;
