@@ -5,48 +5,48 @@
     <title>Poker Manager - Club</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="assets/js/nav.js"></script>
+    <script src="Old%20html%20Project/assets/js/navigation/nav.js"></script>
     <link rel="icon" type="image/x-icon" href="assets/images/logo-hptp512.ico">
     <link rel="stylesheet" href="assets/css/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <script src="assets/js/bootstrap/bootstrap.bundle.js"></script>
 
 </head>
-<body class="d-flex bg-secondary modal-open">
+<body class="d-flex bg-white modal-open">
 <nav>
 </nav>
 <main class="p-4 w-100">
     <div class="d-flex flex-wrap justify-content-between">
-        <button class="btn btn-primary" data-toggle="modal" data-target="#createClub">+ Create Club</button>
+        <button class="btn btn-primary bg-color-primary" data-toggle="modal" data-target="#createClub">+ Create Club</button>
         <div class="d-flex">
             <input  class="form-control rounded-0 rounded-start" placeholder="Invite Code" type="text">
-            <button class="btn btn-primary rounded-0 rounded-end" >Join</button>
+            <button class="btn btn-primary rounded-0 rounded-end bg-color-primary" >Join</button>
         </div>
     </div>
 
-    <article class="d-flex flex-wrap">
-        <section class="card m-2">
+    <article class="d-flex mt-4 flex-wrap">
+        <section class="card m-2 shadow">
             <img class="card-img-top" src="assets/images/placeholder.png" alt="placeholder">
             <div class="card-body text-center">
                 <h2 class="card-title">Club name</h2>
-                <p class="card-text">5 Members</p>
-                <button class="btn btn-primary mb-2">Join</button>
+                <p class="text-gray">5 Members</p>
+                <button class="btn btn-primary w-75 mt-2 bg-color-primary">Join</button>
             </div>
         </section>
-        <section class="card m-2">
+        <section class="card m-2 shadow">
             <img class="card-img-top" src="assets/images/placeholder.png" alt="placeholder">
             <div class="card-body text-center">
                 <h2 class="card-title">Club name</h2>
-                <p class="card-text">5 Members</p>
-                <button class="btn btn-primary bg-danger border-0 mb-2">Leave</button>
+                <p class="text-gray">5 Members</p>
+                <button class="btn btn-primary bg-danger border-0 w-75 mt-2 bg-color-red">Leave</button>
             </div>
         </section>
-        <section class="card m-2">
+        <section class="card m-2 shadow">
             <img class="card-img-top" src="assets/images/placeholder.png" alt="placeholder">
             <div class="card-body text-center">
                 <h2 class="card-title">Club name</h2>
-                <p class="card-text">5 Members</p>
-                <button class="btn btn-primary mb-2">Join</button>
+                <p class="text-gray">5 Members</p>
+                <button class="btn btn-primary w-75 mt-2 bg-color-primary">Join</button>
             </div>
         </section>
     </article>
@@ -56,28 +56,29 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" >Create club</h5>
+                    <h5 class="modal-title" >Create a club</h5>
                     <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form class="d-flex flex-column">
                         <div class="d-flex align-items-end">
-                        <img src="assets/images/placeholder.png" width="300" height="150" style="object-fit: cover" id="display-image" alt="club img">
+                            <img src="assets/images/placeholder.png" width="300" height="150" class="img-thumbnail" style="object-fit: cover" id="display-image" alt="club img">
 
-                        <label for="club-img" class="btn btn-primary d-flex ms-1 min-content"><i class="m-auto mx-2 fa-solid fa-arrow-up-from-bracket"></i>Upload</label>
-                        <input type="file" id="club-img" name="img" hidden accept="image/*">
+                            <label for="club-img" class="btn btn-primary d-flex ms-3 min-content"><i class="m-auto mx-2 fa-solid fa-arrow-up-from-bracket"></i>Upload</label>
+                            <input type="file" id="club-img" name="img" hidden accept="image/*">
                         </div>
-                        <label class="form-label" for="club-name">Club Name</label>
+
+                        <label class="form-label mt-3" for="club-name">Club Name</label>
                         <input class="form-control" type="text" required id="club-name">
-                        <div class="d-flex mt-2">
-                        <label class="form-label"  for="club-private">Private</label>
-                        <input type="checkbox" class="ms-2 form-check" name="private" id="club-private">
+                        <div class="d-flex mt-2 form-switch ps-0">
+                            <label class="form-check-label"  for="club-private">Private</label>
+                            <input type="checkbox" class="ms-2 form-check-input" name="private" id="club-private">
                         </div>
-                        
+
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Create Club</button>
+                    <button type="button" class="btn btn-primary bg-color-primary">Create</button>
                 </div>
             </div>
         </div>
