@@ -85,6 +85,13 @@ main{
     border: 1px solid  rgb(33, 37, 41)
 }
 
+.img-club-profile{
+    width: 20rem;
+    height: 20rem;
+    object-fit: cover;
+    border: 1px solid  rgb(33, 37, 41)
+}
+
 .achievement{
     border: gray;
     display: flex;
