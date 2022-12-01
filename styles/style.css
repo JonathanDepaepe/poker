@@ -130,3 +130,7 @@ main{
     background-position: left -100% bottom 0;
     transition: background-position 0.5s;
 }
+
+.tab-layout > li >button{
+    color: black;
+}
