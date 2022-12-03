@@ -85,6 +85,14 @@ main{
     border: 1px solid  rgb(33, 37, 41)
 }
 
+.img-club{
+    border-radius: 50%;
+    width: 10rem;
+    height: 10rem;
+    object-fit: cover;
+    border: 1px solid  rgb(33, 37, 41)
+}
+
 .img-club-profile{
     width: 20rem;
     height: 20rem;

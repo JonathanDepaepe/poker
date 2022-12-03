@@ -47,7 +47,7 @@ export const NavClub = () => {
                     <hr/>
                     <ul className="nav nav-pills flex-column mb-auto">
                         <li>
-                            <Link href="/profile/settings" id="settings" className="nav-link text-white">
+                            <Link href="/club/settings" id="settings" className="nav-link text-white">
                                 <Image className="bi pe-none me-2" width={16} height={16}
                                        src="/images/icons/setting-icon.svg" alt="setting icon"/>
                                 Settings
