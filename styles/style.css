@@ -85,6 +85,35 @@ main{
     border: 1px solid  rgb(33, 37, 41)
 }
 
+.img-club{
+    border-radius: 50%;
+    width: 10rem;
+    height: 10rem;
+    object-fit: cover;
+    border: 1px solid  rgb(33, 37, 41)
+}
+
+.img-club-profile{
+    width: 20rem;
+    height: 20rem;
+    object-fit: cover;
+    border: 1px solid  rgb(33, 37, 41)
+}
+
+.img-club-member {
+    border-radius: 50%;
+    width: 6rem;
+    height: 6rem;
+    object-fit: cover;
+    border: 1px solid  rgb(33, 37, 41)
+}
+
+.total-members {
+    position:absolute;
+    bottom:0;
+    right:0;
+}
+
 .achievement{
     border: gray;
     display: flex;
@@ -108,4 +137,8 @@ main{
 .line-hover:hover {
     background-position: left -100% bottom 0;
     transition: background-position 0.5s;
+}
+
+.tab-layout > li >button{
+    color: black;
 }

@@ -6,7 +6,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 export const NavProfile = () => {
     return (
         <nav>
-
                 <div className="d-flex flex-column flex-shrink-0 p-3 text-bg-dark"
                      id="sidebar-wrapper" style={{width: '280px'}}>
                     <div>
