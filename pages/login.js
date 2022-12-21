@@ -47,7 +47,8 @@ export default function SignIn({user}) {
                                         callbackUrl: `${window.location.origin}`,
                                     })
                                 });
-                                if (res.status === 201){
+                                console.log(res)
+                                if (res.status === 200){
                                     setError(null);
                                     return router.push("/");
                                 }else{

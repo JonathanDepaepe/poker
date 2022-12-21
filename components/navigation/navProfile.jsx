@@ -1,9 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from 'next/router';
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export const NavProfile = () => {
+    const router = useRouter();
     return (
         <nav>
                 <div className="d-flex flex-column flex-shrink-0 p-3 text-bg-dark"
@@ -44,9 +46,16 @@ export const NavProfile = () => {
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/" id="logout" className="nav-link color-red">
+                                <Link href="/api/auth/logout" id="logout" className="nav-link color-red"
+                                      onClick={async (e) => {
+                                          e.preventDefault()
+                                          await fetch('/api/auth/logout', { method: 'POST' })
+                                          router.push('/login')
+                                      }}
+                                >
                                     <i className="color-primary fa-solid me-2 fa-arrow-right-from-bracket"/>
                                     Logout
+
                                 </Link>
                             </li>
                         </ul>
