@@ -1,10 +1,17 @@
 import Link from "next/link";
 import Image from "next/image";
+import React from 'react'
+
+
+import useUser from '../../lib/useUser'
+import { useRouter } from 'next/router'
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
 
 export const NavTop = () => {
+    const { user, mutateUser } = useUser()
+    const router = useRouter()
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-dark">
 
@@ -24,6 +31,16 @@ export const NavTop = () => {
                     <Link className="nav-link line-hover text-white me-3" href="/club">Club</Link>
                     <Link className="nav-link line-hover text-white me-3" href="/" >Leagues</Link>
                     <Link className="nav-link line-hover text-white me-3" href="/">Tournaments</Link>
+                    {!user?.isLoggedIn && (
+                            <Link className="nav-link line-hover text-white me-3" href="/login">
+                                Login
+                            </Link>
+                    )}
+                    {user?.isLoggedIn && (
+                                <Link className="nav-link line-hover text-white me-3" href="/profile/home">
+                                    Profile
+                                </Link>
+                    )}
                 </div>
             </div>
         </div>

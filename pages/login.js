@@ -14,6 +14,7 @@ export default function SignIn({user}) {
     const router = useRouter();
     const [error, setError] = useState(null);
 
+
     return (
         <>
             <Head>
@@ -36,34 +37,26 @@ export default function SignIn({user}) {
                             password: Yup.string().required('Please enter your password'),
                         })}
                         onSubmit={async (values, {setSubmitting}) => {
-                            const res = await fetch('/api/auth/login', {
-                                method: 'post',
-                                body: JSON.stringify({
-                                    redirect: false,
-                                    username: values.username,
-                                    password: values.password,
-                                    callbackUrl: `${window.location.origin}`,
-                                })
-                            });
-                            const login = await res.json()
-                            if (login?.error) {
-                                // @ts-ignore
-                                setError(login.error);
-                            } else {
-                                setError(null);
-
-                                const response = await fetch("/api/sessions", {
-                                    method: "POST",
-                                    headers: {"Content-Type": "application/json"},
+                            try {
+                                const res = await fetch('/api/auth/login', {
+                                    method: 'post',
                                     body: JSON.stringify({
+                                        redirect: false,
                                         username: values.username,
-                                        token: login.token,
-                                        amount: login.amount
+                                        password: values.password,
+                                        callbackUrl: `${window.location.origin}`,
                                     })
                                 });
-                                if (response.ok) {
+                                if (res.status === 201){
+                                    setError(null);
                                     return router.push("/");
+                                }else{
+                                    setError("Username or password is invalid");
                                 }
+
+                            } catch (error) {
+                                console.error('An unexpected error happened:', error)
+                                setError(error);
                             }
                         }}
                     >
