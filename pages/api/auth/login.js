@@ -7,7 +7,7 @@ import {error} from "next/dist/build/output/log";
 
 export default withSession(async (req, res) => {
     const login = JSON.parse(req.body);
-    const url = `https://localhost:7255/api/Auth/login`;
+    const url = `https://pokermanager.games/api/Auth/login`;
     const httpsAgent = new https.Agent({
         rejectUnauthorized: false,
     });

@@ -63,6 +63,10 @@ main{
     border-radius: 0;
 }
 
+.form{
+
+}
+
 .card{
     width: 15rem;
 }
@@ -141,4 +145,9 @@ main{
 
 .tab-layout > li >button{
     color: black;
+}
+
+.fit-content{
+    width: fit-content;
+    width: -moz-fit-content;
 }
