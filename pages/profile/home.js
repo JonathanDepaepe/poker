@@ -3,8 +3,22 @@ import {NavTop} from "../../components/navigation/navTop";
 import Head from "next/head";
 import React from "react";
 import Image from "next/image";
+import  {useState, useEffect} from 'react'
 
 export default function Home() {
+    const [user, setUser] = useState(null)
+    const [isLoading, setLoading] = useState(false)
+    useEffect(() => {
+        setLoading(true)
+        fetch('/api/auth/user')
+            .then((res) => res.json())
+            .then((data) => {
+                setUser(data)
+                console.log(data)
+                setLoading(false)
+            })
+    }, [])
+
     return (
         <>
             <Head>
@@ -32,11 +46,11 @@ export default function Home() {
                                 <form className="h-100">
                                     <div className="mb-3">
                                         <label className="small mb-1" htmlFor="form-username">Username</label>
-                                        <input className="form-control" id="form-username" type="text" placeholder="Enter your username" defaultValue="username" />
+                                        <input className="form-control" id="form-username" disabled={true} type="text" placeholder="Enter your username" defaultValue={user?.user.data.nickname} />
                                     </div>
                                     <div className="mb-3">
                                         <label className="small mb-1" htmlFor="form-email">Email address</label>
-                                        <input className="form-control" id="form-email" type="email" placeholder="Enter your email address" defaultValue="name@example.com" />
+                                        <input className="form-control" id="form-email" disabled={true} type="email" placeholder="Enter your email address" defaultValue={user?.user.data.email} />
                                     </div>
                                     <div className="d-flex justify-content-end ">
                                         <button className="btn btn-primary bg-color-primary" type="button">Save changes</button>
@@ -49,17 +63,17 @@ export default function Home() {
                         <article className="d-flex flex-wrap justify-content-around">
                             <section className="bg-white border-1 shadow rounded achievement">
                                 <p>Total</p>
-                                <h3>2</h3>
+                                <h3>0</h3>
                                 <p>Wins</p>
                             </section>
                             <section className="bg-white border-1 shadow  rounded achievement">
                                 <p>This month</p>
-                                <h3>2</h3>
+                                <h3>0</h3>
                                 <p>Wins</p>
                             </section>
                             <section className="bg-white border-1 shadow  rounded achievement">
                                 <p>Joined</p>
-                                <h3>15</h3>
+                                <h3>0</h3>
                                 <p>Tournaments</p>
                             </section>
                         </article>

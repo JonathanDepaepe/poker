@@ -1,10 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import React from 'react'
-import { useState, useEffect } from 'react'
+import React, {useState, useEffect} from 'react'
 
-import useUser from '../../lib/useUser'
-import { useRouter } from 'next/router'
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -12,12 +9,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 export const NavTop = () => {
     const [user, setUser] = useState(null)
     const [isLoading, setLoading] = useState(false)
-
-    //const data =  useUser().then(function (response){ return response});
-    //console.log(data)
-    //const user = data;
-    const router = useRouter()
-    //console.log(user)
     useEffect(() => {
         setLoading(true)
         fetch('/api/auth/user')
@@ -64,11 +55,5 @@ export const NavTop = () => {
     );
     }
 
-export async function getServerSideProps(context) {
-    const { user, mutateUser } = await useUser()
-    console.log(user)
-    return {
-        props: {}, // will be passed to the page component as props
-    }
-}
+
 
