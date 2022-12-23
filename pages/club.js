@@ -5,6 +5,7 @@ import { useState } from "react";
 
 
 export default function Club() {
+    const [uploading, setUploading] = useState(false);
     const [selectedImage, setSelectedImage] = useState();
 
     const imageChange = (e) => {
@@ -12,6 +13,39 @@ export default function Club() {
             setSelectedImage(e.target.files[0]);
         }
     };
+
+    const submitClub = async (event) => {
+        event.preventDefault();
+        setUploading(true);
+        try {
+            fetch('/api/auth/user')
+                .then((res) => res.json())
+                .then(async (data) => {
+                    console.log(data)
+
+                    const clubName = event.target.clubName.value;
+                    const isPrivate = event.target.private.value;
+                    const formData = new FormData();
+                    !selectedImage?
+                        formData.append("file", "Default"):
+                        formData.append("file", selectedImage)
+                    formData.append("token", data.user.token);
+                    formData.append("memberId", data.user.memberId);
+                    formData.append("clubName", clubName);
+                    formData.append("isPrivate", isPrivate);
+                    const res = await fetch('/api/club', {
+                        body: formData,
+                        method: 'POST',
+                    }).then(function (response) {
+                        console.log(response)
+                    })
+                });
+        } catch (error) {
+            console.log(error.response?.data);
+        }
+        setUploading(false);
+    };
+
     return (
         <>
             <Head>
@@ -63,7 +97,7 @@ export default function Club() {
                                 <button type="button" className="btn-close" data-dismiss="modal" aria-label="Close" />
                             </div>
                             <div className="modal-body">
-                                <form className="d-flex flex-column">
+                                <form className="d-flex flex-column" onSubmit={submitClub}>
                                     <div className="d-flex align-items-end">
                                         {selectedImage && (<img src={URL.createObjectURL(selectedImage)} width={300} height={150} className="img-thumbnail" style={{objectFit: 'cover'}} id="display-image" alt="club img" />)}
                                         {!selectedImage && (<img src="/images/placeholder.png" width={300} height={150} className="img-thumbnail" style={{objectFit: 'cover'}} id="display-image" alt="club img" />)}
@@ -72,16 +106,17 @@ export default function Club() {
                                         <input type="file" id="club-img" name="img" onChange={imageChange} hidden accept="image/*" />
                                     </div>
                                     <label className="form-label mt-3" htmlFor="club-name">Club Name</label>
-                                    <input className="form-control" type="text" required id="club-name" />
+                                    <input className="form-control" name={"clubName"} type="text" required id="club-name" />
                                     <div className="d-flex mt-2 form-switch ps-0">
                                         <label className="form-check-label" htmlFor="club-private">Private</label>
                                         <input type="checkbox" className="ms-2 form-check-input" name="private" id="club-private" />
                                     </div>
+                                    <div className="modal-footer">
+                                        <button type="submit" className="btn btn-primary bg-color-primary">Create</button>
+                                    </div>
                                 </form>
                             </div>
-                            <div className="modal-footer">
-                                <button type="button" className="btn btn-primary bg-color-primary">Create</button>
-                            </div>
+
                         </div>
                     </div>
                 </div>
