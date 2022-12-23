@@ -1,9 +1,17 @@
 import {NavTop} from "../components/navigation/navTop";
 import Head from "next/head";
 import Image from "next/image";
+import { useState } from "react";
 
 
 export default function Club() {
+    const [selectedImage, setSelectedImage] = useState();
+
+    const imageChange = (e) => {
+        if (e.target.files && e.target.files.length > 0) {
+            setSelectedImage(e.target.files[0]);
+        }
+    };
     return (
         <>
             <Head>
@@ -47,7 +55,7 @@ export default function Club() {
                         </div>
                     </section>
                 </article>
-                <div className="modal fade show" id="createClub" tabIndex={-1} role="dialog" aria-labelledby="createClub" aria-hidden="true">
+                <div className="modal fade active show" id="createClub" tabIndex={-1} role="dialog" aria-labelledby="createClub" aria-hidden="true">
                     <div className="modal-dialog" role="document">
                         <div className="modal-content">
                             <div className="modal-header">
@@ -57,9 +65,11 @@ export default function Club() {
                             <div className="modal-body">
                                 <form className="d-flex flex-column">
                                     <div className="d-flex align-items-end">
-                                        <img src="/images/placeholder.png" width={300} height={150} className="img-thumbnail" style={{objectFit: 'cover'}} id="display-image" alt="club img" />
-                                        <label htmlFor="club-img" className="btn btn-primary d-flex ms-3 min-content bg-color-primary"><i className="m-auto mx-2 fa-solid fa-arrow-up-from-bracket" />Upload</label>
-                                        <input type="file" id="club-img" name="img" hidden accept="image/*" />
+                                        {selectedImage && (<img src={URL.createObjectURL(selectedImage)} width={300} height={150} className="img-thumbnail" style={{objectFit: 'cover'}} id="display-image" alt="club img" />)}
+                                        {!selectedImage && (<img src="/images/placeholder.png" width={300} height={150} className="img-thumbnail" style={{objectFit: 'cover'}} id="display-image" alt="club img" />)}
+
+                                        <label htmlFor="club-img" className="btn btn-primary d-flex ms-3 min-content bg-color-primary"><i className="m-auto fa-solid fa-arrow-up-from-bracket" />Upload</label>
+                                        <input type="file" id="club-img" name="img" onChange={imageChange} hidden accept="image/*" />
                                     </div>
                                     <label className="form-label mt-3" htmlFor="club-name">Club Name</label>
                                     <input className="form-control" type="text" required id="club-name" />
@@ -77,7 +87,6 @@ export default function Club() {
                 </div>
             </main>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
         </>
     )
