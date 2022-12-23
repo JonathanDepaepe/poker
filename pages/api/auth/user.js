@@ -18,15 +18,24 @@ export default withSession(async (req, res) => {
                 'Authorization': "Bearer " + user.token,
             },
             agent: httpsAgent,
-        }).then(function (response) {console.log("response: " +  response); console.log("responsestat: " +  response.status)
-            return response.json()}).then(function (data){
-            user.data = data[0];
-            res.json({
-                isLoggedIn: true,
-                user,
-            })
-
-
+        }).then(function (response) {
+            if (response.status !== 200){
+                return null;
+            }else {
+                return response.json()
+            }
+            }).then(function (data){
+                if (data === null){
+                    res.json({
+                        isLoggedIn: false,
+                    })
+                }else{
+                    user.data = data[0];
+                    res.json({
+                        isLoggedIn: true,
+                        user,
+                    })
+                }
         });
 
     } else {

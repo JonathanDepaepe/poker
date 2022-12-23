@@ -1,21 +1,18 @@
 import {NavProfile} from "../../components/navigation/navProfile";
 import {NavTop} from "../../components/navigation/navTop";
 import Head from "next/head";
-import React from "react";
 import Image from "next/image";
 import  {useState, useEffect} from 'react'
 
 export default function Home() {
     const [user, setUser] = useState(null)
-    const [isLoading, setLoading] = useState(false)
+
     useEffect(() => {
-        setLoading(true)
         fetch('/api/auth/user')
             .then((res) => res.json())
             .then((data) => {
                 setUser(data)
                 console.log(data)
-                setLoading(false)
             })
     }, [])
 

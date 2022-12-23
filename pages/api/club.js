@@ -18,12 +18,11 @@ const post = async (req, res) => {
             rejectUnauthorized: false,
         });
          if (fields.file !== "Default"){
-             console.log('here now')
             fullImageSrc = await saveFile(files.file, fields.clubName);
         } else {
-             console.log("here1")
-            fullImageSrc = "/public/images/placeholder.png"
+            fullImageSrc = "./public/images/placeholder.png"
         }
+         console.log(fields.private !== "on")
         const club = await fetch('https://pokermanager.games/api/Club', {
             body: JSON.stringify({
                 ownerId: fields.memberId,
@@ -37,10 +36,14 @@ const post = async (req, res) => {
             },
             agent: httpsAgent,
             method: 'POST',
-        });
+        }).then(function (respo){ console.log(respo); return respo.json()}).then(function (data){console.log(data)});
         return res.status(201).send("");
     });
 };
+
+const get = async (req, res) => {
+    return res.status(200).send('');
+}
 
 const saveFile = async (file, clubName) => {
     const imageSRC = file.originalFilename.split(".").pop()
@@ -53,7 +56,10 @@ const saveFile = async (file, clubName) => {
 };
 
 export default (req, res) => {
-    if (req.method === "POST"){
-         post(req, res)
-    }
+    req.method === "POST"
+        ? post(req, res)
+        : req.method === "GET"
+            ? get(req, res)
+            : res.status(404).send("");
+
 };
