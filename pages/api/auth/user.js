@@ -3,15 +3,13 @@ import https from "https";
 
 export default withSession(async (req, res) => {
     const user = req.session.get('user')
-    console.log("toggled user")
     if (user) {
-        console.log("toggled user logged in")
         const url = `https://pokermanager.games/api/User/` + user.memberId;
         const httpsAgent = new https.Agent({
             rejectUnauthorized: false,
         });
 
-        let registerRes = await fetch(url, {
+        await fetch(url, {
             method: 'get',
             headers: {
                 'Content-Type': 'application/json',
@@ -24,18 +22,33 @@ export default withSession(async (req, res) => {
             }else {
                 return response.json()
             }
-            }).then(function (data){
-                if (data === null){
-                    res.json({
-                        isLoggedIn: false,
+            }).then(async function (data) {
+            if (data === null) {
+                res.json({
+                    isLoggedIn: false,
+                })
+            } else {
+                const httpsAgent = new https.Agent({
+                    rejectUnauthorized: false,
+                });
+
+                await fetch(`https://pokermanager.games/api/Club/MemberId/${user.memberId}`, {
+                    method: 'get',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': "Bearer " + user.token,
+                    },
+                    agent: httpsAgent,
+                }).then((res) => res.json())
+                    .then((Clubs) => {
+                        user.clubs = Clubs;
+                        user.data = data[0];
+                        res.json({
+                            isLoggedIn: true,
+                            user,
+                        })
                     })
-                }else{
-                    user.data = data[0];
-                    res.json({
-                        isLoggedIn: true,
-                        user,
-                    })
-                }
+            }
         });
 
     } else {

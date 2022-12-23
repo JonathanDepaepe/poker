@@ -15,6 +15,7 @@ export const NavTop = () => {
             .then((res) => res.json())
             .then((data) => {
                 setUser(data)
+                console.log(data)
                 setLoading(false)
             })
     }, [])

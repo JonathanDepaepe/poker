@@ -8,11 +8,11 @@ import https from "https";
 
 
 export default function Club() {
-    const [uploading, setUploading] = useState(false);
     const [selectedImage, setSelectedImage] = useState();
     const [isLoading, setLoading] = useState(false)
-    const [user, setUser] = useState(null)
-    const [clubs, setCLubs] = useState();
+    const [user, setUser] = useState()
+    const [clubs, setClubs] = useState();
+    const [Uploading, setUploading] = useState(false);
 
     const imageChange = (e) => {
         if (e.target.files && e.target.files.length > 0) {
@@ -20,12 +20,38 @@ export default function Club() {
         }
     };
 
-    useEffect(async () => {
+    useEffect( () => {
         fetch('/api/auth/user')
             .then((res) => res.json())
-            .then((data) => {
-                setUser(data)
+            .then((fetchUser) => {
+                setUser(fetchUser)
                 setLoading(false)
+
+        fetch('/api/club')
+            .then((res) => res.json())
+            .then((data) => {
+                let joinedClubs= [];
+                if(fetchUser?.isLoggedIn) {
+                    for (const element of fetchUser.user.clubs) {
+                        joinedClubs.push(element.clubId);
+                }}
+                console.log(joinedClubs)
+                for (const element of data) {
+                    if (joinedClubs.includes(element.clubId)){
+                        element.button = "leave"
+                    }else if(fetchUser?.isLoggedIn){
+                        element.button = "join"
+                    }else{
+                        element.button = "login"
+                    }
+                    if (element.pictureUrl[0]!== "/"){
+                        element.pictureUrl = "/static/placeholder.png"
+                    }
+
+                }
+                setClubs(data)
+                setLoading(false)
+            })
             })
     }, [])
 
@@ -49,7 +75,7 @@ export default function Club() {
                     formData.append("memberId", data.user.memberId);
                     formData.append("clubName", clubName);
                     formData.append("isPrivate", isPrivate);
-                    const res = await fetch('/api/club', {
+                    await fetch('/api/club', {
                         body: formData,
                         method: 'POST',
                     }).then(function (response) {
@@ -84,33 +110,20 @@ export default function Club() {
                     </div>)}
                 </div>
                 <article className="d-flex mt-4 flex-wrap">
-                    <section className="card m-2 shadow">
-                        <Image className="card-img-top" width={300} height={150} src="/images/placeholder.png"
-                               alt="placeholder"/>
-                        <div className="card-body text-center">
-                            <h2 className="card-title">Club name</h2>
-                            <p className="text-gray">5 Members</p>
-                            <button className="btn btn-primary w-75 mt-2 bg-color-primary">Join</button>
-                        </div>
-                    </section>
-                    <section className="card m-2 shadow">
-                        <Image className="card-img-top" width={300} height={150} src="/images/placeholder.png"
-                               alt="placeholder"/>
-                        <div className="card-body text-center">
-                            <h2 className="card-title">Club name</h2>
-                            <p className="text-gray">5 Members</p>
-                            <button className="btn btn-primary bg-danger border-0 w-75 mt-2 bg-color-red">Leave</button>
-                        </div>
-                    </section>
-                    <section className="card m-2 shadow">
-                        <Image className="card-img-top" width={300} height={150} src="/images/placeholder.png"
-                               alt="placeholder"/>
-                        <div className="card-body text-center">
-                            <h2 className="card-title">Club name</h2>
-                            <p className="text-gray">5 Members</p>
-                            <button className="btn btn-primary w-75 mt-2 bg-color-primary">Join</button>
-                        </div>
-                    </section>
+                    {clubs?.map((club) => (
+                        <section className="card m-2 shadow">
+                            <img className="card-img-top" width={300} height={150} src={club.pictureUrl}
+                                   alt="placeholder"/>
+                            <div className="card-body text-center">
+                                <h2 className="card-title">{club.name}</h2>
+                                <p className="text-gray">5 Members</p>
+                                {club.button === "leave" && (<button className="btn btn-primary bg-danger border-0 w-75 mt-2 bg-color-red">Leave</button>)}
+                                {club.button === "join" && (<button className="btn btn-primary w-75 mt-2 bg-color-primary">Join</button>)}
+                                {club.button === "login" && (<button className="btn btn-primary w-75 mt-2 bg-color-primary"><a href="/login"></a>Login</button>)}
+                            </div>
+                        </section>
+                    ))}
+
                 </article>
                 <div className="modal fade active show" id="createClub" tabIndex={-1} role="dialog"
                      aria-labelledby="createClub" aria-hidden="true">
@@ -162,17 +175,3 @@ export default function Club() {
     )
 }
 
-
-
-
-async function getClubs(user) {
-    const res = await fetch('https://pokermanager.games/api/Club/public',{
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': "Bearer " + user.user.token,
-        },
-        method: 'GET',
-
-    });
-    return await res.json()
-}

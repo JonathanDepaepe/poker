@@ -20,7 +20,7 @@ const post = async (req, res) => {
          if (fields.file !== "Default"){
             fullImageSrc = await saveFile(files.file, fields.clubName);
         } else {
-            fullImageSrc = "./public/images/placeholder.png"
+            fullImageSrc = "/public/images/placeholder.png"
         }
          console.log(fields.private !== "on")
         const club = await fetch('https://pokermanager.games/api/Club', {
@@ -42,15 +42,24 @@ const post = async (req, res) => {
 };
 
 const get = async (req, res) => {
-    return res.status(200).send('');
+    const httpsAgent = new https.Agent({
+        rejectUnauthorized: false,
+    });
+    await fetch("https://pokermanager.games/api/Club/public",{
+        agent: httpsAgent,
+    }).then((res) => res.json())
+        .then((data) => {
+            return res.status(200).json(data);
+        })
+
 }
 
 const saveFile = async (file, clubName) => {
     const imageSRC = file.originalFilename.split(".").pop()
-    const fullImageSrc = `./public/clubs/${clubName}${Math.floor(Math.random() * 100)}.${imageSRC}`
+    const fullImageSrc = `/static/${clubName}${Math.floor(Math.random() * 100)}.${imageSRC}`
     console.log(imageSRC);
     const data = fs.readFileSync(file.filepath);
-    fs.writeFileSync(fullImageSrc, data);
+    fs.writeFileSync("./public"+fullImageSrc, data);
     await fs.unlinkSync(file.filepath);
     return fullImageSrc ;
 };
