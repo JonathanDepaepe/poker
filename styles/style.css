@@ -151,3 +151,12 @@ main{
     width: fit-content;
     width: -moz-fit-content;
 }
+
+.w-56r{
+    width: 56rem;
+}
+
+.tab-content{
+    height: 100%;
+    width: 100%;
+}

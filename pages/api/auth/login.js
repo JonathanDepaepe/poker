@@ -24,6 +24,7 @@ export default withSession(async (req, res) => {
                 Username: login.username,
                 Password: login.password
             }),
+
         }).then(function (response){ return response.json();}).then(async function (data) {
             if (data.status === 401){
                 throw new Error("invalid username or password")

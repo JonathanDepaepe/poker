@@ -28,17 +28,17 @@ export default function SignIn() {
                 <NavTop/>
             </div>
             <main>
-                <div className={"d-flex ms-auto me-auto fit-content mt-4 rounded shadow p-5"}>
+                <div className={"d-flex ms-auto me-auto fit-content mt-4 rounded w-56r shadow p-5"}>
                     <Image className={"mt-auto mb-auto me-4"} src={"/images/playing_cards.svg"}
                            alt={"Playing card image"} width={460} height={327}/>
-                    <div>
+                    <div className={"w-100"}>
                         <Tabs
                             defaultActiveKey="login"
                             id="uncontrolled-tab-example"
-                            className="tab-layout"
+                            className="tab-layout w-100"
                         >
-                            <Tab eventKey="login" title="Login">
-                                <div className={"form d-flex mr-auto ml-auto flex-col w-6/12"}>
+                            <Tab eventKey="login" title="Login" className={"h-100"}>
+                                <div className={"form d-flex mr-auto ml-auto flex-col h-100 w-100 w-6/12"}>
 
                                     <Formik
                                         initialValues={{username: '', password: ''}}
@@ -75,7 +75,8 @@ export default function SignIn() {
                                     >
                                         {(formik) => (
 
-                                            <form className={"d-flex flex-column "} onSubmit={formik.handleSubmit}>
+                                            <form className={"d-flex flex-column justify-content-between w-100"} onSubmit={formik.handleSubmit}>
+                                                <div>
                                                 <div className="text-danger text-center rounded p-2">
                                                     {error}
                                                 </div>
@@ -97,7 +98,7 @@ export default function SignIn() {
                                                 </div>
                                                 <label
                                                     htmlFor="password"
-                                                    cclassName="d-flex flex-row mb-2 mt-3"
+                                                    className="d-flex flex-row mb-2 mt-3"
                                                 >
                                                     Password:
                                                     <Field
@@ -112,6 +113,7 @@ export default function SignIn() {
                                                 <div className="text-red-600 text-sm">
                                                     <ErrorMessage name="password"/>
                                                 </div>
+                                                </div>
                                                 <div className={"d-flex flex-column text-center"}>
                                                     <button
                                                         type="submit"
@@ -119,9 +121,6 @@ export default function SignIn() {
                                                     >
                                                         {formik.isSubmitting ? 'Please wait...' : 'Sign In'}
                                                     </button>
-                                                    <Link className={"ml-auto mr-auto text-black underline"}
-                                                          href={"/register"}>Create
-                                                        an account</Link>
                                                 </div>
                                             </form>
 
@@ -129,7 +128,7 @@ export default function SignIn() {
                                     </Formik>
                                 </div>
                             </Tab>
-                            <Tab eventKey="register" title="Register">
+                            <Tab eventKey="register" title="Register" className={"h-100"}>
                                 <Formik
                                     initialValues={{username: '',email: '', password: '', conPassword: ''}}
                                     validationSchema={Yup.object({
@@ -154,10 +153,9 @@ export default function SignIn() {
                                                     password: values.password,
                                                 })
                                             });
-                                            console.log(res)
                                             if (res.status === 200) {
                                                 setError(null);
-                                                return router.push("/");
+                                                return router.reload();
                                             } else {
                                                 setError("something went wrong");
                                             }
@@ -169,7 +167,8 @@ export default function SignIn() {
                                     }}
                                 >
                                     {(formik) => (
-                                        <form className={'d-flex flex-column'}>
+                                        <form className={'d-flex flex-column justify-content-between h-100 w-100'} onSubmit={formik.handleSubmit}>
+                                            <div>
                                             <label
                                                 htmlFor="username"
                                                 className="d-flex flex-row mb-2 mt-3"
@@ -183,7 +182,9 @@ export default function SignIn() {
                                                     className="border-0 border-bottom ms-auto"
                                                 />
                                             </label>
-
+                                            <div className="text-danger">
+                                                <ErrorMessage name="username"/>
+                                            </div>
                                             <label
                                                 htmlFor="email"
                                                 className="d-flex flex-row mb-2"
@@ -197,7 +198,9 @@ export default function SignIn() {
                                                     className="border-0 border-bottom ms-auto"
                                                 />
                                             </label>
-
+                                            <div className="text-danger">
+                                                <ErrorMessage name="email"/>
+                                            </div>
                                             <label
                                                 htmlFor="password"
                                                 className="d-flex flex-row mb-2"
@@ -211,7 +214,9 @@ export default function SignIn() {
                                                     className="border-0 border-bottom ms-auto"
                                                 />
                                             </label>
-
+                                            <div className="text-danger">
+                                                <ErrorMessage name="password"/>
+                                            </div>
                                             <label
                                                 htmlFor="conPassword"
                                                 className="d-flex flex-row mb-2"
@@ -225,8 +230,12 @@ export default function SignIn() {
                                                     className="border-0 border-bottom ms-auto"
                                                 />
                                             </label>
-
+                                            <div className="text-danger">
+                                                <ErrorMessage name="conPassword"/>
+                                            </div>
+                                            </div>
                                             <div class="text-center  d-flex flex-column">
+
                                                 <button type="submit"
                                                         className="btn btn-primary mt-3 border-0 bg-color-primary btn-block mb-4">{formik.isSubmitting ? 'Please wait...' : 'Create account'}
                                                 </button>

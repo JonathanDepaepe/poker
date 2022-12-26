@@ -8,7 +8,7 @@ export default async function handler(req, res) {
     const httpsAgent = new https.Agent({
         rejectUnauthorized: false,
     });
-
+    const userInfo =  JSON.parse(body)
     let registerRes = await fetch(url, {
         method: 'post',
         headers: {
@@ -16,9 +16,9 @@ export default async function handler(req, res) {
         },
         agent: httpsAgent,
         body: JSON.stringify({
-            username: body.username,
-            email: body.email,
-            password: body.password
+            Username: userInfo.username,
+            Email: userInfo.email,
+            Password: userInfo.password
         }),
     });
     const register = await registerRes.json();
