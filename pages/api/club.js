@@ -12,8 +12,6 @@ const post = async (req, res) => {
     let fullImageSrc;
     const form = new formidable.IncomingForm();
     form.parse(req, async function (err, fields, files) {
-        console.log(fields)
-
         const httpsAgent = new https.Agent({
             rejectUnauthorized: false,
         });
@@ -22,13 +20,12 @@ const post = async (req, res) => {
         } else {
             fullImageSrc = "/public/images/placeholder.png"
         }
-         console.log(fields.private !== "on")
         const club = await fetch('https://pokermanager.games/api/Club', {
             body: JSON.stringify({
                 ownerId: fields.memberId,
                 name : fields.clubName,
                 pictureUrl: fullImageSrc,
-                public: fields.private !== "on"
+                public: fields.isPrivate !== "on"
             }),
             headers: {
                 'Content-Type': 'application/json',
@@ -36,8 +33,15 @@ const post = async (req, res) => {
             },
             agent: httpsAgent,
             method: 'POST',
-        }).then(function (respo){ console.log(respo); return respo.json()}).then(function (data){console.log(data)});
-        return res.status(201).send("");
+        }).then(function (respo){
+            if (respo.status === 201){
+                return res.status(201).send("");
+            } else{
+                return res.status(403).send("");
+            }
+        })
+
+
     });
 };
 

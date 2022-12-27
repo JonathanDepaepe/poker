@@ -3,6 +3,7 @@
 :root {
     --primaryColor:#3D5A6E;
     --redColor:#85413A;
+    --greenColor: #698837;
     --lightPrimary:#5C7587;
 }
 .color-primary{
@@ -25,12 +26,18 @@
     color: white!important;
 }
 
+.color-red{
+    color: var(--redColor)!important;
+}
+
 .bg-color-red{
     background-color: var(--redColor)!important;
     border: 0;
 }
-.color-red{
-    color: var(--redColor)!important;
+
+.bg-color-green{
+    background-color: var(--greenColor)!important;
+    border: 0;
 }
 
 body nav{
@@ -63,10 +70,6 @@ main{
     border-radius: 0;
 }
 
-.form{
-
-}
-
 .card{
     width: 15rem;
 }
@@ -90,11 +93,9 @@ main{
 }
 
 .img-club{
-    border-radius: 50%;
-    width: 10rem;
-    height: 10rem;
     object-fit: cover;
-    border: 1px solid  rgb(33, 37, 41)
+    width: 18rem;
+    height: 10rem !important;
 }
 
 .img-club-profile{

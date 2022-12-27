@@ -4,16 +4,22 @@ import Image from "next/image";
 import {useEffect, useState} from "react";
 import https from "https";
 import Link from "next/link";
+import Popup from 'reactjs-popup';
+import {useRouter} from 'next/router';
 
 
 
 
 export default function Club() {
+    const router = useRouter();
     const [selectedImage, setSelectedImage] = useState();
-    const [isLoading, setLoading] = useState(true)
-    const [user, setUser] = useState()
+    const [isLoading, setLoading] = useState(true);
+    const [isCreating, setCreating] = useState(false);
+    const [isCreated, setCreated] = useState(false);
+    const [user, setUser] = useState();
     const [clubs, setClubs] = useState();
-    const [Uploading, setUploading] = useState(false);
+    const [open, setOpen] = useState(false);
+    const closeModal = () => setOpen(false);
 
     const imageChange = (e) => {
         if (e.target.files && e.target.files.length > 0) {
@@ -26,7 +32,6 @@ export default function Club() {
             .then((res) => res.json())
             .then((fetchUser) => {
                 setUser(fetchUser)
-                setLoading(false)
 
         fetch('/api/club')
             .then((res) => res.json())
@@ -58,7 +63,7 @@ export default function Club() {
 
     const submitClub = async (event) => {
         event.preventDefault();
-
+        setCreating(true)
         try {
             fetch('/api/auth/user')
                 .then((res) => res.json())
@@ -79,13 +84,16 @@ export default function Club() {
                         body: formData,
                         method: 'POST',
                     }).then(function (response) {
-                        console.log(response)
+                        if(response.status === 201){
+                            setCreating(false)
+                            setCreated(true)
+                            setTimeout(function (){router.reload()}, 1200)
+                        }
                     })
                 });
         } catch (error) {
             console.log(error.response?.data);
         }
-        setUploading(false);
     };
 
     return (
@@ -100,7 +108,7 @@ export default function Club() {
             <main className="p-4 w-75 m-auto">
                 <div className="d-flex flex-wrap justify-content-between">
                     {user?.isLoggedIn && (
-                    <button className="btn btn-primary bg-color-primary" data-toggle="modal" data-target="#createClub">+
+                    <button className="btn btn-primary bg-color-primary" onClick={() => setOpen(o => !o)}>+
                         Create Club
                     </button>)}
                     {user?.isLoggedIn && (
@@ -113,46 +121,47 @@ export default function Club() {
                 <article className="d-flex mt-4 flex-wrap">
                     {clubs?.map((club) => (
                         <section className="card m-2 shadow">
-                            <img className="card-img-top" width={300} height={150} src={club.pictureUrl}
+                            <img className="card-img-top img-club" width={300} height={150} src={club.pictureUrl}
                                    alt="placeholder"/>
-                            <div className="card-body text-center">
-                                <h2 className="card-title">{club.name}</h2>
-                                <p className="text-gray">5 Members</p>
-                                {club.button === "leave" && (<button className="btn btn-primary bg-danger border-0 w-75 mt-2 bg-color-red">Leave</button>)}
-                                {club.button === "join" && (<button className="btn btn-primary w-75 mt-2 bg-color-primary">Join</button>)}
-                                {club.button === "login" && (<Link className={"text-decoration-none text-white btn btn-primary w-75 mt-2 bg-color-primary"} href="/login">Login</Link>)}
+                            <div className="card-body d-flex flex-column justify-content-between text-center">
+                                <div>
+                                <h3 className="card-title">{club.name}</h3>
+                                <p className="text-gray">- Members</p>
+                                </div>
+                                {club.button === "leave" && (<button className="btn btn-primary bg-danger border-0 me-auto ms-auto w-75 mt-2 bg-color-red">Leave</button>)}
+                                {club.button === "join" && (<button className="btn btn-primary w-75 mt-2 me-auto ms-auto bg-color-primary">Join</button>)}
+                                {club.button === "login" && (<Link className={"text-decoration-none text-white me-auto ms-auto btn btn-primary w-75 mt-2 bg-color-primary"} href="/login">Login</Link>)}
                             </div>
                         </section>
                     ))}
 
                 </article>
-                <div className="modal fade active show" id="createClub" tabIndex={-1} role="dialog"
-                     aria-labelledby="createClub" aria-hidden="true">
-                    <div className="modal-dialog" role="document">
-                        <div className="modal-content">
+                <Popup open={open} closeOnDocumentClick onClose={closeModal}>
+                    <div className="bg-white border rounded-3" role="document">
+                        <div className="modal-content p-4">
                             <div className="modal-header">
                                 <h5 className="modal-title">Create a club</h5>
-                                <button type="button" className="btn-close" data-dismiss="modal" aria-label="Close"/>
+                                <button onClick={() => setOpen(o => !o)} type="button" className="btn-close" data-dismiss="modal" aria-label="Close"/>
                             </div>
                             <div className="modal-body">
                                 <form className="d-flex flex-column" onSubmit={submitClub}>
                                     <div className="d-flex align-items-end">
                                         {selectedImage && (
                                             <img src={URL.createObjectURL(selectedImage)} width={300} height={150}
-                                                 className="img-thumbnail" style={{objectFit: 'cover'}}
+                                                 className="img-thumbnail img-club"
                                                  id="display-image" alt="club img"/>)}
                                         {!selectedImage && (<img src="/images/placeholder.png" width={300} height={150}
-                                                                 className="img-thumbnail" style={{objectFit: 'cover'}}
+                                                                 className="img-thumbnail"
                                                                  id="display-image" alt="club img"/>)}
 
                                         <label htmlFor="club-img"
                                                className="btn btn-primary d-flex ms-3 min-content bg-color-primary"><i
                                             className="m-auto fa-solid fa-arrow-up-from-bracket"/>Upload</label>
-                                        <input type="file" id="club-img" name="img" onChange={imageChange} hidden
+                                        <input  type="file" id="club-img" name="img" onChange={imageChange} hidden
                                                accept="image/*"/>
                                     </div>
                                     <label className="form-label mt-3" htmlFor="club-name">Club Name</label>
-                                    <input className="form-control" name={"clubName"} type="text" required
+                                    <input className="form-control"  maxLength="15" name={"clubName"} type="text" required
                                            id="club-name"/>
                                     <div className="d-flex mt-2 form-switch ps-0">
                                         <label className="form-check-label" htmlFor="club-private">Private</label>
@@ -160,15 +169,16 @@ export default function Club() {
                                                id="club-private"/>
                                     </div>
                                     <div className="modal-footer">
-                                        <button type="submit" className="btn btn-primary bg-color-primary">Create
-                                        </button>
+                                        {!isCreating && !isCreated && (<button type="submit" className="btn btn-primary bg-color-primary">Create</button>)}
+                                        {isCreating && !isCreated && (<button disabled={"true"} type="submit" className="btn btn-primary bg-color-primary">Creating...</button>)}
+                                        {!isCreating && isCreated && (<button disabled={"true"} type="submit" className="btn btn-primary bg-color-green">Created</button>)}
                                     </div>
                                 </form>
                             </div>
 
                         </div>
                     </div>
-                </div>
+                </Popup>
             </main>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
