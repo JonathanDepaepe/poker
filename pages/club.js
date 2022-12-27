@@ -3,13 +3,14 @@ import Head from "next/head";
 import Image from "next/image";
 import {useEffect, useState} from "react";
 import https from "https";
+import Link from "next/link";
 
 
 
 
 export default function Club() {
     const [selectedImage, setSelectedImage] = useState();
-    const [isLoading, setLoading] = useState(false)
+    const [isLoading, setLoading] = useState(true)
     const [user, setUser] = useState()
     const [clubs, setClubs] = useState();
     const [Uploading, setUploading] = useState(false);
@@ -35,7 +36,6 @@ export default function Club() {
                     for (const element of fetchUser.user.clubs) {
                         joinedClubs.push(element.clubId);
                 }}
-                console.log(joinedClubs)
                 for (const element of data) {
                     if (joinedClubs.includes(element.clubId)){
                         element.button = "leave"
@@ -58,7 +58,7 @@ export default function Club() {
 
     const submitClub = async (event) => {
         event.preventDefault();
-        setUploading(true);
+
         try {
             fetch('/api/auth/user')
                 .then((res) => res.json())
@@ -109,6 +109,7 @@ export default function Club() {
                         <button className="btn btn-primary rounded-0 rounded-end bg-color-primary">Join</button>
                     </div>)}
                 </div>
+                {isLoading && (<h5>Clubs Are loading ...</h5>)}
                 <article className="d-flex mt-4 flex-wrap">
                     {clubs?.map((club) => (
                         <section className="card m-2 shadow">
@@ -119,7 +120,7 @@ export default function Club() {
                                 <p className="text-gray">5 Members</p>
                                 {club.button === "leave" && (<button className="btn btn-primary bg-danger border-0 w-75 mt-2 bg-color-red">Leave</button>)}
                                 {club.button === "join" && (<button className="btn btn-primary w-75 mt-2 bg-color-primary">Join</button>)}
-                                {club.button === "login" && (<button className="btn btn-primary w-75 mt-2 bg-color-primary"><a href="/login"></a>Login</button>)}
+                                {club.button === "login" && (<Link className={"text-decoration-none text-white btn btn-primary w-75 mt-2 bg-color-primary"} href="/login">Login</Link>)}
                             </div>
                         </section>
                     ))}

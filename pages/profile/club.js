@@ -1,9 +1,42 @@
 import {NavProfile} from "../../components/navigation/navProfile";
 import {NavTop} from "../../components/navigation/navTop";
 import Head from "next/head";
-import React from "react";
+import React, {useEffect, useState} from "react";
+import Link from "next/link";
 
 export default function Home() {
+    const [isLoading, setLoading] = useState(true)
+    const [user, setUser] = useState()
+    const [clubs, setClubs] = useState();
+
+    useEffect(() => {
+        fetch('/api/auth/user')
+            .then((res) => res.json())
+            .then((fetchUser) => {
+                setUser(fetchUser)
+                setLoading(false)
+
+                fetch('/api/profile/club', {
+                    method: "POST",
+                    body: JSON.stringify({
+                        User: fetchUser
+                    })
+                })
+                    .then((res) => res.json())
+                    .then((data) => {
+
+                        for (const element of data) {
+                            if (element.pictureUrl[0] !== "/") {
+                                element.pictureUrl = "/static/placeholder.png"
+                            }
+                        }
+                        data.length === 0?
+                            setClubs(null):setClubs(data)
+                        setLoading(false)
+                    })
+            })
+    }, [])
+
     return (
         <>
             <Head>
@@ -16,9 +49,25 @@ export default function Home() {
 
             <div className={"d-flex bg-white"}>
                 <NavProfile/>
-
                 <main className="p-4 w-100">
+                    {isLoading && (<h5>Clubs Are loading ...</h5>)}
+                    <article className="d-flex mt-4 flex-wrap">
+                        {clubs?.map((club) => (
+                            <section className="card m-2 shadow">
+                                <img className="card-img-top" width={300} height={150} src={club.pictureUrl}
+                                     alt="placeholder"/>
+                                <div className="card-body text-center">
+                                    <h2 className="card-title">{club.name}</h2>
+                                    <p className="text-gray">5 Members</p>
+                                    <Link
+                                        className={"text-decoration-none text-white btn btn-primary w-75 mt-2 bg-color-primary"}
+                                        href="#">info</Link>
+                                </div>
+                            </section>
+                        ))}
 
+                    </article>
+                    {!isLoading && !clubs && (<h5>You didn't joined any clubs, You can join clubs! <Link className={"text-decoration-none text-decoration-underline text-black"} href={"/club"}>here</Link></h5>)}
                 </main>
             </div>
         </>
