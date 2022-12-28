@@ -35,6 +35,10 @@
     border: 0;
 }
 
+.color-green{
+    color: var(--greenColor)!important;
+}
+
 .bg-color-green{
     background-color: var(--greenColor)!important;
     border: 0;

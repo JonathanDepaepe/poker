@@ -1,5 +1,5 @@
-import {NavClub} from "../../components/navigation/navClub";
-import {NavTop} from "../../components/navigation/navTop";
+import {NavClub} from "../../../components/navigation/navClub";
+import {NavTop} from "../../../components/navigation/navTop";
 import React, {useState} from 'react';
 
 import Tab from 'react-bootstrap/Tab';
@@ -53,7 +53,7 @@ export default function Home() {
                             <div className="d-flex">
                                 <div className="w-50">
                                     <h3>Create News</h3>
-                                    <form action="">
+                                    <form action="club">
                                         <label htmlFor="title">Title:</label>
                                         <input type="text" id="title" className="form-control w-75  mb-2"
                                                placeholder={"enter title"}/>

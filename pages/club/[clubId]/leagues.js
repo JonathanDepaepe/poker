@@ -1,5 +1,5 @@
-import {NavClub} from "../../components/navigation/navClub";
-import {NavTop} from "../../components/navigation/navTop";
+import {NavClub} from "../../../components/navigation/navClub";
+import {NavTop} from "../../../components/navigation/navTop";
 import React, {useState} from 'react';
 
 import Tab from 'react-bootstrap/Tab';

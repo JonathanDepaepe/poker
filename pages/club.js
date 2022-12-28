@@ -55,6 +55,7 @@ export default function Club() {
 
                 }
                 setClubs(data)
+                console.log(data)
                 setLoading(false)
             })
             })
@@ -131,6 +132,7 @@ export default function Club() {
                                 {club.button === "leave" && (<button className="btn btn-primary bg-danger border-0 me-auto ms-auto w-75 mt-2 bg-color-red">Leave</button>)}
                                 {club.button === "join" && (<button className="btn btn-primary w-75 mt-2 me-auto ms-auto bg-color-primary">Join</button>)}
                                 {club.button === "login" && (<Link className={"text-decoration-none text-white me-auto ms-auto btn btn-primary w-75 mt-2 bg-color-primary"} href="/login">Login</Link>)}
+                                {club.button !== "login" && (<Link href={`/club/${club.clubId}/home`} className="">info</Link>)}
                             </div>
                         </section>
                     ))}
