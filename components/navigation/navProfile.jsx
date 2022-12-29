@@ -3,9 +3,18 @@ import Image from "next/image";
 import { useRouter } from 'next/router';
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import {useEffect} from "react";
 
 export const NavProfile = () => {
     const router = useRouter();
+    useEffect(() => {
+        fetch('/api/auth/user')
+            .then((res) => res.json())
+            .then((fetchUser) => {
+                if (!fetchUser.isLoggedIn){
+                    router.push("/login")
+                }})
+    })
     return (
         <nav>
                 <div className="d-flex flex-column flex-shrink-0 p-3 text-bg-dark"

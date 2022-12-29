@@ -7,6 +7,8 @@ import Image from "next/image";
 
 
 export default function Home() {
+
+
     const [isMembers, setMembers] = useState();
     useEffect(() => {
         const href = window.location.href.split('/');

@@ -9,34 +9,40 @@ export const config = {
 };
 
 const post = async (req, res) => {
+    console.log("api profile")
     let fullImageSrc;
     const form = new formidable.IncomingForm();
     form.parse(req, async function (err, fields, files) {
         const httpsAgent = new https.Agent({
             rejectUnauthorized: false,
         });
-         if (fields.file !== "Default"){
-            fullImageSrc = await saveFile(files.file, fields.clubName);
+        if (fields.file !== "Default"){
+            fullImageSrc = await saveFile(files.file, fields.nickname);
         } else {
-            fullImageSrc = "/static/placeholder.png"
+            fullImageSrc = "/static/profile/logo.png"
         }
-        const club = await fetch('https://pokermanager.games/api/Club', {
+        console.log(fields)
+        console.log(files)
+        await fetch('https://pokermanager.games/api/User/update', {
             body: JSON.stringify({
-                ownerId: fields.memberId,
-                name : fields.clubName,
-                pictureUrl: fullImageSrc,
-                public: fields.isPrivate !== "on"
+                memberId: fields.memberId,
+                email: fields.email,
+                name: "string",
+                profilePictureUrl: fullImageSrc,
+                nickname: fields.nickname
             }),
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': "Bearer " + fields.token,
             },
             agent: httpsAgent,
-            method: 'POST',
-        }).then(function (respo){
-            if (respo.status === 201){
+            method: 'PUT',
+        }).then(async function (respo) {
+            console.log(respo);
+            console.log(await respo.json())
+            if (respo.status === 201) {
                 return res.status(201).send("");
-            } else{
+            } else {
                 return res.status(403).send("");
             }
         })
@@ -45,22 +51,9 @@ const post = async (req, res) => {
     });
 };
 
-const get = async (req, res) => {
-    const httpsAgent = new https.Agent({
-        rejectUnauthorized: false,
-    });
-    await fetch("https://pokermanager.games/api/Club/public",{
-        agent: httpsAgent,
-    }).then((res) => res.json())
-        .then((data) => {
-            return res.status(200).json(data);
-        })
-
-}
-
-const saveFile = async (file, clubName) => {
+const saveFile = async (file, nickname) => {
     const imageSRC = file.originalFilename.split(".").pop()
-    const fullImageSrc = `/static/${clubName}${Math.floor(Math.random() * 100)}.${imageSRC}`
+    const fullImageSrc = `/static/profile/${nickname}${Math.floor(Math.random() * 100)}.${imageSRC}`
     console.log(imageSRC);
     const data = fs.readFileSync(file.filepath);
     fs.writeFileSync("./public"+fullImageSrc, data);
@@ -71,8 +64,6 @@ const saveFile = async (file, clubName) => {
 export default (req, res) => {
     req.method === "POST"
         ? post(req, res)
-        : req.method === "GET"
-            ? get(req, res)
             : res.status(404).send("");
 
 };

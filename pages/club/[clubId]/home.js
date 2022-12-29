@@ -29,8 +29,8 @@ export default function Home() {
                 })
                     .then((res) => res.json())
                     .then((data) => {
-                            if (data[0].pictureUrl[0] !== "/") {
-                                data[0].pictureUrl = "/static/placeholder.png"
+                            if (data.user.data.pictureUrl[0] !== "/") {
+                                data.user.data.pictureUrl = "/static/placeholder.png"
                             }
 
                         setClub(data[0]);
