@@ -45,6 +45,34 @@ export const NavClub = () => {
             })
 
     }, [])
+
+    const onClubConnect = async (e) => {
+        e.preventDefault();
+        try {
+            const clubInfo  = e.target.id.split(" ")
+            const clubId = clubInfo[0];
+            const type = clubInfo[1];
+            let url = '';
+            if (type === "join") {
+                url = `/api/club/${clubId}/join`;
+            } else if (type === "leave"){
+                url = `/api/club/${clubId}/leave`;
+            }
+            await fetch(url, {
+                body: JSON.stringify(isUser)
+                ,
+                method: 'POST',
+            }).then(function (response) {
+                if(response.status === 201){
+                    router.reload()
+                }
+            })
+
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     return (
         <nav>
 
@@ -96,16 +124,16 @@ export const NavClub = () => {
 
                         </li>
                         <li>
-                            {isClub?.joined && (<Link href="/" id="logout" className="nav-link color-red">
+                            {isClub?.joined && (<button onClick={onClubConnect} id={isClub?.clubId + " leave"} className="nav-link color-red">
 
                                 <FontAwesomeIcon className="color-red me-2" icon={faArrowRightFromBracket} />
                                 Leave
-                            </Link>)}
-                            {!isClub?.joined && (<Link href="/" id="logout" className="nav-link color-green">
+                            </button>)}
+                            {!isClub?.joined && (<button onClick={onClubConnect} id={isClub?.clubId + " join"} className="nav-link color-green">
 
                                 <FontAwesomeIcon className="color-green me-2" icon={faArrowRightToBracket} />
                                 Join
-                            </Link>)}
+                            </button>)}
                         </li>
                     </ul>
                 </div>

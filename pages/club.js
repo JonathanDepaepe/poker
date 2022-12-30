@@ -1,13 +1,9 @@
 import {NavTop} from "../components/navigation/navTop";
 import Head from "next/head";
-import Image from "next/image";
 import {useEffect, useState} from "react";
-import https from "https";
 import Link from "next/link";
 import Popup from 'reactjs-popup';
 import {useRouter} from 'next/router';
-
-
 
 
 export default function Club() {
@@ -55,12 +51,53 @@ export default function Club() {
 
                 }
                 setClubs(data)
-                console.log(data)
                 setLoading(false)
             })
             })
     }, [])
 
+
+    const onClubConnect = async (e) => {
+        e.preventDefault();
+        try {
+            const clubId = e.target.id;
+            const type = e.target.innerHTML;
+            console.log(user)
+            let url = '';
+            if (type === "Join") {
+                url = `/api/club/${clubId}/join`;
+            } else if (type === "Leave"){
+                url = `/api/club/${clubId}/leave`;
+            }
+            await fetch(url, {
+                body: JSON.stringify(user)
+                ,
+                method: 'POST',
+            }).then(function (response) {
+                if(response.status === 201){
+                   /* let newClubs = clubs;
+                    console.log(newClubs)
+                    for (const club of newClubs){
+                        console.log('here')
+                        if (club.clubId === parseInt(clubId)){
+                            console.log("true")
+                            if (type === "Join"){
+                                console.log('join')
+                                club.button = "login"
+                            } else{
+                                club.button = "login"
+                            }
+                        }
+                    }
+                    setClubs(newClubs)*/
+                    router.reload()
+                }
+            })
+
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     const submitClub = async (event) => {
         event.preventDefault();
@@ -129,8 +166,8 @@ export default function Club() {
                                 <h3 className="card-title">{club.name}</h3>
                                 <p className="text-gray">- Members</p>
                                 </div>
-                                {club.button === "leave" && (<button className="btn btn-primary bg-danger border-0 me-auto ms-auto w-75 mt-2 bg-color-red">Leave</button>)}
-                                {club.button === "join" && (<button className="btn btn-primary w-75 mt-2 me-auto ms-auto bg-color-primary">Join</button>)}
+                                {club.button === "leave" && (<button id={club.clubId} onClick={onClubConnect}className="btn btn-primary bg-danger border-0 me-auto ms-auto w-75 mt-2 bg-color-red">Leave</button>)}
+                                {club.button === "join" && (<button id={club.clubId} onClick={onClubConnect} className="btn btn-primary w-75 mt-2 me-auto ms-auto bg-color-primary">Join</button>)}
                                 {club.button === "login" && (<Link className={"text-decoration-none text-white me-auto ms-auto btn btn-primary w-75 mt-2 bg-color-primary"} href="/login">Login</Link>)}
                                 {club.button !== "login" && (<Link href={`/club/${club.clubId}/home`} className="">info</Link>)}
                             </div>
