@@ -37,8 +37,8 @@ export const NavTop = () => {
                 <div className="d-flex align-items-center">
                     <Link className="nav-link line-hover text-white me-3" href="/">Home</Link>
                     <Link className="nav-link line-hover text-white me-3" href="/club">Club</Link>
-                    <Link className="nav-link line-hover text-white me-3" href="/" >Leagues</Link>
-                    <Link className="nav-link line-hover text-white me-3" href="/">Tournaments</Link>
+                    <Link className="nav-link line-hover text-white me-3" href="/leagues" >Leagues</Link>
+                    <Link className="nav-link line-hover text-white me-3" href="/tournaments">Tournaments</Link>
                     {!user?.isLoggedIn && (
                             <Link className="nav-link line-hover text-white me-3" href="/login">
                                 Login

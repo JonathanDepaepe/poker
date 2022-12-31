@@ -44,24 +44,6 @@
     border: 0;
 }
 
-body nav{
-    position: sticky;
-}
-body #sidebar-wrapper {
-    height: 100%;
-}
-
-main::-webkit-scrollbar {
-    display: none;
-}
-
-main{
-    height: 100vh;
-    overflow:scroll;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-}
-
 #ham-icon {
     display: none;
 }
@@ -157,6 +139,10 @@ main{
     width: -moz-fit-content;
 }
 
+.height-fit-content{
+    height: fit-content;
+}
+
 .w-56r{
     width: 56rem;
 }
@@ -164,4 +150,22 @@ main{
 .tab-content{
     height: 100%;
     width: 100%;
+}
+
+body nav{
+    position: sticky;
+}
+body #sidebar-wrapper {
+    height: 100%;
+}
+
+main::-webkit-scrollbar {
+    display: none;
+}
+
+main{
+    height: 100vh;
+    overflow:scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }

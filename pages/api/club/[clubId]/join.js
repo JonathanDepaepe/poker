@@ -15,6 +15,5 @@ export default async function handler(req, res) {
         },
         agent: httpsAgent
     })
-    console.log(resx)
     return res.status(201).send()
 }
