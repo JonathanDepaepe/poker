@@ -2,7 +2,6 @@ import Link from "next/link";
 import Image from "next/image";
 import React, {useState, useEffect} from 'react'
 
-import { Dropdown } from "@nextui-org/react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {useIntl} from "react-intl";
 import {useRouter} from "next/router";
@@ -55,14 +54,6 @@ export const NavTop = () => {
                                     {intl.formatMessage({ id: "page.navTop.profile" })}
                                 </Link>
                     )}
-                    <Dropdown>
-                        <Dropdown.Button className={"text-white"} light>{locale}</Dropdown.Button>
-                        <Dropdown.Menu variant="light"
-                                       aria-label="Static Actions">
-                            <Dropdown.Item key="en"><Link rel="alternate" href={url} hrefLang="en">English</Link></Dropdown.Item>
-                            <Dropdown.Item key="nl"><Link rel="alternate" href={url + "/nl/"} hrefLang="nl">Nederlands</Link></Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
                 </div>
             </div>
         </div>

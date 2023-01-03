@@ -12,7 +12,6 @@ import en from "../lang/en.json";
 import nl from "../lang/nl.json";
 
 config.autoAddCss = false
-import { createTheme, NextUIProvider } from "@nextui-org/react"
 
 const messages = {
     en,
@@ -36,9 +35,7 @@ function MyApp({Component, pageProps: {session, ...pageProps}}) {
             }}
         >
             <IntlProvider locale={locale} messages={messages[locale]}>
-                <NextUIProvider>
                     <Component {...pageProps} />
-                </NextUIProvider>
             </IntlProvider>
         </SWRConfig>
     );
