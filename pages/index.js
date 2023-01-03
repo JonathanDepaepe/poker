@@ -2,6 +2,7 @@ import {NavTop} from "../components/navigation/navTop";
 import Head from "next/head"
 import React, { useState } from 'react';
 
+
 export default function Home() {
     const [showMe, setShowMe] = useState(false);
     function toggle(){

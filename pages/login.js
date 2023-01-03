@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Link from "next/link";
 
 import React, {useState} from 'react';
+import { FormattedMessage, useIntl } from "react-intl";
 
 import {Formik, Field, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
@@ -16,7 +17,7 @@ import Image from "next/image";
 export default function SignIn() {
     const router = useRouter();
     const [error, setError] = useState(null);
-
+    const intl = useIntl();
 
     return (
         <>
@@ -37,7 +38,7 @@ export default function SignIn() {
                             id="uncontrolled-tab-example"
                             className="tab-layout w-100"
                         >
-                            <Tab eventKey="login" title="Login" className={"h-100"}>
+                            <Tab eventKey="login" title={intl.formatMessage({ id: "page.login.login" })} className={"h-100"}>
                                 <div className={"form d-flex mr-auto ml-auto flex-col h-100 w-100 w-6/12"}>
 
                                     <Formik
@@ -84,7 +85,7 @@ export default function SignIn() {
                                                     htmlFor="username"
                                                     className="d-flex flex-row mb-2 mt-3"
                                                 >
-                                                    Username:
+                                                    {intl.formatMessage({ id: "page.login.username" })}
                                                     <Field
                                                         name="username"
                                                         aria-label="enter your username"
@@ -100,7 +101,7 @@ export default function SignIn() {
                                                     htmlFor="password"
                                                     className="d-flex flex-row mb-2 mt-3"
                                                 >
-                                                    Password:
+                                                    {intl.formatMessage({ id: "page.login.password" })}
                                                     <Field
                                                         name="password"
                                                         aria-label="enter your password"
@@ -119,7 +120,7 @@ export default function SignIn() {
                                                         type="submit"
                                                         className="btn btn-primary btn-block mb-4 bg-color-primary"
                                                     >
-                                                        {formik.isSubmitting ? 'Please wait...' : 'Sign In'}
+                                                        {formik.isSubmitting ? 'Please wait...' : intl.formatMessage({ id: "page.login.login" })}
                                                     </button>
                                                 </div>
                                             </form>
@@ -128,7 +129,7 @@ export default function SignIn() {
                                     </Formik>
                                 </div>
                             </Tab>
-                            <Tab eventKey="register" title="Register" className={"h-100"}>
+                            <Tab eventKey="register" title={intl.formatMessage({ id: "page.login.register" })} className={"h-100"}>
                                 <Formik
                                     initialValues={{username: '',email: '', password: '', conPassword: ''}}
                                     validationSchema={Yup.object({
@@ -173,7 +174,7 @@ export default function SignIn() {
                                                 htmlFor="username"
                                                 className="d-flex flex-row mb-2 mt-3"
                                             >
-                                                Username:
+                                                {intl.formatMessage({ id: "page.login.username" })}
                                                 <Field
                                                     name="username"
                                                     aria-label="enter your username"
@@ -189,7 +190,7 @@ export default function SignIn() {
                                                 htmlFor="email"
                                                 className="d-flex flex-row mb-2"
                                             >
-                                                Email:
+                                                {intl.formatMessage({ id: "page.login.email" })}
                                                 <Field
                                                     name="email"
                                                     aria-label="enter your Email"
@@ -205,7 +206,7 @@ export default function SignIn() {
                                                 htmlFor="password"
                                                 className="d-flex flex-row mb-2"
                                             >
-                                                Password:
+                                                {intl.formatMessage({ id: "page.login.password" })}
                                                 <Field
                                                     name="password"
                                                     aria-label="enter your password"
@@ -221,7 +222,7 @@ export default function SignIn() {
                                                 htmlFor="conPassword"
                                                 className="d-flex flex-row mb-2"
                                             >
-                                                Confirm Password:
+                                                {intl.formatMessage({ id: "page.login.confPassword" })}
                                                 <Field
                                                     name="conPassword"
                                                     aria-label="Confirm Password"
@@ -237,7 +238,7 @@ export default function SignIn() {
                                             <div class="text-center  d-flex flex-column">
 
                                                 <button type="submit"
-                                                        className="btn btn-primary mt-3 border-0 bg-color-primary btn-block mb-4">{formik.isSubmitting ? 'Please wait...' : 'Create account'}
+                                                        className="btn btn-primary mt-3 border-0 bg-color-primary btn-block mb-4">{formik.isSubmitting ? 'Please wait...' : intl.formatMessage({ id: "page.login.create" })}
                                                 </button>
                                             </div>
                                         </form>

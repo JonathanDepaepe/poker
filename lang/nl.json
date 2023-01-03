@@ -1,0 +1,46 @@
+{
+  "page.login.username": "Gebruikersnaam: ",
+  "page.login.password": "Wachtwoord: ",
+  "page.login.confPassword": "Bevestig wachtwoord: ",
+  "page.login.email": "Email: ",
+  "page.login.login": "Inloggen",
+  "page.login.register": "Registeren",
+  "page.login.create": "Aanmaken",
+
+  "page.navTop.profile": "Profiel",
+
+  "page.club.members": "Leden",
+  "page.club.leave": "Verlaten",
+  "page.club.join": "Meedoen",
+  "page.club.owner": "Eigenaar",
+  "page.club.planning": "Planning",
+  "page.club.news": "Nieuws",
+  "page.club.settings": "Instellingen",
+
+  "page.club.settings.upload": "Voeg foto toe",
+  "page.club.settings.createNews": "Nieuws aanmaken",
+  "page.club.settings.title": "Titel",
+  "page.club.settings.description": "Beschrijving",
+  "page.club.settings.recentNews": "Recent nieuws",
+  "page.club.settings.subscription": "Abonnement",
+  "page.club.settings.current": "huidig",
+  "page.club.settings.free": "Gratis",
+  "page.club.settings.soon": "Binnenkort",
+  "page.club.settings.comingSoon": "Binnenkort",
+
+  "page.profile.username": "Gebruikersnaam",
+  "page.profile.noLargerThan5Mb": "Niet groter dan 5Mb",
+  "page.profile.email": "Email",
+  "page.profile.saveChanges": "Opslaan",
+  "page.profile.wins": "Gewonnen",
+  "page.profile.total": "Totaal",
+  "page.profile.thisMonth": "Deze maand",
+  "page.profile.joined": "Toetreden tot",
+  "page.profile.my": "Mijn",
+  "page.profile.settings": "Instellingen",
+  "page.profile.logout": "Uitloggen",
+
+
+  "error.club.noPlanning": "De club heeft geen plannen.",
+  "error.club.noNews": "De club heeft geen nieuws."
+}

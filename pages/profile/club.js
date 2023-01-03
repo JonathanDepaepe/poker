@@ -3,11 +3,13 @@ import {NavTop} from "../../components/navigation/navTop";
 import Head from "next/head";
 import React, {useEffect, useState} from "react";
 import Link from "next/link";
+import {useIntl} from "react-intl";
 
 export default function Home() {
     const [isLoading, setLoading] = useState(true)
     const [user, setUser] = useState()
     const [clubs, setClubs] = useState();
+    const intl = useIntl();
 
     useEffect(() => {
         fetch('/api/auth/user')

@@ -12,11 +12,9 @@ export default function Home() {
                 <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
             </Head>
             <div>
-                <NavTop/>
             </div>
 
             <div className={"d-flex bg-white"}>
-                <NavLeague/>
                 <main>
 
                 </main>

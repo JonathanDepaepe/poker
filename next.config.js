@@ -1,8 +1,9 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  reactStrictMode: true,
-  swcMinify: true
-}
-const withImages = require("next-images");
 
-module.exports = {nextConfig, withImages}
+
+
+module.exports = {  i18n: {
+    locales: ['en', "nl"],
+    defaultLocale: 'en',
+  }}
+

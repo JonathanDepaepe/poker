@@ -4,10 +4,13 @@ import React, {useEffect, useState} from 'react';
 import Icon from '../../../public/images/icons/leagues-icon.svg';
 import {useRouter} from 'next/router'
 
+import {useIntl} from "react-intl";
+
 import Head from "next/head";
 import Image from "next/image";
 
 export default function Home() {
+    const intl = useIntl();
     const router = useRouter()
     const {clubId} = router.query;
     const [isClub, setClub] = useState();
@@ -57,15 +60,15 @@ export default function Home() {
                                height={400} alt={"Club logo"}/>
                         <div className={"ms-4"}>
                             <h2>{isClub?.name}</h2>
-                            <p className={"text-gray"}>Owner: {isClub?.owner.nickname}</p>
+                            <p className={"text-gray"}>{intl.formatMessage({ id: "page.club.owner" })}: {isClub?.owner.nickname}</p>
                         </div>
                     </div>
                     <div className={"d-flex"}>
                         <div className={"w-50 m-2"}>
-                            <h3>Planning</h3>
+                            <h3>{intl.formatMessage({ id: "page.club.planning" })}</h3>
                             <hr/>
                             {isClub?.leagues.length === 0 && (
-                                <p>The club does not have any planning.</p>
+                                <p>{intl.formatMessage({ id: "error.club.noPlanning" })}</p>
                             )}
 
                             {isClub?.leagues.length !== 0 && (
@@ -96,11 +99,11 @@ export default function Home() {
                         </div>
 
                         <div className={"w-50 m-2"}>
-                            <h3>News</h3>
+                            <h3>{intl.formatMessage({ id: "page.club.news" })}</h3>
                             <hr/>
 
                             {isClub?.announcements.length === 0 && (
-                                <p>The club does not have any news.</p>
+                                <p>{intl.formatMessage({ id: "error.club.noNews" })}</p>
 
                             )}
                             {isClub?.announcements.length !== 0 && (

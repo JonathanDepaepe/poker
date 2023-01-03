@@ -9,9 +9,11 @@ import Tabs from 'react-bootstrap/Tabs';
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
+import {useIntl} from "react-intl";
 
 
 export default function Home() {
+    const intl = useIntl();
     return (
         <>
             <Head>
@@ -49,23 +51,23 @@ export default function Home() {
                             </form>
 
                         </Tab>
-                        <Tab eventKey="news" title="News">
+                        <Tab eventKey="news" title={intl.formatMessage({ id: "page.club.news" })}>
                             <div className="d-flex">
                                 <div className="w-50">
-                                    <h3>Create News</h3>
+                                    <h3>{intl.formatMessage({ id: "page.club.settings.createNews" })}</h3>
                                     <form action="club">
-                                        <label htmlFor="title">Title:</label>
+                                        <label htmlFor="title">{intl.formatMessage({ id: "page.club.settings.title" })}:</label>
                                         <input type="text" id="title" className="form-control w-75  mb-2"
-                                               placeholder={"enter title"}/>
-                                        <label htmlFor="description">Description:</label>
+                                               placeholder={intl.formatMessage({ id: "page.club.settings.title" })}/>
+                                        <label htmlFor="description">{intl.formatMessage({ id: "page.club.settings.description" })}:</label>
                                         <textarea className="form-control mb-2 w-75" id="description"
                                                   rows="3"></textarea>
-                                        <button type="submit" className="btn btn-primary bg-color-primary">create
+                                        <button type="submit" className="btn btn-primary bg-color-primary">{intl.formatMessage({ id: "page.club.settings.createNews" })}
                                         </button>
                                     </form>
                                 </div>
                                 <div className="w-50">
-                                    <h3>Recent News</h3>
+                                    <h3>{intl.formatMessage({ id: "page.club.settings.recentNews" })}</h3>
                                     <article>
                                         <section>
                                             <div className={"d-flex justify-content-between"}><h4>Lorum Ipsum</h4><Image
@@ -115,37 +117,37 @@ export default function Home() {
                                 </div>
                             </div>
                         </Tab>
-                        <Tab eventKey="subscription" title="Subscription">
+                        <Tab eventKey="subscription" title={intl.formatMessage({ id: "page.club.settings.subscription" })}>
                             <article className="d-flex justify-content-around mt-5">
                                 <section className="card text-center">
-                                    <h3 className="card-header">Free</h3>
+                                    <h3 className="card-header">{intl.formatMessage({ id: "page.club.settings.free" })}</h3>
                                     <ul className="card-body list-unstyled">
                                         <li>1 Tournament/month</li>
                                         <li>27 Max Players</li>
                                     </ul>
-                                    <button disabled="true" className="btn btn-primary bg-color-primary card-footer">Current
+                                    <button disabled="true" className="btn btn-primary bg-color-primary card-footer">{intl.formatMessage({ id: "page.club.settings.current" })}
                                     </button>
                                 </section>
                                 <section className="card text-center">
                                     <h3 className="card-header">Tier 10</h3>
                                     <ul className="card-body list-unstyled">
-                                        <li>coming soon...</li>
+                                        <li>{intl.formatMessage({ id: "page.club.settings.comingSoon" })}</li>
                                     </ul>
-                                    <button disabled="true" className="btn btn-primary bg-color-primary card-footer">soon..</button>
+                                    <button disabled="true" className="btn btn-primary bg-color-primary card-footer">{intl.formatMessage({ id: "page.club.settings.soon" })}</button>
                                 </section>
                                 <section className="card text-center">
                                     <h3 className="card-header">Tier 50</h3>
                                     <ul className="card-body list-unstyled">
-                                        <li>coming soon...</li>
+                                        <li>{intl.formatMessage({ id: "page.club.settings.comingSoon" })}</li>
                                     </ul>
-                                    <button disabled="true" className="btn btn-primary bg-color-primary card-footer">soon..</button>
+                                    <button disabled="true" className="btn btn-primary bg-color-primary card-footer">{intl.formatMessage({ id: "page.club.settings.soon" })}</button>
                                 </section>
                                 <section className="card text-center">
                                     <h3 className="card-header">Tier 100</h3>
                                     <ul className="card-body list-unstyled">
-                                        <li>coming soon...</li>
+                                        <li>{intl.formatMessage({ id: "page.club.settings.comingSoon" })}</li>
                                     </ul>
-                                    <button disabled="true" className="btn btn-primary bg-color-primary card-footer">soon..</button>
+                                    <button disabled="true" className="btn btn-primary bg-color-primary card-footer">{intl.formatMessage({ id: "page.club.settings.soon" })}</button>
                                 </section>
                             </article>
                         </Tab>

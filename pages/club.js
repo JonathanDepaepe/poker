@@ -4,9 +4,11 @@ import {useEffect, useState} from "react";
 import Link from "next/link";
 import Popup from 'reactjs-popup';
 import {useRouter} from 'next/router';
+import {useIntl} from "react-intl";
 
 
 export default function Club() {
+    const intl = useIntl();
     const router = useRouter();
     const [selectedImage, setSelectedImage] = useState();
     const [isLoading, setLoading] = useState(true);
@@ -164,11 +166,11 @@ export default function Club() {
                             <div className="card-body d-flex flex-column justify-content-between text-center">
                                 <div>
                                 <h3 className="card-title">{club.name}</h3>
-                                <p className="text-gray">- Members</p>
+                                <p className="text-gray">- {intl.formatMessage({ id: "page.club.members" })}</p>
                                 </div>
-                                {club.button === "leave" && (<button id={club.clubId} onClick={onClubConnect}className="btn btn-primary bg-danger border-0 me-auto ms-auto w-75 mt-2 bg-color-red">Leave</button>)}
-                                {club.button === "join" && (<button id={club.clubId} onClick={onClubConnect} className="btn btn-primary w-75 mt-2 me-auto ms-auto bg-color-primary">Join</button>)}
-                                {club.button === "login" && (<Link className={"text-decoration-none text-white me-auto ms-auto btn btn-primary w-75 mt-2 bg-color-primary"} href="/login">Login</Link>)}
+                                {club.button === "leave" && (<button id={club.clubId} onClick={onClubConnect}className="btn btn-primary bg-danger border-0 me-auto ms-auto w-75 mt-2 bg-color-red">{intl.formatMessage({ id: "page.club.leave" })}</button>)}
+                                {club.button === "join" && (<button id={club.clubId} onClick={onClubConnect} className="btn btn-primary w-75 mt-2 me-auto ms-auto bg-color-primary">{intl.formatMessage({ id: "page.club.join" })}</button>)}
+                                {club.button === "login" && (<Link className={"text-decoration-none text-white me-auto ms-auto btn btn-primary w-75 mt-2 bg-color-primary"} href="/login">{intl.formatMessage({ id: "page.login.login" })}</Link>)}
                                 {club.button !== "login" && (<Link href={`/club/${club.clubId}/home`} className="">info</Link>)}
                             </div>
                         </section>

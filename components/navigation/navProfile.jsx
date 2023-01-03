@@ -4,8 +4,10 @@ import { useRouter } from 'next/router';
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import {useEffect} from "react";
+import {useIntl} from "react-intl";
 
 export const NavProfile = () => {
+    const intl = useIntl();
     const router = useRouter();
     useEffect(() => {
         fetch('/api/auth/user')
@@ -25,21 +27,21 @@ export const NavProfile = () => {
                                 <Link href="/profile/home" id="profile" className="nav-link text-white" aria-current="page">
                                     <Image className="bi pe-none me-2" width={16} height={16}
                                          src="/images/icons/profile-icon.svg" alt="profile icon"/>
-                                    Profile
+                                    {intl.formatMessage({ id: "page.navTop.profile" })}
                                 </Link>
                             </li>
                             <li>
                                 <Link href="/profile/club" id="club" className="nav-link text-white">
                                     <Image src="/images/icons/club-icon.svg" className="bi pe-none me-2" width={16}
                                          height={16} alt="club icon"/>
-                                    My Clubs
+                                    {intl.formatMessage({ id: "page.profile.my"})} Clubs
                                 </Link>
                             </li>
                             <li>
                                 <Link href="/profile/tournaments" id="tournaments" className="nav-link text-white">
                                     <Image src="/images/icons/tournaments-icon.svg" alt="tournament icon"
                                          className="bi pe-none me-2" width={16} height={16}/>
-                                    My tournaments
+                                    {intl.formatMessage({ id: "page.profile.my"})} tournaments
                                 </Link>
                             </li>
                         </ul>
@@ -51,7 +53,7 @@ export const NavProfile = () => {
                                 <Link href="/profile/settings" id="settings" className="nav-link text-white">
                                     <Image className="bi pe-none me-2" width={16} height={16}
                                          src="/images/icons/setting-icon.svg" alt="setting icon"/>
-                                    Settings
+                                    {intl.formatMessage({ id: "page.profile.settings"})}
                                 </Link>
                             </li>
                             <li>
@@ -63,7 +65,7 @@ export const NavProfile = () => {
                                       }}
                                 >
                                     <i className="color-primary fa-solid me-2 fa-arrow-right-from-bracket"/>
-                                    Logout
+                                    {intl.formatMessage({ id: "page.profile.logout"})}
 
                                 </Link>
                             </li>

@@ -1,0 +1,46 @@
+{
+  "page.login.username": "Username: ",
+  "page.login.password": "Password: ",
+  "page.login.email": "Email: ",
+  "page.login.confPassword": "Confirm Password: ",
+  "page.login.register": "Register",
+  "page.login.login": "Sign In",
+  "page.login.create": "Create Account",
+
+  "page.navTop.profile": "Profile",
+
+  "page.club.members": "Members",
+  "page.club.leave": "Leave",
+  "page.club.join": "Join",
+  "page.club.owner": "Owner",
+  "page.club.planning": "Planning",
+  "page.club.news": "News",
+  "page.club.settings": "Settings",
+
+  "page.club.settings.upload": "Upload Image",
+  "page.club.settings.createNews": "Create News",
+  "page.club.settings.title": "Title",
+  "page.club.settings.description": "Description",
+  "page.club.settings.recentNews": "Recent news",
+  "page.club.settings.subscription": "Subscription",
+  "page.club.settings.current": "Current",
+  "page.club.settings.free": "Free",
+  "page.club.settings.soon": "Soon",
+  "page.club.settings.comingSoon": "Coming Soon",
+
+  "page.profile.username": "Username",
+  "page.profile.noLargerThan5Mb": "No larger than 5Mb",
+  "page.profile.email": "Email",
+  "page.profile.saveChanges": "Save Changes",
+  "page.profile.wins": "Wins",
+  "page.profile.total": "Total",
+  "page.profile.thisMonth": "This Month",
+  "page.profile.joined": "Joined",
+  "page.profile.my": "My",
+  "page.profile.settings": "Settings",
+  "page.profile.logout": "Logout",
+
+
+  "error.club.noPlanning": "The club doesn't have any plans.",
+  "error.club.noNews": "The club doesn't have any news."
+}

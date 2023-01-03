@@ -12,7 +12,6 @@ export default async function handler(req, res) {
                         const nowTime = new Date();
                         tour.ended = (tourTime-nowTime) < 1;
                     }
-                    console.log(tournaments)
                     return res.status(200).json(tournaments);
         })
 }

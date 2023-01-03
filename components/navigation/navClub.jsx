@@ -6,12 +6,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRightFromBracket, faArrowRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import {useRouter} from 'next/router'
 import {useEffect, useState} from "react";
+import {useIntl} from "react-intl";
 
 export const NavClub = () => {
     const router = useRouter()
     const {clubId} = router.query;
     const [isUser, setUser] = useState();
     const [isClub, setClub] = useState();
+    const intl = useIntl();
     useEffect(() => {
         const href = window.location.href.split('/');
         const clubHref = href[href.length - 2]
@@ -91,7 +93,7 @@ export const NavClub = () => {
                             <Link href={`/club/${clubId}/members`} id="club" className="nav-link text-white">
                                 <Image src="/images/icons/members-icon.svg" className="bi pe-none me-2" width={16}
                                        height={16} alt="member icon"/>
-                                Members
+                                {intl.formatMessage({ id: "page.club.members" })}
                             </Link>
                         </li>
                         <li>
@@ -118,7 +120,7 @@ export const NavClub = () => {
                                 <Link href={`/club/${clubId}/settings`} id="settings" className="nav-link text-white">
                                     <Image className="bi pe-none me-2" width={16} height={16}
                                            src="/images/icons/setting-icon.svg" alt="setting icon"/>
-                                    Settings
+                                    {intl.formatMessage({ id: "page.club.settings" })}
                                 </Link>
                             )}
 
@@ -127,12 +129,12 @@ export const NavClub = () => {
                             {isClub?.joined && (<button onClick={onClubConnect} id={isClub?.clubId + " leave"} className="nav-link color-red">
 
                                 <FontAwesomeIcon className="color-red me-2" icon={faArrowRightFromBracket} />
-                                Leave
+                                {intl.formatMessage({ id: "page.club.leave" })}
                             </button>)}
                             {!isClub?.joined && (<button onClick={onClubConnect} id={isClub?.clubId + " join"} className="nav-link color-green">
 
                                 <FontAwesomeIcon className="color-green me-2" icon={faArrowRightToBracket} />
-                                Join
+                                {intl.formatMessage({ id: "page.club.join" })}
                             </button>)}
                         </li>
                     </ul>

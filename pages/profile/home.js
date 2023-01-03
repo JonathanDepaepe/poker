@@ -4,12 +4,14 @@ import Head from "next/head";
 import Image from "next/image";
 import  {useState, useEffect} from 'react'
 import {useRouter} from "next/router";
+import {useIntl} from "react-intl";
 
 export default function Home() {
     const router = useRouter();
     const [user, setUser] = useState(null)
     const [isCreating, setCreating] = useState(false)
     const [selectedImage, setSelectedImage] = useState();
+    const intl = useIntl();
 
     const imageChange = (e) => {
         if (e.target.files && e.target.files.length > 0) {
@@ -86,10 +88,10 @@ export default function Home() {
                                 {!selectedImage && (<img src={user?.user.data.profilePictureUrl} width={100} height={100}
                                                          className="img-profile rounded-circle mb-2"
                                                          id="display-image" alt="club img"/>)}
-                                <div className="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
+                                <div className="small font-italic text-muted mb-4">{intl.formatMessage({ id: "page.profile.noLargerThan5Mb" })}</div>
                                 <label htmlFor="club-img"
                                        className="btn btn-primary bg-color-primary"><i
-                                    className="m-auto fa-solid fa-arrow-up-from-bracket"/>Upload new image</label>
+                                    className="m-auto fa-solid fa-arrow-up-from-bracket"/>{intl.formatMessage({ id: "page.club.settings.upload" })}</label>
                                 <input  type="file" id="club-img" name="img" onChange={imageChange} hidden
                                         accept="image/*"/>
                             </div>
@@ -97,15 +99,15 @@ export default function Home() {
                         <div className="rounded-0 w-75 ms-5 border-1 rounded-end">
                             <div className="card-body">
                                     <div className="mb-3">
-                                        <label className="small mb-1" htmlFor="form-username">Username</label>
+                                        <label className="small mb-1" htmlFor="form-username">{intl.formatMessage({ id: "page.profile.username" })}</label>
                                         <input className="form-control" id="form-username" name={"username"} type="text" placeholder="Enter your username" defaultValue={user?.user.data.nickname} />
                                     </div>
                                     <div className="mb-3">
-                                        <label className="small mb-1" htmlFor="form-email">Email address</label>
+                                        <label className="small mb-1" htmlFor="form-email">{intl.formatMessage({ id: "page.profile.email" })}</label>
                                         <input className="form-control" name={"email"} id="form-email" type="email" placeholder="Enter your email address" defaultValue={user?.user.data.email} />
                                     </div>
                                     <div className="d-flex justify-content-end ">
-                                        <button className="btn btn-primary bg-color-primary"  type="submit">Save changes</button>
+                                        <button className="btn btn-primary bg-color-primary"  type="submit">{intl.formatMessage({ id: "page.profile.saveChanges" })}</button>
                                     </div>
                             </div>
                         </div>
@@ -114,17 +116,17 @@ export default function Home() {
                     <div className="mt-5">
                         <article className="d-flex flex-wrap justify-content-around">
                             <section className="bg-white border-1 shadow rounded achievement">
-                                <p>Total</p>
+                                <p>{intl.formatMessage({ id: "page.profile.total" })}</p>
                                 <h3>0</h3>
-                                <p>Wins</p>
+                                <p>{intl.formatMessage({ id: "page.profile.wins" })}</p>
                             </section>
                             <section className="bg-white border-1 shadow  rounded achievement">
-                                <p>This month</p>
+                                <p>{intl.formatMessage({ id: "page.profile.thisMonth" })}</p>
                                 <h3>0</h3>
-                                <p>Wins</p>
+                                <p>{intl.formatMessage({ id: "page.profile.wins" })}</p>
                             </section>
                             <section className="bg-white border-1 shadow  rounded achievement">
-                                <p>Joined</p>
+                                <p>{intl.formatMessage({ id: "page.profile.joined" })}</p>
                                 <h3>0</h3>
                                 <p>Tournaments</p>
                             </section>

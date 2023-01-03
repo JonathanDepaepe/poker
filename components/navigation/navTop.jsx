@@ -2,14 +2,20 @@ import Link from "next/link";
 import Image from "next/image";
 import React, {useState, useEffect} from 'react'
 
-
+import { Dropdown } from "@nextui-org/react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import {useIntl} from "react-intl";
+import {useRouter} from "next/router";
 
 
 export const NavTop = () => {
     const [user, setUser] = useState(null)
+    const [url, setUrl] = useState(null)
     const [isLoading, setLoading] = useState(false)
+    const {locale} = useRouter();
+    const intl = useIntl();
     useEffect(() => {
+        setUrl(window.location.origin)
         setLoading(true)
         fetch('/api/auth/user')
             .then((res) => res.json())
@@ -41,14 +47,22 @@ export const NavTop = () => {
                     <Link className="nav-link line-hover text-white me-3" href="/tournaments">Tournaments</Link>
                     {!user?.isLoggedIn && (
                             <Link className="nav-link line-hover text-white me-3" href="/login">
-                                Login
+                                {intl.formatMessage({ id: "page.login.login" })}
                             </Link>
                     )}
                     {user?.isLoggedIn && (
                                 <Link className="nav-link line-hover text-white me-3" href="/profile/home">
-                                    Profile
+                                    {intl.formatMessage({ id: "page.navTop.profile" })}
                                 </Link>
                     )}
+                    <Dropdown>
+                        <Dropdown.Button className={"text-white"} light>{locale}</Dropdown.Button>
+                        <Dropdown.Menu variant="light"
+                                       aria-label="Static Actions">
+                            <Dropdown.Item key="en"><Link rel="alternate" href={url} hrefLang="en">English</Link></Dropdown.Item>
+                            <Dropdown.Item key="nl"><Link rel="alternate" href={url + "/nl/"} hrefLang="nl">Nederlands</Link></Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
                 </div>
             </div>
         </div>
