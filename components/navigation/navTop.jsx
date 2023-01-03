@@ -9,12 +9,10 @@ import {useRouter} from "next/router";
 
 export const NavTop = () => {
     const [user, setUser] = useState(null)
-    const [url, setUrl] = useState(null)
     const [isLoading, setLoading] = useState(false)
-    const {locale} = useRouter();
+    const { locale, locales, asPath } = useRouter();
     const intl = useIntl();
     useEffect(() => {
-        setUrl(window.location.origin)
         setLoading(true)
         fetch('/api/auth/user')
             .then((res) => res.json())
@@ -54,6 +52,8 @@ export const NavTop = () => {
                                     {intl.formatMessage({ id: "page.navTop.profile" })}
                                 </Link>
                     )}
+                    {locale === "en" && (<Link className={"text-white"} locale={"nl"} href={asPath}>NL</Link>)}
+                    {locale === "nl" && (<Link className={"text-white"} locale={"en"} href={asPath}>EN</Link>)}
                 </div>
             </div>
         </div>
