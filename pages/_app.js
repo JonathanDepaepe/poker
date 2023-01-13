@@ -20,7 +20,6 @@ const messages = {
 
 function MyApp({Component, pageProps: {session, ...pageProps}}) {
     let {locale} = useRouter();
-    console.log(locale)
     if (locale === undefined) {
         locale = "en"
     }

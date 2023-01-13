@@ -26,7 +26,6 @@ export default function Home() {
                     data.user.data.profilePictureUrl = "/static/placeholder.png"
                 }
                 setUser(data)
-                console.log(data)
             })
     }, [])
 

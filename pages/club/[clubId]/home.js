@@ -14,6 +14,7 @@ export default function Home() {
     const router = useRouter()
     const {clubId} = router.query;
     const [isClub, setClub] = useState();
+    const [news, setNews] = useState([]);
     useEffect(() => {
         const href = window.location.href.split('/');
         const clubHref = href[href.length - 2]
@@ -37,6 +38,11 @@ export default function Home() {
                         }
 
                         setClub(data[0]);
+                    })
+                fetch(`/api/club/${clubHref}/news`,{headers:{ 'Authorization': "Bearer " + fetchUser.user.token}})
+                    .then((res) => res.json())
+                    .then((data) => {
+                        setNews(data)
                     })
             })
 
@@ -102,19 +108,21 @@ export default function Home() {
                             <h3>{intl.formatMessage({ id: "page.club.news" })}</h3>
                             <hr/>
 
-                            {isClub?.announcements.length === 0 && (
+                            {news?.length === 0 && (
                                 <p>{intl.formatMessage({ id: "error.club.noNews" })}</p>
 
                             )}
-                            {isClub?.announcements.length !== 0 && (
-                                <>
-                                    <article>
-                                        <h5 className={""}>Lorum Ipsum</h5>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris congue odio
-                                            elementum, tristique urna fermentum, rutrum metus.</p>
-                                    </article>
-                                    <hr/>
-                                </>
+                            {news?.length !== 0 && (
+                                news.map((newsArticle)=> (
+                                    <>
+                                        <article>
+                                            <h5 className={""}>{newsArticle.title}</h5>
+                                            <p>{newsArticle.description}</p>
+                                        </article>
+                                        <hr/>
+                                    </>
+                                ))
+
                             )}
 
                             {/*

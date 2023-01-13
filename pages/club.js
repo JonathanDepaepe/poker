@@ -64,7 +64,6 @@ export default function Club() {
         try {
             const clubId = e.target.id;
             const type = e.target.innerHTML;
-            console.log(user)
             let url = '';
             if (type === "Join") {
                 url = `/api/club/${clubId}/join`;
@@ -108,8 +107,6 @@ export default function Club() {
             fetch('/api/auth/user')
                 .then((res) => res.json())
                 .then(async (data) => {
-                    console.log(data)
-
                     const clubName = event.target.clubName.value;
                     const isPrivate = event.target.private.value;
                     const formData = new FormData();

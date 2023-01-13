@@ -22,7 +22,6 @@ export default async function handler(req, res) {
         }),
     });
     const register = await registerRes.json();
-    console.log(register)
     if (registerRes.status === 400) {
         res.status(400).json(register);
     } else if (registerRes.status === 200) {

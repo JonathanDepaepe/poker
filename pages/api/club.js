@@ -40,8 +40,6 @@ const post = async (req, res) => {
                 return res.status(403).send("");
             }
         })
-
-
     });
 };
 
@@ -61,7 +59,6 @@ const get = async (req, res) => {
 const saveFile = async (file, clubName) => {
     const imageSRC = file.originalFilename.split(".").pop()
     const fullImageSrc = `/static/${clubName}${Math.floor(Math.random() * 100)}.${imageSRC}`
-    console.log(imageSRC);
     const data = fs.readFileSync(file.filepath);
     fs.writeFileSync("./public"+fullImageSrc, data);
     await fs.unlinkSync(file.filepath);

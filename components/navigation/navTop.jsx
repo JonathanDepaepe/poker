@@ -5,6 +5,9 @@ import React, {useState, useEffect} from 'react'
 import "bootstrap/dist/css/bootstrap.min.css";
 import {useIntl} from "react-intl";
 import {useRouter} from "next/router";
+import Script from "next/script";
+import { US, NL } from 'country-flag-icons/react/3x2'
+
 
 
 export const NavTop = () => {
@@ -18,7 +21,6 @@ export const NavTop = () => {
             .then((res) => res.json())
             .then((data) => {
                 setUser(data)
-                console.log(data)
                 setLoading(false)
             })
     }, [])
@@ -52,12 +54,29 @@ export const NavTop = () => {
                                     {intl.formatMessage({ id: "page.navTop.profile" })}
                                 </Link>
                     )}
-                    {locale === "en" && (<Link className={"text-white"} locale={"nl"} href={asPath}>NL</Link>)}
-                    {locale === "nl" && (<Link className={"text-white"} locale={"en"} href={asPath}>EN</Link>)}
+
+                    <div className="dropdown">
+                        <button className="btn dropdown-toggle d-flex " type="button" id="dropdownMenuButton1"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                            {locale === "en" && (<><US title="" className="flag-icon  rounded"/><p className={"height-fit-content ps-2 mt-auto text-white mb-auto"}>EN</p></>)}
+                            {locale === "nl" && (<><NL title="" className="flag-icon rounded"/><p className={"height-fit-content ps-2 mt-auto text-white mb-auto"}>NL</p></>)}
+                        </button>
+
+                        <ul className="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton1">
+                            <li><Link className={"text-decoration-none text-white ps-2 d-flex"} locale={"en"} href={asPath}><US title="" className="flag-icon rounded"/><p className={"ps-2 mt-auto mb-auto"}>EN</p></Link></li>
+                            <li><Link className={"text-decoration-none text-white ps-2 d-flex mt-2"} locale={"nl"} href={asPath}><NL title="" className="flag-icon rounded"/><p className={"ps-2 mt-auto mb-auto"}>NL</p></Link> </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
+            <Script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+            crossOrigin="anonymous"
+        />
         </nav>
+
     );
     }
 

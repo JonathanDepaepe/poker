@@ -60,7 +60,6 @@ export default function SignIn() {
                                                         callbackUrl: `${window.location.origin}`,
                                                     })
                                                 });
-                                                console.log(res)
                                                 if (res.status === 200) {
                                                     setError(null);
                                                     return router.push("/");

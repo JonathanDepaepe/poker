@@ -12,7 +12,6 @@ export default function Home() {
     const [isMembers, setMembers] = useState();
     useEffect(() => {
         const href = window.location.href.split('/');
-        console.log(href)
         const clubHref = href[href.length - 2]
                 fetch('/api/club/' + clubHref + "/members", {
                     method: "GET",
@@ -22,7 +21,6 @@ export default function Home() {
                 })
                     .then((res) => res.json())
                     .then((data) => {
-                        console.log(data)
                         setMembers(data);
                     })
     }, [])

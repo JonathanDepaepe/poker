@@ -41,7 +41,7 @@ export const NavClub = () => {
                                 joinedClubs.push(element.clubId);
                             }
                         data[0].joined = joinedClubs.includes(data[0].clubId)
-                        console.log(data[0])
+
                         setClub(data[0]);
                     })
             })

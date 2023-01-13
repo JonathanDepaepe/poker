@@ -1,6 +1,6 @@
 import {NavClub} from "../../../components/navigation/navClub";
 import {NavTop} from "../../../components/navigation/navTop";
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
@@ -10,10 +10,65 @@ import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
 import {useIntl} from "react-intl";
+import {useRouter} from "next/router";
 
 
 export default function Home() {
+    const router = useRouter()
+    const [isCreatingNews, setCreatingNews] = useState(false);
+    const [news, setNews] = useState();
+    const [user, setUser] = useState(false);
+    const {clubId} =  router.query;
     const intl = useIntl();
+    useEffect( () => {
+        const href = window.location.href.split('/');
+        const clubHref = href[href.length - 2]
+        fetch('/api/auth/user')
+            .then((res) => res.json())
+            .then((fetchUser) => {
+                setUser(fetchUser)
+                fetch(`/api/club/${clubHref}/news`,{headers:{ 'Authorization': "Bearer " + fetchUser.user.token}})
+                    .then((res) => res.json())
+                    .then((data) => {
+                        setNews(data)
+                    })
+            })
+    }, [])
+
+    function loadNews(){
+        fetch(`/api/club/${clubId}/news`,{headers:{ 'Authorization': "Bearer " + user.user.token}})
+            .then((res) => res.json())
+            .then((data) => {
+                setNews(data)
+            })
+    }
+
+    const deleteNews = async (e) => {
+        e.preventDefault();
+        fetch(`/api/club/${clubId}/news`,{
+            headers:{ 'Authorization': "Bearer " + user.user.token},
+            method:"DELETE",
+            body: parseInt(e.target.id)
+        }).then(response => {if (response.status=== 201){
+            loadNews();
+        }})
+    }
+    const createNews = async (e) => {
+        event.preventDefault();
+        setCreatingNews(true)
+        const title = e.target.title.value;
+        const description = e.target.description.value;
+        fetch(`/api/club/${clubId}/news`,{
+            method:"POST",
+            body: JSON.stringify({
+                user,
+                title,
+                description
+    })
+        }).then(response => {if (response.status=== 200){
+            loadNews();
+        }})
+    };
     return (
         <>
             <Head>
@@ -55,13 +110,11 @@ export default function Home() {
                             <div className="d-flex">
                                 <div className="w-50">
                                     <h3>{intl.formatMessage({ id: "page.club.settings.createNews" })}</h3>
-                                    <form action="club">
+                                    <form onSubmit={createNews}>
                                         <label htmlFor="title">{intl.formatMessage({ id: "page.club.settings.title" })}:</label>
-                                        <input type="text" id="title" className="form-control w-75  mb-2"
-                                               placeholder={intl.formatMessage({ id: "page.club.settings.title" })}/>
+                                        <input required type="text" id="title" name="title" className="form-control w-75  mb-2" placeholder={intl.formatMessage({ id: "page.club.settings.title" })}/>
                                         <label htmlFor="description">{intl.formatMessage({ id: "page.club.settings.description" })}:</label>
-                                        <textarea className="form-control mb-2 w-75" id="description"
-                                                  rows="3"></textarea>
+                                        <textarea required className="form-control mb-2 w-75" id="description" name="description" rows="3"></textarea>
                                         <button type="submit" className="btn btn-primary bg-color-primary">{intl.formatMessage({ id: "page.club.settings.createNews" })}
                                         </button>
                                     </form>
@@ -69,50 +122,15 @@ export default function Home() {
                                 <div className="w-50">
                                     <h3>{intl.formatMessage({ id: "page.club.settings.recentNews" })}</h3>
                                     <article>
-                                        <section>
-                                            <div className={"d-flex justify-content-between"}><h4>Lorum Ipsum</h4><Image
-                                                className={"mt-auto mb-auto"} src="/images/icons/trah-icon.svg"
-                                                alt="trash"
-                                                width={15} height={15}/></div>
-
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris congue
-                                                odio
-                                                elementum, tristique urna fermentum, rutrum metus.</p>
-                                        </section>
-                                        <section>
-                                            <div className={"d-flex justify-content-between"}><h4>Lorum Ipsum</h4><Image
-                                                className={"mt-auto mb-auto"} src="/images/icons/trah-icon.svg"
-                                                alt="trash"
-                                                width={15} height={15}/></div>
-
-                                            <p>orem ipsum dolor sit amet, consectetur adipiscing elit. Mauris congue
-                                                odio
-                                                elementum, tristique urna fermentum, rutrum metus. Class aptent taciti
-                                                sociosqu ad litora torquent per conubia nostra, per inceptos
-                                                himenaeos.</p>
-                                        </section>
-                                        <section>
-                                            <div className={"d-flex justify-content-between"}><h4>Lorum Ipsum</h4><Image
-                                                className={"mt-auto mb-auto"} src="/images/icons/trah-icon.svg"
-                                                alt="trash"
-                                                width={15} height={15}/></div>
-
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris congue
-                                                odio
-                                                elementum, tristique urna fermentum, rutrum metus.</p>
-                                        </section>
-                                        <section>
-                                            <div className={"d-flex justify-content-between"}><h4>Lorum Ipsum</h4><Image
-                                                className={"mt-auto mb-auto"} src="/images/icons/trah-icon.svg"
-                                                alt="trash"
-                                                width={15} height={15}/></div>
-
-                                            <p>orem ipsum dolor sit amet, consectetur adipiscing elit. Mauris congue
-                                                odio
-                                                elementum, tristique urna fermentum, rutrum metus. Class aptent taciti
-                                                sociosqu ad litora torquent per conubia nostra, per inceptos
-                                                himenaeos.</p>
-                                        </section>
+                                        {news?.map((newsArticle) => (
+                                            <section>
+                                                <div className={"d-flex justify-content-between"}>
+                                                    <h4>{newsArticle.title}</h4>
+                                                    <Link id={newsArticle.postId} onClick={deleteNews} href={"#"}><Image id={newsArticle.postId} className={"mt-auto mb-auto"} src="/images/icons/trah-icon.svg" alt="trash" width={15} height={15}/></Link>
+                                                </div>
+                                                <p>{newsArticle.description}</p>
+                                            </section>
+                                        ))}
                                     </article>
                                 </div>
                             </div>

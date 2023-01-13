@@ -15,6 +15,7 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "body-parser": "^1.20.1",
     "bootstrap": "^5.2.3",
+    "country-flag-icons": "^1.5.5",
     "devcert": "^1.2.2",
     "formidable": "^2.1.1",
     "formik": "^2.2.9",

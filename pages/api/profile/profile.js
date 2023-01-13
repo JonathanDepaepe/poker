@@ -9,7 +9,6 @@ export const config = {
 };
 
 const post = async (req, res) => {
-    console.log("api profile")
     let fullImageSrc;
     const form = new formidable.IncomingForm();
     form.parse(req, async function (err, fields, files) {
@@ -21,8 +20,6 @@ const post = async (req, res) => {
         } else {
             fullImageSrc = "/static/profile/logo.png"
         }
-        console.log(fields)
-        console.log(files)
         await fetch('https://pokermanager.games/api/User/update', {
             body: JSON.stringify({
                 memberId: fields.memberId,
@@ -38,8 +35,6 @@ const post = async (req, res) => {
             agent: httpsAgent,
             method: 'PUT',
         }).then(async function (respo) {
-            console.log(respo);
-            console.log(await respo.json())
             if (respo.status === 201) {
                 return res.status(201).send("");
             } else {
@@ -54,7 +49,6 @@ const post = async (req, res) => {
 const saveFile = async (file, nickname) => {
     const imageSRC = file.originalFilename.split(".").pop()
     const fullImageSrc = `/static/profile/${nickname}${Math.floor(Math.random() * 100)}.${imageSRC}`
-    console.log(imageSRC);
     const data = fs.readFileSync(file.filepath);
     fs.writeFileSync("./public"+fullImageSrc, data);
     await fs.unlinkSync(file.filepath);
