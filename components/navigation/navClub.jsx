@@ -16,7 +16,13 @@ export const NavClub = () => {
     const intl = useIntl();
     useEffect(() => {
         const href = window.location.href.split('/');
-        const clubHref = href[href.length - 2]
+        let clubHref;
+        if (isNaN(parseInt(href[href.length - 1]))){
+            clubHref =  href[href.length - 2]
+        } else{
+            clubHref =  href[href.length - 1]
+        }
+        console.log(clubHref)
         fetch('/api/auth/user')
             .then((res) => res.json())
             .then((fetchUser) => {
@@ -83,7 +89,7 @@ export const NavClub = () => {
                 <div>
                     <ul className="nav nav-pills flex-column mb-auto">
                         <li className="nav-item">
-                            <Link href={`/club/${clubId}/home`} id="home" className="nav-link text-white" aria-current="page">
+                            <Link href={`/club/${clubId}`} id="home" className="nav-link text-white" aria-current="page">
                                 <Image className="bi pe-none me-2" width={16} height={16}
                                        src="/images/icons/club-icon.svg" alt="club icon"/>
                                 Club

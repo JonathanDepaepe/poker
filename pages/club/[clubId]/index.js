@@ -9,7 +9,7 @@ import {useIntl} from "react-intl";
 import Head from "next/head";
 import Image from "next/image";
 
-export default function Home() {
+export default function Index() {
     const intl = useIntl();
     const router = useRouter()
     const {clubId} = router.query;
@@ -17,7 +17,8 @@ export default function Home() {
     const [news, setNews] = useState([]);
     useEffect(() => {
         const href = window.location.href.split('/');
-        const clubHref = href[href.length - 2]
+        const clubHref = href[href.length - 1]
+        console.log(clubHref)
         fetch('/api/auth/user')
             .then((res) => res.json())
             .then((fetchUser) => {

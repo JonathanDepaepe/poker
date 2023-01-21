@@ -50,7 +50,13 @@ const get = async (req, res) => {
     await fetch("https://pokermanager.games/api/Club/public",{
         agent: httpsAgent,
     }).then((res) => res.json())
-        .then((data) => {
+        .then(async (data) => {
+            for (let club of data) {
+                await fetch(`https://pokermanager.games/api/Club/ClubId/${club.clubId}/members`, {agent: httpsAgent}).then((res) => res.json())
+                    .then(async (members) => {
+                        club.totalMembers = members.length
+                    })
+            }
             return res.status(200).json(data);
         })
 

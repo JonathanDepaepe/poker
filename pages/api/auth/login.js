@@ -33,7 +33,9 @@ export default withSession(async (req, res) => {
                 isLoggedIn: true,
                 memberId: data.memberId,
                 token: data.token,
-                refreshToken: data.refreshToken
+                refreshToken: data.refreshToken,
+                expiration: data.expiration,
+                refreshExpiration: data.refreshExpiration
             };
             req.session.set('user', user);
             await req.session.save();

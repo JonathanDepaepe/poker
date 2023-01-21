@@ -27,6 +27,15 @@
   "page.club.settings.free": "Free",
   "page.club.settings.soon": "Soon",
   "page.club.settings.comingSoon": "Coming Soon",
+  "page.club.settings.invites": "Invite Codes",
+  "page.club.settings.createInvite": "Create invite Code",
+  "page.club.settings.duration": "Duration",
+  "page.club.settings.days": "Days",
+  "page.club.settings.create": "Create",
+  "page.club.settings.activeCodes": "Active Codes",
+  "page.club.settings.code": "Code",
+  "page.club.settings.daysLeft": "days left",
+
 
   "page.profile.username": "Username",
   "page.profile.noLargerThan5Mb": "No larger than 5Mb",

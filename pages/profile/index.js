@@ -6,7 +6,7 @@ import  {useState, useEffect} from 'react'
 import {useRouter} from "next/router";
 import {useIntl} from "react-intl";
 
-export default function Home() {
+export default function Index() {
     const router = useRouter();
     const [user, setUser] = useState(null)
     const [isCreating, setCreating] = useState(false)

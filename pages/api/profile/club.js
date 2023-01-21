@@ -16,6 +16,13 @@ export default async function handler(req, res) {
         },
         agent: httpsAgent
     })
-    return res.status(200).json(await resx.json())
+    const clubs = await resx.json()
+    for (let club of clubs){
+        await fetch(`https://pokermanager.games/api/Club/ClubId/${club.clubId}/members`, {agent: httpsAgent}).then((res) => res.json())
+            .then(async (members) => {
+                club.totalMembers = members.length
+            })
+    }
+    return res.status(200).json(clubs)
 }
 

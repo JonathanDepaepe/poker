@@ -24,7 +24,7 @@ export const NavProfile = () => {
                     <div>
                         <ul className="nav nav-pills flex-column mb-auto">
                             <li className="nav-item">
-                                <Link href="/profile/home" id="profile" className="nav-link text-white" aria-current="page">
+                                <Link href="/profile" id="profile" className="nav-link text-white" aria-current="page">
                                     <Image className="bi pe-none me-2" width={16} height={16}
                                          src="/images/icons/profile-icon.svg" alt="profile icon"/>
                                     {intl.formatMessage({ id: "page.navTop.profile" })}

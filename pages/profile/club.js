@@ -58,12 +58,14 @@ export default function Home() {
                             <section className="card m-2 shadow">
                                 <img className="card-img-top" width={300} height={150} src={club.pictureUrl}
                                      alt="placeholder"/>
-                                <div className="card-body text-center">
-                                    <h2 className="card-title">{club.name}</h2>
-                                    <p className="text-gray">5 Members</p>
+                                <div className="card-body text-center d-flex flex-column justify-content-between">
+                                    <div>
+                                    <h3 className="card-title">{club.name}</h3>
+                                    <p className="text-gray">{club.totalMembers} Members</p>
+                                    </div>
                                     <Link
-                                        className={"text-decoration-none text-white btn btn-primary w-75 mt-2 bg-color-primary"}
-                                        href="#">info</Link>
+                                        className={"text-decoration-none text-white ms-auto me-auto btn btn-primary w-75 mt-2 bg-color-primary"}
+                                        href={"/club/" + club.clubId} >info</Link>
                                 </div>
                             </section>
                         ))}

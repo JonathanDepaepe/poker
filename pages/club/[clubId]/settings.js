@@ -17,12 +17,13 @@ export default function Home() {
     const router = useRouter()
     const [isCreatingNews, setCreatingNews] = useState(false);
     const [news, setNews] = useState();
+    const [invites, setInvites] = useState();
     const [user, setUser] = useState(false);
     const {clubId} =  router.query;
     const intl = useIntl();
     useEffect( () => {
         const href = window.location.href.split('/');
-        const clubHref = href[href.length - 2]
+        const clubHref =  href[href.length - 2];
         fetch('/api/auth/user')
             .then((res) => res.json())
             .then((fetchUser) => {
@@ -32,8 +33,10 @@ export default function Home() {
                     .then((data) => {
                         setNews(data)
                     })
+                loadInvites(fetchUser)
             })
     }, [])
+
 
     function loadNews(){
         fetch(`/api/club/${clubId}/news`,{headers:{ 'Authorization': "Bearer " + user.user.token}})
@@ -42,6 +45,21 @@ export default function Home() {
                 setNews(data)
             })
     }
+    function loadInvites(user){
+        const href = window.location.href.split('/');
+        const clubId =  href[href.length - 2];
+        fetch(`/api/club/${clubId}/invites`,{headers:{ 'Authorization': "Bearer " + user.user.token}})
+            .then((res) => res.json())
+            .then((data) => {
+                const currentDate = new Date();
+                for (let invite of data){
+                    const expirationDate = new Date(invite.expirationDate);
+                    invite.days = Math.floor(( expirationDate - currentDate) / (1000*3600*24))
+                }
+                setInvites(data)
+            })
+    }
+
 
     const deleteNews = async (e) => {
         e.preventDefault();
@@ -54,7 +72,7 @@ export default function Home() {
         }})
     }
     const createNews = async (e) => {
-        event.preventDefault();
+        e.preventDefault();
         setCreatingNews(true)
         const title = e.target.title.value;
         const description = e.target.description.value;
@@ -69,6 +87,33 @@ export default function Home() {
             loadNews();
         }})
     };
+    const createInvite = async (e) => {
+        e.preventDefault();
+        const days = e.target.duration.value;
+        fetch(`/api/club/${clubId}/invites`,{
+            method:"POST",
+            body: JSON.stringify({
+                user,
+                days
+            })
+        }).then(response => {if (response.status=== 200){
+            loadInvites(user);
+        }})
+    };
+
+    const deleteInvite = async (e) => {
+        e.preventDefault();
+        fetch(`/api/club/${clubId}/invites`,{
+            headers:{ 'Authorization': "Bearer " + user.user.token},
+            method:"DELETE",
+            body: JSON.stringify({
+                user,
+                inviteCode: e.target.id
+            })
+        }).then(response => {if (response.status=== 201){
+            loadInvites(user);
+        }})
+    }
     return (
         <>
             <Head>
@@ -134,6 +179,40 @@ export default function Home() {
                                     </article>
                                 </div>
                             </div>
+                        </Tab>
+                        <Tab eventKey="invites" title={intl.formatMessage({ id: "page.club.settings.invites" })}>
+                            <div className="d-flex">
+                                <div className="w-50">
+                                    <h3>{intl.formatMessage({ id: "page.club.settings.createInvite" })}</h3>
+                                    <form onSubmit={createInvite}>
+                                        <label htmlFor="title">{intl.formatMessage({ id: "page.club.settings.duration" })}:</label>
+                                        <div className={"d-flex"}>
+                                        <input required type="number" id="duration" name="duration" className="form-control w-25 mb-2" placeholder="10"/>
+                                            <p className={"mt-auto ms-1"}>/{intl.formatMessage({ id: "page.club.settings.days" })}</p>
+                                        </div>
+                                        <button type="submit" className="btn btn-primary bg-color-primary">{intl.formatMessage({ id: "page.club.settings.create" })}
+                                        </button>
+                                    </form>
+                                </div>
+                                <div className="w-50">
+                                    <h3>{intl.formatMessage({ id: "page.club.settings.activeCodes" })}</h3>
+                                    <article>
+                                        {invites?.map((invite) => (
+                                            <section>
+                                                <hr/>
+                                                <div className={"d-flex"}>
+                                                    <p>{intl.formatMessage({ id: "page.club.settings.code" })}: </p>
+                                                    <input className={"height-fit-content ms-1 me-1"} type="text" disabled value={invite.invitationHash}/>
+                                                    <Link id={invite.invitationHash} onClick={deleteInvite} href={"#"}><Image id={invite.invitationHash} className={"mt-auto mb-auto"} src="/images/icons/trah-icon.svg" alt="trash" width={15} height={15}/></Link>
+                                                </div>
+                                                <p>{intl.formatMessage({ id: "page.club.settings.duration" })}: {invite.days + 1}  {intl.formatMessage({ id: "page.club.settings.daysLeft" })}</p>
+                                            </section>
+                                        ))}
+                                    </article>
+                                </div>
+                            </div>
+
+
                         </Tab>
                         <Tab eventKey="subscription" title={intl.formatMessage({ id: "page.club.settings.subscription" })}>
                             <article className="d-flex justify-content-around mt-5">

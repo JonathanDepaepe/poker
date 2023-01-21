@@ -50,7 +50,7 @@ export const NavTop = () => {
                             </Link>
                     )}
                     {user?.isLoggedIn && (
-                                <Link className="nav-link line-hover text-white me-3" href="/profile/home">
+                                <Link className="nav-link line-hover text-white me-3" href="/profile">
                                     {intl.formatMessage({ id: "page.navTop.profile" })}
                                 </Link>
                     )}
