@@ -18,7 +18,6 @@ export default async function handler(req, res) {
         agent: httpsAgent
     })
     let tournament = await resx.json();
-    console.log(tournament)
     for (let member of tournament[0].tournamentEntrys){
         const resY = await fetch(userURL + member.memberId, {
             method: 'GET',
@@ -31,6 +30,5 @@ export default async function handler(req, res) {
         member.info = await resY.json();
     }
 
-    console.log(tournament)
     return res.status(200).json(tournament)
 }
