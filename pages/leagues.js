@@ -40,17 +40,39 @@ export default function Home() {
                             </tr>
                             </thead>
                             <tbody>{leagues?.map((league)=>(
+                                <>
+                                    {league.finished !== 1 && (
                                 <tr>
-                                    <td><button className={"btn btn-primary bg-color-primary"}>View</button></td>
+                                    <td><Link href={'/league/' + league.leagueId}> <button className={"btn btn-primary bg-color-primary"}>View</button></Link></td>
                                     <td className={"mt-auto mb-auto align-middle"}>{league.name}</td>
-                                    <td className={"mt-auto mb-auto align-middle"}><Link className={"text-black"} href={`/club/${league?.clubId}/home`}>{league.club.name}</Link></td>
+                                    <td className={"mt-auto mb-auto align-middle"}><Link className={"text-black"} href={`/club/${league?.clubId}`}>{league.club.name}</Link></td>
                                 </tr>
-                                ))}
+                                    )}
+                                </>))}
                             </tbody>
                         </table>
                     </Tab>
                     <Tab eventKey="ended" title="Ended">
-                        <h4>There are no leagues that has been ended</h4>
+                        <table className="table">
+                            <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Club</th>
+                            </tr>
+                            </thead>
+                            <tbody>{leagues?.map((league)=>(
+                                <>
+                                    {league.finished === 1 && (
+                                        <tr>
+                                            <td><Link href={'/league/' + league.leagueId}> <button className={"btn btn-primary bg-color-primary"}> View</button></Link></td>
+                                            <td className={"mt-auto mb-auto align-middle"}>{league.name}</td>
+                                            <td className={"mt-auto mb-auto align-middle"}><Link className={"text-black"} href={`/club/${league?.clubId}`}>{league.club.name}</Link></td>
+                                        </tr>
+                                    )}
+                                </>))}
+                            </tbody>
+                        </table>
                     </Tab>
 
                 </Tabs>

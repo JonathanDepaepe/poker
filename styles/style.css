@@ -113,6 +113,10 @@
     justify-content: center;
 }
 
+.height-code {
+    height: 50vh !important;
+}
+
 .flag-icon {
     width: 1.5rem;
     margin-top: auto;
@@ -150,9 +154,17 @@
     width: 56rem;
 }
 
+.w-90{
+    width: 90%;
+}
+
 .tab-content{
     height: 100%;
     width: 100%;
+}
+
+.tournament-popup{
+    width: 50vh !important;
 }
 
 body nav{
@@ -171,4 +183,8 @@ main{
     overflow:scroll;
     -ms-overflow-style: none;
     scrollbar-width: none;
+}
+
+p {
+ margin: 0 !important;
 }

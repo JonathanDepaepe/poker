@@ -18,7 +18,6 @@ export default function Index() {
     useEffect(() => {
         const href = window.location.href.split('/');
         const clubHref = href[href.length - 1]
-        console.log(clubHref)
         fetch('/api/auth/user')
             .then((res) => res.json())
             .then((fetchUser) => {

@@ -3,7 +3,6 @@ import https from "https";
 const post = async (req, res) => {
     const {clubId} =  req.query
     const body = JSON.parse(req.body);
-    console.log(body)
     const url = `https://pokermanager.games/api/Club/CreateClubInvite`;
     const httpsAgent = new https.Agent({
         rejectUnauthorized: false,
@@ -16,7 +15,7 @@ const post = async (req, res) => {
         },
         body: JSON.stringify({
             creatorId: body.user.user.memberId,
-            memberId : body.user.user.memberId,
+            memberId : body.memberId,
             clubId: clubId,
             role: "1",
             duration: parseInt(body.days)

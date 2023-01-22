@@ -37,7 +37,6 @@ export default function Home() {
             })
     }, [])
 
-
     function loadNews(){
         fetch(`/api/club/${clubId}/news`,{headers:{ 'Authorization': "Bearer " + user.user.token}})
             .then((res) => res.json())
@@ -56,7 +55,7 @@ export default function Home() {
                     const expirationDate = new Date(invite.expirationDate);
                     invite.days = Math.floor(( expirationDate - currentDate) / (1000*3600*24))
                 }
-                setInvites(data)
+                setInvites(data.reverse())
             })
     }
 
@@ -90,10 +89,12 @@ export default function Home() {
     const createInvite = async (e) => {
         e.preventDefault();
         const days = e.target.duration.value;
+        const memberId = e.target.memberId.value;
         fetch(`/api/club/${clubId}/invites`,{
             method:"POST",
             body: JSON.stringify({
                 user,
+                memberId,
                 days
             })
         }).then(response => {if (response.status=== 200){
@@ -185,10 +186,14 @@ export default function Home() {
                                 <div className="w-50">
                                     <h3>{intl.formatMessage({ id: "page.club.settings.createInvite" })}</h3>
                                     <form onSubmit={createInvite}>
+                                        <label htmlFor="memberId">{intl.formatMessage({ id: "page.club.settings.idOfUserYouWantToInvite" })}:</label>
+                                        <input required type="text" id="memberId" name="memberId" className="form-control w-50 mb-2" placeholder="01234-abcd-..."/>
+                                        <div>
                                         <label htmlFor="title">{intl.formatMessage({ id: "page.club.settings.duration" })}:</label>
                                         <div className={"d-flex"}>
                                         <input required type="number" id="duration" name="duration" className="form-control w-25 mb-2" placeholder="10"/>
                                             <p className={"mt-auto ms-1"}>/{intl.formatMessage({ id: "page.club.settings.days" })}</p>
+                                        </div>
                                         </div>
                                         <button type="submit" className="btn btn-primary bg-color-primary">{intl.formatMessage({ id: "page.club.settings.create" })}
                                         </button>
@@ -196,7 +201,7 @@ export default function Home() {
                                 </div>
                                 <div className="w-50">
                                     <h3>{intl.formatMessage({ id: "page.club.settings.activeCodes" })}</h3>
-                                    <article>
+                                    <article className={"height-code overflow-auto"}>
                                         {invites?.map((invite) => (
                                             <section>
                                                 <hr/>
@@ -206,6 +211,7 @@ export default function Home() {
                                                     <Link id={invite.invitationHash} onClick={deleteInvite} href={"#"}><Image id={invite.invitationHash} className={"mt-auto mb-auto"} src="/images/icons/trah-icon.svg" alt="trash" width={15} height={15}/></Link>
                                                 </div>
                                                 <p>{intl.formatMessage({ id: "page.club.settings.duration" })}: {invite.days + 1}  {intl.formatMessage({ id: "page.club.settings.daysLeft" })}</p>
+                                                <p>{intl.formatMessage({ id: "page.club.settings.forMemberID" })}: {invite.memberId}</p>
                                             </section>
                                         ))}
                                     </article>

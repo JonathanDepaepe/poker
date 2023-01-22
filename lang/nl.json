@@ -35,6 +35,9 @@
   "page.club.settings.activeCodes": "Actieve codes",
   "page.club.settings.code": "Code",
   "page.club.settings.daysLeft": "dagen geldig",
+  "page.club.settings.forMemberID": "Voor lid-ID",
+  "page.club.settings.idOfUserYouWantToInvite": "Lid-Id van user die je wilt uitnodigen",
+
 
   "page.profile.username": "Gebruikersnaam",
   "page.profile.noLargerThan5Mb": "Niet groter dan 5Mb",
@@ -47,6 +50,7 @@
   "page.profile.my": "Mijn",
   "page.profile.settings": "Instellingen",
   "page.profile.logout": "Uitloggen",
+  "page.profile.yourMemberID": "Uw lid-ID",
 
 
   "error.club.noPlanning": "De club heeft geen plannen.",

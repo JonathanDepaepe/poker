@@ -14,7 +14,7 @@ export default async function handler(req, res) {
         },
         agent: httpsAgent
     })
-    if (resx.status !== 200){
+    if (resx.status !== 201){
         return res.status(500).send()
     }else{
         return res.status(201).send()

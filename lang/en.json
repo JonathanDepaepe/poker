@@ -48,7 +48,7 @@
   "page.profile.my": "My",
   "page.profile.settings": "Settings",
   "page.profile.logout": "Logout",
-
+  "page.profile.yourMemberID": "Your Member ID",
 
   "error.club.noPlanning": "The club doesn't have any plans.",
   "error.club.noNews": "The club doesn't have any news."

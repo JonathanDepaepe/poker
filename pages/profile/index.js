@@ -97,6 +97,10 @@ export default function Index() {
                         </div>
                         <div className="rounded-0 w-75 ms-5 border-1 rounded-end">
                             <div className="card-body">
+                                <div className="mb-3">
+                                    <label className="small mb-1" htmlFor="form-memberID">{intl.formatMessage({ id: "page.profile.yourMemberID" })}</label>
+                                    <input className="form-control" id="form-memberID" disabled  type="text" defaultValue={user?.user.data.memberId} />
+                                </div>
                                     <div className="mb-3">
                                         <label className="small mb-1" htmlFor="form-username">{intl.formatMessage({ id: "page.profile.username" })}</label>
                                         <input className="form-control" id="form-username" name={"username"} type="text" placeholder="Enter your username" defaultValue={user?.user.data.nickname} />
