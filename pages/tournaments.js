@@ -55,7 +55,20 @@ export default function Home() {
     }
 
     const leaveTournament = async (e) => {
-        setError("Leaving is currently not supported")
+        await fetch(`/api/tournament/${e.target.id}/leave`, {
+            headers: {'Authorization': "Bearer " + user.user.token},
+            method:"DELETE",
+            body:JSON.stringify({
+                memberId: user.user.memberId,
+                user
+            })
+        })
+            .then((res) => {
+                if (res.status === 200){
+                    setLeaveButton(false);
+                    loadTournament(e.target.id);
+                }
+            })
     }
 
     const loadTournament = async (tournamentID) => {
@@ -195,8 +208,6 @@ export default function Home() {
                                                             </div>
                                                         </div>
                                                     )}
-
-
                                                 </>
                                             ))}
                                         </div>
