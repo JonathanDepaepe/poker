@@ -38,6 +38,20 @@
   "page.club.settings.forMemberID": "Voor lid-ID",
   "page.club.settings.idOfUserYouWantToInvite": "Lid-Id van user die je wilt uitnodigen",
 
+  "page.club.league.createLeague": " League Aanmaken",
+  "page.club.league.leagueName": "League naam",
+  "page.club.league.description": "Beschrijving",
+  "page.club.league.private": "Prive",
+  "page.club.league.create": "Aanmaken",
+
+  "page.club.tournament.createTournament": " Tournament Aanmaken",
+  "page.club.tournament.leagueName": "Tournament naam",
+  "page.club.tournament.maxPlayers": "Max. spelers",
+  "page.club.tournament.date": "Datum",
+  "page.club.tournament.place": "Plaats",
+  "page.club.tournament.league": "League",
+  "page.club.tournament.private": "Prive",
+  "page.club.tournament.create": "Aanmaken",
 
   "page.profile.username": "Gebruikersnaam",
   "page.profile.noLargerThan5Mb": "Niet groter dan 5Mb",
@@ -52,7 +66,24 @@
   "page.profile.logout": "Uitloggen",
   "page.profile.yourMemberID": "Uw lid-ID",
 
+  "page.league.active": "Actief",
+  "page.league.finished": "Afgelopen",
+  "page.league.result": "resultaat",
 
   "error.club.noPlanning": "De club heeft geen plannen.",
-  "error.club.noNews": "De club heeft geen nieuws."
+  "error.club.noNews": "De club heeft geen nieuws.",
+  "error.tournament.noCurrent": "Er zijn geen actieve tournaments.",
+  "error.tournament.noEnded": "Er zijn geen tournaments beëindigd.",
+  "error.league.noCurrent": "Er zijn actieve leagues",
+  "error.league.noEnded": "Er zijn geen leagues beëindigd",
+
+  "table.date": "Datum",
+  "table.name": "Naam",
+  "table.club": "Club",
+  "table.type": "Type",
+  "table.view": "Bekijk",
+  "table.now": "Actief",
+  "table.place": "Plaats",
+  "table.ended": "Geëindigd",
+  "table.attendees": "aanwezigen"
 }

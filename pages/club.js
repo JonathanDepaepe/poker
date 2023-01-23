@@ -54,8 +54,16 @@ export default function Club() {
                     } else {
                         element.button = "login"
                     }
-                    if (element.pictureUrl[0] !== "/") {
-                        element.pictureUrl = "/static/placeholder.png"
+                    if (element.pictureUrl[0] !== "/"){
+                        element.image = "/static/placeholder.png"
+                    }else{
+                        try{
+                            require( "../public" +element.pictureUrl)
+                            element.image = element.pictureUrl;
+                        }
+                        catch(err){
+                            element.image = "/static/placeholder.png"
+                        }
                     }
 
                 }
@@ -69,7 +77,7 @@ export default function Club() {
         try {
             const clubId = e.target.id;
             const isJoin = e.target.classList.contains("join")
-            let url = '';
+            let url;
             if (isJoin) {
                 url = `/api/club/${clubId}/join`;
             } else {
@@ -177,7 +185,7 @@ export default function Club() {
                 <article className="d-flex mt-4 flex-wrap">
                     {clubs?.map((club) => (
                         <section className="card m-2 shadow">
-                            <img className="card-img-top img-club" width={300} height={150} src={club.pictureUrl}
+                            <img className="card-img-top img-club" width={300} height={150} src={club.image}
                                  alt="placeholder"/>
                             <div className="card-body d-flex flex-column justify-content-between text-center">
                                 <div>

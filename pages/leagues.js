@@ -4,14 +4,28 @@ import React, {useEffect, useState} from 'react';
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import Link from "next/link";
+import {useIntl} from "react-intl";
 
 export default function Home() {
+    const intl = useIntl();
     const [leagues, setLeagues] = useState();
+    const [hasCurrentLeagues, setHasCurrentLeagues] = useState();
+    const [hasEndedLeagues, setHasEndedLeagues] = useState();
 
     useEffect( () => {
         fetch('/api/league')
             .then((res) => res.json())
             .then((fetchLeagues) => {
+                setHasEndedLeagues(false)
+                setHasCurrentLeagues(false)
+                for (let league of fetchLeagues){
+                    if (league.finished){
+                        setHasEndedLeagues(true)
+                    }else if (!league.finished){
+                        setHasCurrentLeagues(true)
+                    }
+                }
+
                 setLeagues(fetchLeagues)
             })
     }, [])
@@ -30,49 +44,55 @@ export default function Home() {
                     id="uncontrolled-tab-example"
                     className="mb-3 tab-layout"
                 >
-                    <Tab eventKey="now" title="Now">
+                    <Tab eventKey="now" title={intl.formatMessage({ id: "table.now" })}>
+                        {hasCurrentLeagues === true && (
                         <table className="table">
                             <thead>
                             <tr>
                                 <th scope="col"></th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Club</th>
+                                <th scope="col">{intl.formatMessage({ id: "table.name" })}</th>
+                                <th scope="col">{intl.formatMessage({ id: "table.club" })}</th>
                             </tr>
                             </thead>
                             <tbody>{leagues?.map((league)=>(
                                 <>
-                                    {league.finished !== 1 && (
+                                    {league.finished === false && (
                                 <tr>
-                                    <td><Link href={'/league/' + league.leagueId}> <button className={"btn btn-primary bg-color-primary"}>View</button></Link></td>
+                                    <td><Link href={'/league/' + league.leagueId}> <button className={"btn btn-primary bg-color-primary"}>{intl.formatMessage({ id: "table.view" })}</button></Link></td>
                                     <td className={"mt-auto mb-auto align-middle"}>{league.name}</td>
                                     <td className={"mt-auto mb-auto align-middle"}><Link className={"text-black"} href={`/club/${league?.clubId}`}>{league.club.name}</Link></td>
                                 </tr>
                                     )}
                                 </>))}
                             </tbody>
-                        </table>
+                        </table> )}
+                        {hasCurrentLeagues === false && (<h4>{intl.formatMessage({ id: "error.league.noCurrent" })}</h4>)}
                     </Tab>
-                    <Tab eventKey="ended" title="Ended">
-                        <table className="table">
-                            <thead>
-                            <tr>
-                                <th scope="col"></th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Club</th>
-                            </tr>
-                            </thead>
-                            <tbody>{leagues?.map((league)=>(
-                                <>
-                                    {league.finished === 1 && (
-                                        <tr>
-                                            <td><Link href={'/league/' + league.leagueId}> <button className={"btn btn-primary bg-color-primary"}> View</button></Link></td>
-                                            <td className={"mt-auto mb-auto align-middle"}>{league.name}</td>
-                                            <td className={"mt-auto mb-auto align-middle"}><Link className={"text-black"} href={`/club/${league?.clubId}`}>{league.club.name}</Link></td>
-                                        </tr>
-                                    )}
-                                </>))}
-                            </tbody>
-                        </table>
+                    <Tab eventKey="ended" title={intl.formatMessage({ id: "table.ended" })}>
+                        {hasEndedLeagues === true && (
+                            <table className="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col">{intl.formatMessage({ id: "table.name" })}</th>
+                                    <th scope="col">{intl.formatMessage({ id: "table.club" })}</th>
+                                </tr>
+                                </thead>
+                                <tbody>{leagues?.map((league)=>(
+                                    <>
+                                        {league.finished === true && (
+                                            <tr>
+                                                <td><Link href={'/league/' + league.leagueId}> <button className={"btn btn-primary bg-color-primary"}> {intl.formatMessage({ id: "table.view" })}</button></Link></td>
+                                                <td className={"mt-auto mb-auto align-middle"}>{league.name}</td>
+                                                <td className={"mt-auto mb-auto align-middle"}><Link className={"text-black"} href={`/club/${league?.clubId}`}>{league.club.name}</Link></td>
+                                            </tr>
+                                        )}
+                                    </>))}
+                                </tbody>
+                            </table>
+                        )}
+                        {hasEndedLeagues === false && (<h4>{intl.formatMessage({ id: "error.league.noEnded" })}</h4>)}
+
                     </Tab>
 
                 </Tabs>

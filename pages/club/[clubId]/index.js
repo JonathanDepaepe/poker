@@ -1,19 +1,14 @@
 import {NavClub} from "../../../components/navigation/navClub";
 import {NavTop} from "../../../components/navigation/navTop";
+
 import React, {useEffect, useState} from 'react';
-import Icon from '../../../public/images/icons/leagues-icon.svg';
 import {useRouter} from 'next/router'
-
 import {useIntl} from "react-intl";
-
 import Head from "next/head";
 import Image from "next/image";
-import Link from "next/link";
 
 export default function Index() {
     const intl = useIntl();
-    const router = useRouter()
-    const {clubId} = router.query;
     const [isClub, setClub] = useState();
     const [news, setNews] = useState([]);
     const [planning, setPlanning] = useState();
@@ -33,9 +28,17 @@ export default function Index() {
                     })
 
                 }).then((res) => res.json()).then((data) => {
-                        if (data[0].pictureUrl[0] !== "/") {
-                            data[0].pictureUrl = "/static/placeholder.png"
+                    if (data[0].pictureUrl[0] !== "/"){
+                        data[0].image = "/static/placeholder.png"
+                    }else{
+                        try{
+                            require( "../../../public" +data[0].pictureUrl)
+                            data[0].image = data[0].pictureUrl;
                         }
+                        catch(err){
+                            data[0].image = "/static/placeholder.png"
+                        }
+                    }
                         console.log(data)
                         setClub(data[0]);
                     })
@@ -69,7 +72,7 @@ export default function Index() {
 
                 <main className="p-4 w-100">
                     <div className={"d-flex"}>
-                        <Image className={"img-thumbnail img-club-profile"} src={isClub?.pictureUrl} width={700}
+                        <Image className={"img-thumbnail img-club-profile"} src={isClub?.image} width={700}
                                height={400} alt={"Club logo"}/>
                         <div className={"ms-4"}>
                             <h2>{isClub?.name}</h2>
@@ -89,9 +92,9 @@ export default function Index() {
                                     <thead>
                                     <tr>
                                         <th scope="col"></th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Date</th>
-                                        <th className={"text-center"} scope="col">Type</th>
+                                        <th scope="col">{intl.formatMessage({ id: "table.name" })}</th>
+                                        <th scope="col">{intl.formatMessage({ id: "table.date" })}</th>
+                                        <th className={"text-center"} scope="col">{intl.formatMessage({ id: "table.type" })}</th>
                                     </tr>
                                     </thead>
                                     <tbody>

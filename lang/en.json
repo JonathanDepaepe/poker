@@ -35,7 +35,23 @@
   "page.club.settings.activeCodes": "Active Codes",
   "page.club.settings.code": "Code",
   "page.club.settings.daysLeft": "days left",
+  "page.club.settings.forMemberID": "Your Member-ID",
+  "page.club.settings.idOfUserYouWantToInvite": "Member-Id from the user you want to invite",
 
+  "page.club.league.createLeague": " Create League",
+  "page.club.league.leagueName": "League name",
+  "page.club.league.description": "Description",
+  "page.club.league.private": "Private",
+  "page.club.league.create": "Create",
+
+  "page.club.tournament.createTournament": " Create tournament",
+  "page.club.tournament.leagueName": "Tournament name",
+  "page.club.tournament.maxPlayers": "Max players",
+  "page.club.tournament.date": "Date",
+  "page.club.tournament.place": "Place",
+  "page.club.tournament.league": "League",
+  "page.club.tournament.private": "Private",
+  "page.club.tournament.create": "Create",
 
   "page.profile.username": "Username",
   "page.profile.noLargerThan5Mb": "No larger than 5Mb",
@@ -50,6 +66,24 @@
   "page.profile.logout": "Logout",
   "page.profile.yourMemberID": "Your Member ID",
 
+  "page.league.active": "active",
+  "page.league.finished": "finished",
+  "page.league.result": "result",
+
   "error.club.noPlanning": "The club doesn't have any plans.",
-  "error.club.noNews": "The club doesn't have any news."
+  "error.club.noNews": "There are no Ended tournaments",
+  "error.tournament.noCurrent": "There are no current tournaments",
+  "error.tournament.noEnded": "De club heeft geen nieuws.",
+  "error.league.noCurrent": "There are no current leagues",
+  "error.league.noEnded": "There are no ended leagues",
+
+  "table.date": "Date",
+  "table.name": "Name",
+  "table.club": "Club",
+  "table.type": "Type",
+  "table.view": "view",
+  "table.now": "Now",
+  "table.place": "Place",
+  "table.ended": "Ended",
+  "table.attendees": "Attendees"
 }

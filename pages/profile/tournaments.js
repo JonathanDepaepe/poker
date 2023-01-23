@@ -7,9 +7,10 @@ import Tab from "react-bootstrap/Tab";
 import Popup from "reactjs-popup";
 import Link from "next/link";
 import Image from "next/image";
+import {useIntl} from "react-intl";
 
 export default function Home() {
-
+    const intl = useIntl();
     const [tournament, setTournament] = useState();
     const [tournaments, setTournaments] = useState();
     const [error, setError] = useState(null);
@@ -17,11 +18,11 @@ export default function Home() {
     const [user, setUser] = useState(false);
     const [leaveButton, setLeaveButton] = useState(false);
     const [tournamentEnded, setTournamentEnded] = useState(false);
+    const [hasCurrentTour, setHasCurrentTour] = useState();
+    const [hasEndedTour, setHasEndedTour] = useState();
     let position = 0;
     const closeModal = () => setOpen(false);
     useEffect(() => {
-        const href = window.location.href.split('/');
-        const clubId =  href[href.length - 2];
         fetch('/api/auth/user')
             .then((res) => res.json())
             .then((fetchUser) => {
@@ -36,7 +37,15 @@ export default function Home() {
         })
             .then((res) => res.json())
             .then((fetchTournaments) => {
-                for (let tournament of fetchTournaments)
+                setHasCurrentTour(false)
+                setHasEndedTour(false)
+                for (let tournament of fetchTournaments){
+                    if (tournament.status !== 10){
+                        setHasCurrentTour(true)
+                    }else if(tournament.status === 10){
+                        setHasEndedTour(true)
+                    }
+                }
                 setTournaments(fetchTournaments)
             })
     }
@@ -121,15 +130,16 @@ export default function Home() {
                         id="uncontrolled-tab-example"
                         className="mb-3 tab-layout"
                     >
-                        <Tab eventKey="now" title="Now">
+                        <Tab eventKey="now" title={intl.formatMessage({ id: "table.now" })}>
+                            {hasCurrentTour === true &&(
                             <table className="table">
                                 <thead>
                                 <tr>
                                     <th scope="col"></th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Date</th>
-                                    <th scope="col">Place</th>
-                                    <th className={"text-center"} scope="col">Attendees</th>
+                                    <th scope="col">{intl.formatMessage({ id: "table.name" })}</th>
+                                    <th scope="col">{intl.formatMessage({ id: "table.date" })}</th>
+                                    <th scope="col">{intl.formatMessage({ id: "table.place" })}</th>
+                                    <th className={"text-center"} scope="col">{intl.formatMessage({ id: "table.attendees" })}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -137,7 +147,7 @@ export default function Home() {
                                     tournament.status !== 10 && (
                                         <tr>
                                             <td className="w-10r">
-                                                <button id={tournament.tournamentId} onClick={openTournament} className={"btn btn-primary bg-color-primary me-2"}>View</button>
+                                                <button id={tournament.tournamentId} onClick={openTournament} className={"btn btn-primary bg-color-primary me-2"}>{intl.formatMessage({ id: "table.view" })}</button>
                                                 <button id={tournament.tournamentId} onClick={leaveTournament} className={"btn btn-primary bg-color-red"}>Leave</button>
                                             </td>
                                             <td  className={""}>{tournament.name}</td>
@@ -151,17 +161,19 @@ export default function Home() {
 
                                 ))}
                                 </tbody>
-                            </table>
+                            </table>)}
+                            {hasCurrentTour === false &&(<h6>{intl.formatMessage({ id: "error.tournament.noCurrent" })}</h6>)}
                         </Tab>
-                        <Tab eventKey="ended" title="Ended">
+                        <Tab eventKey="ended" title={intl.formatMessage({ id: "table.ended" })}>
+                            {hasEndedTour === true &&(
                             <table className="table">
                                 <thead>
                                 <tr>
                                     <th scope="col"></th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Date</th>
-                                    <th scope="col">Place</th>
-                                    <th className={"text-center"} scope="col">Attendees</th>
+                                    <th scope="col">{intl.formatMessage({ id: "table.name" })}</th>
+                                    <th scope="col">{intl.formatMessage({ id: "table.date" })}</th>
+                                    <th scope="col">{intl.formatMessage({ id: "table.place" })}</th>
+                                    <th className={"text-center"} scope="col">{intl.formatMessage({ id: "table.attendees" })}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -169,7 +181,7 @@ export default function Home() {
                                     tournament.status === 10 && (
                                         <tr>
                                             <td>
-                                                <button id={tournament.tournamentId} onClick={openTournament} className={"btn btn-primary bg-color-primary"}>View</button>
+                                                <button id={tournament.tournamentId} onClick={openTournament} className={"btn btn-primary bg-color-primary"}>{intl.formatMessage({ id: "table.view" })}</button>
                                             </td>
                                             <td  className={""}>{tournament.name}</td>
                                             <td className={"mt-auto mb-auto align-middle"}>{new Date(tournament.startDateTime).toLocaleString("be", {
@@ -177,11 +189,12 @@ export default function Home() {
                                                 timeStyle: "short"
                                             })}</td>
                                             <td className={"mt-auto mb-auto align-middle"}>{tournament.location}</td>
-                                            <td className={"mt-auto mb-auto text-center align-middle"}>{tournament.tournamentEntrys.length}/{tournament.maxPlayerCount}</td>
+                                            <td className={"mt-auto mb-auto text-center align-middle"}>{tournament.tournamentEntrys.length}</td>
                                         </tr>)
                                 ))}
                                 </tbody>
-                            </table>
+                            </table>)}
+                            {hasEndedTour === false &&(<h6>{intl.formatMessage({ id: "error.tournament.noEnded" })}</h6>)}
                         </Tab>
 
                     </Tabs>
@@ -199,15 +212,15 @@ export default function Home() {
                                     <header>
                                         <p>Club: {tournament?.club.name}</p>
                                         <p>League: <Link href={`/league/${tournament?.leagueId}`}>{tournament?.league.name}</Link></p>
-                                        <p>Place: {tournament?.location}</p>
-                                        <p>Date: {new Date(tournament?.startDateTime).toLocaleString("be", {
+                                        <p>{intl.formatMessage({ id: "table.place" })}: {tournament?.location}</p>
+                                        <p>{intl.formatMessage({ id: "table.date" })}: {new Date(tournament?.startDateTime).toLocaleString("be", {
                                             dateStyle: "short",
                                             timeStyle: "short"
                                         })}</p>
                                     </header>
                                     {tournamentEnded === false && (
                                         <>
-                                            <p className="mb-2">Attendees:</p>
+                                            <p className="mb-2">{intl.formatMessage({ id: "table.attendees" })}:</p>
                                             <div className="d-flex flex-wrap ">
                                                 {tournament?.tournamentEntrys.map((member) => (
                                                     <>

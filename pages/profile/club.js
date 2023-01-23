@@ -26,10 +26,17 @@ export default function Home() {
                 })
                     .then((res) => res.json())
                     .then((data) => {
-
                         for (const element of data) {
-                            if (element.pictureUrl[0] !== "/") {
-                                element.pictureUrl = "/static/placeholder.png"
+                            if (element.pictureUrl[0] !== "/"){
+                                element.image = "/static/placeholder.png"
+                            }else{
+                                try{
+                                    require( "../../public" +element.pictureUrl)
+                                    element.image = element.pictureUrl;
+                                }
+                                catch(err){
+                                    element.image = "/static/placeholder.png"
+                                }
                             }
                         }
                         data.length === 0?
@@ -56,7 +63,7 @@ export default function Home() {
                     <article className="d-flex mt-4 flex-wrap">
                         {clubs?.map((club) => (
                             <section className="card m-2 shadow">
-                                <img className="card-img-top" width={300} height={150} src={club.pictureUrl}
+                                <img className="card-img-top" width={300} height={150} src={club.image}
                                      alt="placeholder"/>
                                 <div className="card-body text-center d-flex flex-column justify-content-between">
                                     <div>

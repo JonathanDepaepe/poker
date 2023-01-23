@@ -4,9 +4,11 @@ import React, {useEffect, useState} from 'react';
 
 import Head from "next/head";
 import Image from "next/image";
+import {useIntl} from "react-intl";
 
 
 export default function Home() {
+    const intl = useIntl();
     const [isMembers, setMembers] = useState();
     useEffect(() => {
         const href = window.location.href.split('/');
@@ -51,7 +53,7 @@ export default function Home() {
                 <NavClub/>
 
                 <main className="p-4 w-100">
-                    <h2>Members</h2>
+                    <h2>{intl.formatMessage({ id: "page.club.members" })}</h2>
                     <article className={'d-flex flex-wrap'}>
                         {isMembers?.map((members)=>(
                             <section className={'d-flex flex-column shadow rounded p-4 me-3 mb-3'}>
