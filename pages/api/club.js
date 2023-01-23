@@ -25,7 +25,7 @@ const post = async (req, res) => {
                 ownerId: fields.memberId,
                 name : fields.clubName,
                 pictureUrl: fullImageSrc,
-                public: fields.isPrivate !== "on"
+                public: !fields.isPrivate
             }),
             headers: {
                 'Content-Type': 'application/json',

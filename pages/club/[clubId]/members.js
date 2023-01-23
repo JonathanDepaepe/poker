@@ -7,8 +7,6 @@ import Image from "next/image";
 
 
 export default function Home() {
-
-
     const [isMembers, setMembers] = useState();
     useEffect(() => {
         const href = window.location.href.split('/');
@@ -21,9 +19,24 @@ export default function Home() {
                 })
                     .then((res) => res.json())
                     .then((data) => {
+                        console.log(data)
+                        for(let member of data){
+                            if (member.profilePictureUrl[0] !== "/"){
+                                member.image = "/images/logo.png"
+                            }else{
+                                try{
+                                    require( "../../../public" +member.profilePictureUrl)
+                                    member.image = member.profilePictureUrl;
+                                }
+                                catch(err){
+                                    member.image = "/images/logo.png"
+                                }
+                            }
+                        }
                         setMembers(data);
                     })
     }, [])
+
     return (
         <>
             <Head>
@@ -42,12 +55,11 @@ export default function Home() {
                     <article className={'d-flex flex-wrap'}>
                         {isMembers?.map((members)=>(
                             <section className={'d-flex flex-column shadow rounded p-4 me-3 mb-3'}>
-                                <Image className={"img-club-member m-auto"} src={"/images/logo.png"} width={100} height={100} alt={"profile"}/>
+                                <Image className={"img-club-member m-auto"} src={members.image} width={100} height={100} alt={"profile"}/>
                                 <h4 className={"text-center"}>{members.nickname}</h4>
                                 <p className={"text-center"}>-</p>
                             </section>
                         ))}
-
                     </article>
 
                     <p className={"total-members pe-3"}>Total Members: {isMembers?.length}</p>

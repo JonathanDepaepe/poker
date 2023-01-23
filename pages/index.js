@@ -4,10 +4,6 @@ import React, { useState } from 'react';
 
 
 export default function Home() {
-    const [showMe, setShowMe] = useState(false);
-    function toggle(){
-        setShowMe(!showMe);
-    }
     return (
         <>
             <Head>
@@ -36,14 +32,6 @@ export default function Home() {
                     proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
 
             </main>
-
-            <button onClick={toggle}>Toggle Subjects</button>
-            {/*The bottom code should toggle on and off when the button is pressed*/}
-            <div style={{
-                display: showMe?"block":"none"
-            }}>
-                This should toggle my display
-            </div>
         </>
     )
 }

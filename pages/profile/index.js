@@ -2,7 +2,7 @@ import {NavProfile} from "../../components/navigation/navProfile";
 import {NavTop} from "../../components/navigation/navTop";
 import Head from "next/head";
 import Image from "next/image";
-import  {useState, useEffect} from 'react'
+import {useState, useEffect} from 'react'
 import {useRouter} from "next/router";
 import {useIntl} from "react-intl";
 
@@ -23,13 +23,20 @@ export default function Index() {
             .then((res) => res.json())
             .then((data) => {
                 if (data.user.data.profilePictureUrl[0] !== "/") {
-                    data.user.data.profilePictureUrl = "/static/placeholder.png"
+                    data.user.data.profilePictureUrl = "/images/logo.png"
+                } else {
+                    try {
+                        require("../../public" + data.user.data.profilePictureUrl)
+                    } catch (err) {
+                        data.user.data.profilePictureUrl = "/images/logo.png"
+                        console.log(err)
+                    }
                 }
                 setUser(data)
             })
     }, [])
 
-    const submitProfile= async (event) => {
+    const submitProfile = async (event) => {
         event.preventDefault();
         setCreating(true)
         try {
@@ -51,9 +58,11 @@ export default function Index() {
                         body: formData,
                         method: 'POST',
                     }).then(function (response) {
-                        if(response.status === 201){
+                        if (response.status === 201) {
                             setCreating(false)
-                            setTimeout(function (){router.reload()}, 1200)
+                            setTimeout(function () {
+                                router.reload()
+                            }, 1200)
                         }
                     })
                 });
@@ -78,58 +87,80 @@ export default function Index() {
                 <main className="p-4 w-100">
                     <div className="">
                         <form onSubmit={submitProfile} className="d-flex flex-wrap h-100">
-                        <div className="rounded-0 border-1 rounded-start">
-                            <div className="card-body text-center">
-                                {selectedImage && (
-                                    <img src={URL.createObjectURL(selectedImage)} width={100} height={100}
-                                         className="img-profile rounded-circle mb-2"
-                                         id="display-image" alt="club img"/>)}
-                                {!selectedImage && (<img src={user?.user.data.profilePictureUrl} width={100} height={100}
-                                                         className="img-profile rounded-circle mb-2"
-                                                         id="display-image" alt="club img"/>)}
-                                <div className="small font-italic text-muted mb-4">{intl.formatMessage({ id: "page.profile.noLargerThan5Mb" })}</div>
-                                <label htmlFor="club-img"
-                                       className="btn btn-primary bg-color-primary"><i
-                                    className="m-auto fa-solid fa-arrow-up-from-bracket"/>{intl.formatMessage({ id: "page.club.settings.upload" })}</label>
-                                <input  type="file" id="club-img" name="img" onChange={imageChange} hidden
-                                        accept="image/*"/>
-                            </div>
-                        </div>
-                        <div className="rounded-0 w-75 ms-5 border-1 rounded-end">
-                            <div className="card-body">
-                                <div className="mb-3">
-                                    <label className="small mb-1" htmlFor="form-memberID">{intl.formatMessage({ id: "page.profile.yourMemberID" })}</label>
-                                    <input className="form-control" id="form-memberID" disabled  type="text" defaultValue={user?.user.data.memberId} />
+                            <div className="rounded-0 border-1 rounded-start">
+                                <div className="card-body text-center">
+                                    {selectedImage && (
+                                        <img src={URL.createObjectURL(selectedImage)} width={100} height={100}
+                                             className="img-profile rounded-circle mb-2"
+                                             id="display-image" alt="club img"/>)}
+                                    {!selectedImage && (
+                                        <>
+                                            {!user?.user.data.profilePictureUrl && (
+                                                <img src={"/images/logo.png"} width={100} height={100}
+                                                     className="img-profile rounded-circle mb-2"
+                                                     id="display-image" alt="club img"/>
+                                            )}
+                                            {user?.user.data.profilePictureUrl && (
+                                                <img src={user?.user.data.profilePictureUrl} width={100} height={100}
+                                                     className="img-profile rounded-circle mb-2"
+                                                     id="display-image" alt="club img"/>
+                                            )}
+                                        </>
+                                    )}
+                                    <div
+                                        className="small font-italic text-muted mb-4">{intl.formatMessage({id: "page.profile.noLargerThan5Mb"})}</div>
+                                    <label htmlFor="club-img"
+                                           className="btn btn-primary bg-color-primary"><i
+                                        className="m-auto fa-solid fa-arrow-up-from-bracket"/>{intl.formatMessage({id: "page.club.settings.upload"})}
+                                    </label>
+                                    <input type="file" id="club-img" name="img" onChange={imageChange} hidden
+                                           accept="image/*"/>
                                 </div>
+                            </div>
+                            <div className="rounded-0 w-75 ms-5 border-1 rounded-end">
+                                <div className="card-body">
                                     <div className="mb-3">
-                                        <label className="small mb-1" htmlFor="form-username">{intl.formatMessage({ id: "page.profile.username" })}</label>
-                                        <input className="form-control" id="form-username" name={"username"} type="text" placeholder="Enter your username" defaultValue={user?.user.data.nickname} />
+                                        <label className="small mb-1"
+                                               htmlFor="form-memberID">{intl.formatMessage({id: "page.profile.yourMemberID"})}</label>
+                                        <input className="form-control" id="form-memberID" disabled type="text"
+                                               defaultValue={user?.user.data.memberId}/>
                                     </div>
                                     <div className="mb-3">
-                                        <label className="small mb-1" htmlFor="form-email">{intl.formatMessage({ id: "page.profile.email" })}</label>
-                                        <input className="form-control" name={"email"} id="form-email" type="email" placeholder="Enter your email address" defaultValue={user?.user.data.email} />
+                                        <label className="small mb-1"
+                                               htmlFor="form-username">{intl.formatMessage({id: "page.profile.username"})}</label>
+                                        <input className="form-control" id="form-username" name={"username"} type="text"
+                                               placeholder="Enter your username"
+                                               defaultValue={user?.user.data.nickname}/>
+                                    </div>
+                                    <div className="mb-3">
+                                        <label className="small mb-1"
+                                               htmlFor="form-email">{intl.formatMessage({id: "page.profile.email"})}</label>
+                                        <input className="form-control" name={"email"} id="form-email" type="email"
+                                               placeholder="Enter your email address"
+                                               defaultValue={user?.user.data.email}/>
                                     </div>
                                     <div className="d-flex justify-content-end ">
-                                        <button className="btn btn-primary bg-color-primary"  type="submit">{intl.formatMessage({ id: "page.profile.saveChanges" })}</button>
+                                        <button className="btn btn-primary bg-color-primary"
+                                                type="submit">{intl.formatMessage({id: "page.profile.saveChanges"})}</button>
                                     </div>
+                                </div>
                             </div>
-                        </div>
                         </form>
                     </div>
                     <div className="mt-5">
                         <article className="d-flex flex-wrap justify-content-around">
                             <section className="bg-white border-1 shadow rounded achievement">
-                                <p>{intl.formatMessage({ id: "page.profile.total" })}</p>
+                                <p>{intl.formatMessage({id: "page.profile.total"})}</p>
                                 <h3>0</h3>
-                                <p>{intl.formatMessage({ id: "page.profile.wins" })}</p>
+                                <p>{intl.formatMessage({id: "page.profile.wins"})}</p>
                             </section>
                             <section className="bg-white border-1 shadow  rounded achievement">
-                                <p>{intl.formatMessage({ id: "page.profile.thisMonth" })}</p>
+                                <p>{intl.formatMessage({id: "page.profile.thisMonth"})}</p>
                                 <h3>0</h3>
-                                <p>{intl.formatMessage({ id: "page.profile.wins" })}</p>
+                                <p>{intl.formatMessage({id: "page.profile.wins"})}</p>
                             </section>
                             <section className="bg-white border-1 shadow  rounded achievement">
-                                <p>{intl.formatMessage({ id: "page.profile.joined" })}</p>
+                                <p>{intl.formatMessage({id: "page.profile.joined"})}</p>
                                 <h3>0</h3>
                                 <p>Tournaments</p>
                             </section>

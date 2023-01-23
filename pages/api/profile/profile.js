@@ -35,7 +35,7 @@ const post = async (req, res) => {
             agent: httpsAgent,
             method: 'PUT',
         }).then(async function (respo) {
-            if (respo.status === 201) {
+            if (respo.status === 202) {
                 return res.status(201).send("");
             } else {
                 return res.status(403).send("");

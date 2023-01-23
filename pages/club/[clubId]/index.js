@@ -8,6 +8,7 @@ import {useIntl} from "react-intl";
 
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Index() {
     const intl = useIntl();
@@ -15,6 +16,7 @@ export default function Index() {
     const {clubId} = router.query;
     const [isClub, setClub] = useState();
     const [news, setNews] = useState([]);
+    const [planning, setPlanning] = useState();
     useEffect(() => {
         const href = window.location.href.split('/');
         const clubHref = href[href.length - 1]
@@ -30,19 +32,24 @@ export default function Index() {
                         user: fetchUser
                     })
 
-                })
-                    .then((res) => res.json())
-                    .then((data) => {
+                }).then((res) => res.json()).then((data) => {
                         if (data[0].pictureUrl[0] !== "/") {
                             data[0].pictureUrl = "/static/placeholder.png"
                         }
-
+                        console.log(data)
                         setClub(data[0]);
                     })
+
                 fetch(`/api/club/${clubHref}/news`,{headers:{ 'Authorization': "Bearer " + fetchUser.user.token}})
                     .then((res) => res.json())
                     .then((data) => {
                         setNews(data)
+                    })
+                fetch(`/api/club/${clubHref}/planning`,{headers:{ 'Authorization': "Bearer " + fetchUser.user.token}})
+                    .then((res) => res.json())
+                    .then((data) => {
+                        setPlanning(data)
+                        console.log(data)
                     })
             })
 
@@ -73,26 +80,28 @@ export default function Index() {
                         <div className={"w-50 m-2"}>
                             <h3>{intl.formatMessage({ id: "page.club.planning" })}</h3>
                             <hr/>
-                            {isClub?.leagues.length === 0 && (
+                            {planning?.length === 0 && (
                                 <p>{intl.formatMessage({ id: "error.club.noPlanning" })}</p>
                             )}
 
-                            {isClub?.leagues.length !== 0 && (
+                            {planning?.length !== 0 && (
                                 <table className="table">
                                     <thead>
                                     <tr>
+                                        <th scope="col"></th>
                                         <th scope="col">Name</th>
                                         <th scope="col">Date</th>
                                         <th className={"text-center"} scope="col">Type</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    {isClub?.leagues.map((league) => (
+                                    {planning?.map((plan) => (
                                         <tr>
-                                            <td>league.name</td>
-                                            <td>-</td>
-                                            <td className={"text-center"}><Image src={"/images/icons/dark-leagues-icon.svg"}
-                                                                                 width={20} height={20} alt={"tournament"}/>
+                                            <td className="w-4r"></td>
+                                            <td>{plan.name}</td>
+                                            <td>{plan.date}</td>
+                                            <td className={"text-center"}><Image src={"/images/icons/dark-"+plan.type+"-icon.svg"}
+                                                                                 width={20} height={20} alt={plan.type}/>
                                             </td>
                                         </tr>
                                     ))}

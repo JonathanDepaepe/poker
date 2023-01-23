@@ -71,7 +71,7 @@ export default function Home() {
                         ))}
 
                     </article>
-                    {!isLoading && !clubs && (<h5>You didn't joined any clubs, You can join clubs! <Link className={"text-decoration-none text-decoration-underline text-black"} href={"/club"}>here</Link></h5>)}
+                    {isLoading === false && clubs === null && (<h5>You didn't joined any clubs, You can join clubs! <Link className={"text-decoration-none text-decoration-underline text-black"} href={"/club"}>here</Link></h5>)}
                 </main>
             </div>
         </>

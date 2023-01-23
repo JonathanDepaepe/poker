@@ -2,7 +2,7 @@ import {NavLeague} from "../../../components/navigation/navLeague";
 import {NavTop} from "../../../components/navigation/navTop";
 
 import Head from "next/head";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import Image from "next/image";
@@ -15,6 +15,8 @@ export default function Index() {
     const [open, setOpen] = useState(false);
     const [tournament, setTournament] = useState();
     const [tournamentEnded, setTournamentEnded] = useState(false);
+    const [error, setError] = useState(null);
+    const [leaveButton, setLeaveButton] = useState(false);
     let position = 0;
     const closeModal = () => setOpen(false);
     useEffect(() => {
@@ -33,9 +35,51 @@ export default function Index() {
             })
     }, [])
 
+
+    const leaveTournament = async (e) => {
+        await fetch(`/api/tournament/${e.target.id}/leave`, {
+            headers: {'Authorization': "Bearer " + user.user.token},
+            method: "delete",
+            body: JSON.stringify({
+                memberId: user.user.memberId,
+                user
+            })
+        }).then((res) => {
+            if (res.status === 200) {
+                loadTournament(e.target.id);
+                setLeaveButton(false)
+            }
+        })
+    }
+
     const openTournament = async (e) => {
+        setLeaveButton(false)
+        setError(null)
         const tournamentID = parseInt(e.target.id)
-        console.log(user)
+        await loadTournament(tournamentID)
+        setOpen(true)
+    }
+
+    const joinTournament = async (e) => {
+        await fetch(`/api/tournament/${e.target.id}/join`, {
+            headers: {'Authorization': "Bearer " + user.user.token},
+            method: "post",
+            body: JSON.stringify({
+                memberId: user.user.memberId,
+                user
+            })
+        }).then((res) => {
+            if (res.status === 201) {
+                loadTournament(e.target.id);
+            }else if (res.status === 400){
+                setError("You need to be in the club before you can join")
+            }else{
+                setError("Something went wrong, refresh page might help")
+            }
+        })
+    }
+
+    const loadTournament = async (tournamentID) => {
         await fetch('/api/tournament/' + tournamentID, {headers: {'Authorization': "Bearer " + user.user.token}})
             .then((res) => res.json())
             .then((tournament) => {
@@ -44,6 +88,12 @@ export default function Index() {
                     tournament[0].tournamentEntrys.sort(function (a, b) {
                         return b.points - a.points
                     });
+                }else{
+                    for (let member of tournament[0].tournamentEntrys) {
+                        if (member.memberId === user.user.memberId) {
+                            setLeaveButton(true)
+                        }
+                    }
                 }
                 position = 0;
                 setTournament(tournament[0])
@@ -206,6 +256,17 @@ export default function Index() {
                                             <p>There are no Attendees</p>
                                         </>
                                     )}
+
+                                    <div className={"d-flex"}>
+                                        {error !== null && (<p className="text-danger h6">{error}</p>)}
+
+                                        {leaveButton && (<button onClick={leaveTournament}
+                                                                 id={tournament?.tournamentId}
+                                                                 className="btn btn-primary bg-color-red mt-2 ms-auto">Leave</button>)}
+                                        {!leaveButton && (<button onClick={joinTournament}
+                                                                  id={tournament?.tournamentId}
+                                                                  className="btn btn-primary bg-color-green mt-2 ms-auto">Join</button>)}
+                                    </div>
 
                                 </>
                             )}

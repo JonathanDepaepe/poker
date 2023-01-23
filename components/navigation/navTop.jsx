@@ -40,19 +40,27 @@ export const NavTop = () => {
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 </ul>
                 <div className="d-flex align-items-center">
-                    <Link className="nav-link line-hover text-white me-3" href="/">Home</Link>
-                    <Link className="nav-link line-hover text-white me-3" href="/club">Club</Link>
-                    <Link className="nav-link line-hover text-white me-3" href="/leagues" >Leagues</Link>
-                    <Link className="nav-link line-hover text-white me-3" href="/tournaments">Tournaments</Link>
-                    {!user?.isLoggedIn && (
+
+                    {user?.isLoggedIn === false && (
+                        <>
+                        <Link className="nav-link line-hover text-white me-3" href="/">Home</Link>
+                        <Link className="nav-link line-hover text-white me-3" href="/club">Club</Link>
+                        <Link className="nav-link line-hover text-white me-3" href="/leagues" >Leagues</Link>
+                        <Link className="nav-link line-hover text-white me-3" href="/tournaments">Tournaments</Link>
                             <Link className="nav-link line-hover text-white me-3" href="/login">
                                 {intl.formatMessage({ id: "page.login.login" })}
                             </Link>
+                        </>
                     )}
-                    {user?.isLoggedIn && (
+                    {user?.isLoggedIn && (<>
+                        <Link className="nav-link line-hover text-white me-3" href="/">Home</Link>
+                        <Link className="nav-link line-hover text-white me-3" href="/club">Club</Link>
+                        <Link className="nav-link line-hover text-white me-3" href="/leagues" >Leagues</Link>
+                        <Link className="nav-link line-hover text-white me-3" href="/tournaments">Tournaments</Link>
                                 <Link className="nav-link line-hover text-white me-3" href="/profile">
                                     {intl.formatMessage({ id: "page.navTop.profile" })}
                                 </Link>
+                        </>
                     )}
 
                     <div className="dropdown">

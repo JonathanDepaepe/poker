@@ -137,7 +137,7 @@ export const NavClub = () => {
                                 <FontAwesomeIcon className="color-red me-2" icon={faArrowRightFromBracket} />
                                 {intl.formatMessage({ id: "page.club.leave" })}
                             </button>)}
-                            {!isClub?.joined && (<button onClick={onClubConnect} id={isClub?.clubId + " join"} className="nav-link color-green">
+                            {isClub?.joined === false && (<button onClick={onClubConnect} id={isClub?.clubId + " join"} className="nav-link color-green">
 
                                 <FontAwesomeIcon className="color-green me-2" icon={faArrowRightToBracket} />
                                 {intl.formatMessage({ id: "page.club.join" })}
