@@ -30,7 +30,7 @@ export default function SignIn() {
             </div>
             <main>
                 <div className={"d-flex ms-auto me-auto fit-content mt-4 rounded w-56r shadow p-5"}>
-                    <Image className={"mt-auto mb-auto me-4"} src={"/images/playing_cards.svg"}
+                    <Image className={"mt-auto mb-auto me-4 d-none d-sm-inline"} src={"/images/playing_cards.svg"}
                            alt={"Playing card image"} width={460} height={327}/>
                     <div className={"w-100"}>
                         <Tabs

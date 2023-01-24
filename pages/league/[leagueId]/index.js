@@ -126,14 +126,14 @@ export default function Index() {
             <NavTop/>
 
             <div className={"d-flex bg-white"}>
-                <main className="ms-auto w-50 me-auto">
+                <main className="ms-auto me-auto">
                     <header className="d-flex justify-content-between mt-4">
-                        <div className="d-flex ">
+                        <div className="d-flex flex-wrap">
                             {league?.club.pictureUrl[0] === "/" ? (
-                                    <Image className="img-thumbnail img-club-profile" alt="Club Image" width={700}
+                                    <Image className="d-none d-sm-inline img-thumbnail img-club-profile" alt="Club Image" width={700}
                                            height={400}
                                            src={league?.club.pictureUrl}/>)
-                                : (<Image className="img-thumbnail img-club-profile" alt="Club Image" width={700}
+                                : (<Image className="d-none d-sm-inline img-thumbnail img-club-profile" alt="Club Image" width={700}
                                           height={400}
                                           src="/images/placeholder.png"/>)
                             }

@@ -83,8 +83,8 @@ export const NavClub = () => {
 
     return (
         <nav className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
-            <div className="" id="sidebar-wrapper">
-                <div className="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white">
+            <div>
+                <div className="align-items-center align-items-sm-start px-3 pt-2 text-white">
                     <ul className="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start">
                         <li data-bs-toggle="collapse" className="nav-item px-0 align-middle">
                             <Link href={`/club/${clubId}`} id="home" className="nav-link text-white" aria-current="page">

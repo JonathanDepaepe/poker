@@ -197,8 +197,8 @@ export default function Home() {
 
                         </Tab>*/}
                         <Tab eventKey="news" title={intl.formatMessage({id: "page.club.news"})}>
-                            <div className="d-flex">
-                                <div className="w-50">
+                            <div className="d-flex flex-wrap">
+                                <div className="w-50 mw-100">
                                     <h3>{intl.formatMessage({id: "page.club.settings.createNews"})}</h3>
                                     <form onSubmit={createNews}>
                                         <label
@@ -215,7 +215,7 @@ export default function Home() {
                                         </button>
                                     </form>
                                 </div>
-                                <div className="w-50">
+                                <div className="w-50 mw-100">
                                     <h3>{intl.formatMessage({id: "page.club.settings.recentNews"})}</h3>
                                     <article>
                                         {news?.map((newsArticle) => (
@@ -235,8 +235,8 @@ export default function Home() {
                             </div>
                         </Tab>
                         <Tab eventKey="invites" title={intl.formatMessage({id: "page.club.settings.invites"})}>
-                            <div className="d-flex">
-                                <div className="w-50">
+                            <div className="d-flex flex-wrap">
+                                <div className="w-50 mw-100">
                                     <h3>{intl.formatMessage({id: "page.club.settings.createInvite"})}</h3>
                                     <form onSubmit={createInvite}>
                                         <label
@@ -257,21 +257,22 @@ export default function Home() {
                                         </button>
                                     </form>
                                 </div>
-                                <div className="w-50">
+                                <div className="w-50 mw-100">
                                     <h3>{intl.formatMessage({id: "page.club.settings.activeCodes"})}</h3>
                                     <article className={"height-code overflow-auto"}>
                                         {invites?.map((invite) => (
                                             <section>
                                                 <hr/>
-                                                <div className={"d-flex"}>
+                                                <div className={"d-flex flex-wrap"}>
                                                     <p>{intl.formatMessage({id: "page.club.settings.code"})}: </p>
+                                                    <div>
                                                     <input className={"height-fit-content ms-1 me-1"} type="text"
                                                            disabled value={invite.invitationHash}/>
                                                     <Link id={invite.invitationHash} onClick={deleteInvite}
                                                           href={"#"}><Image id={invite.invitationHash}
                                                                             className={"mt-auto mb-auto"}
                                                                             src="/images/icons/trah-icon.svg"
-                                                                            alt="trash" width={15} height={15}/></Link>
+                                                                            alt="trash" width={15} height={15}/></Link></div>
                                                 </div>
                                                 <p>{intl.formatMessage({id: "page.club.settings.duration"})}: {invite.days + 1} {intl.formatMessage({id: "page.club.settings.daysLeft"})}</p>
                                                 <p>{intl.formatMessage({id: "page.club.settings.forMemberID"})}: {invite.memberId}</p>
@@ -285,7 +286,7 @@ export default function Home() {
                         </Tab>
                         <Tab eventKey="subscription"
                              title={intl.formatMessage({id: "page.club.settings.subscription"})}>
-                            <article className="d-flex justify-content-around mt-5">
+                            <article className="d-flex flex-wrap justify-content-around mt-5">
                                 <section className="card text-center">
                                     <h3 className="card-header">{intl.formatMessage({id: "page.club.settings.free"})}</h3>
                                     <ul className="card-body list-unstyled">

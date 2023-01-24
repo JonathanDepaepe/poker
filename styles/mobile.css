@@ -18,4 +18,11 @@
         text-align: center;
         padding: 5px;
     }
+    .result-table {
+        width: auto !important;
+    }
+
+    div > .mw-100 {
+        width: 100% !important;
+    }
 }

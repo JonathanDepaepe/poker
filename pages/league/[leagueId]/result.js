@@ -28,7 +28,7 @@ export default function Index() {
             </Head>
 
             <div className={"d-flex bg-dark"}>
-                <main className=" ms-auto w-75 me-auto">
+                <main className="result-table ms-auto w-75 me-auto">
                     <header className="d-flex border justify-content-between mt-3 p-1 rounded">
                         <Link className="text-decoration-none ms-2 me-2 d-flex " href="/">
                             <Image src="/images/logo.png" width={50} height={50} alt="logo"/>
