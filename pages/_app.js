@@ -2,6 +2,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 import '../styles/globals.css';
 import '../styles/style.css';
+import '../styles/mobile.css';
 import {config} from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 import {SWRConfig} from 'swr'

@@ -130,6 +130,7 @@ export default function Club() {
                 .then(async (data) => {
                     const clubName = event.target.clubName.value;
                     const isPrivate = event.target.private.checked;
+                    console.log(isPrivate)
                     const formData = new FormData();
                     !selectedImage ?
                         formData.append("file", "Default") :

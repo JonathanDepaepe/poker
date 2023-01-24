@@ -142,8 +142,13 @@
 }
 
 .fit-content{
-    width: fit-content;
-    width: -moz-fit-content;
+    width: fit-content !important;
+    width: -moz-fit-content !important;
+}
+
+.min-fit-content{
+    min-width: fit-content !important;
+    min-width: -moz-min-content !important;
 }
 
 .height-fit-content{
@@ -165,6 +170,11 @@
 .w-90{
     width: 90%;
 }
+
+.w-40{
+    width: 40%;
+}
+
 
 .tab-content{
     height: 100%;

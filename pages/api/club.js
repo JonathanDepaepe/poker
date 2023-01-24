@@ -20,12 +20,13 @@ const post = async (req, res) => {
         } else {
             fullImageSrc = "/static/placeholder.png"
         }
-        const club = await fetch('https://pokermanager.games/api/Club', {
+            return res.status(201).send("");
+            const club = await fetch('https://pokermanager.games/api/Club', {
             body: JSON.stringify({
                 ownerId: fields.memberId,
                 name : fields.clubName,
                 pictureUrl: fullImageSrc,
-                public: !fields.isPrivate
+                public: fields.isPrivate === "false"
             }),
             headers: {
                 'Content-Type': 'application/json',

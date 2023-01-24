@@ -1,0 +1,21 @@
+@media only screen and (max-width: 991px) {
+.navTop .nav-content > div{
+    width: fit-content;
+    width: -moz-fit-content;
+    margin-right: auto;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .navTop .nav-content > div{
+        flex-direction: column;
+        width: 100%;
+        margin-right: auto;
+    }
+    .navTop .nav-content > div > .nav-link{
+        border-bottom: 1px solid gray;
+        width: 100%;
+        text-align: center;
+        padding: 5px;
+    }
+}

@@ -71,7 +71,7 @@ export default function Index() {
                 <NavClub/>
 
                 <main className="p-4 w-100">
-                    <div className={"d-flex"}>
+                    <div className={"d-flex flex-wrap"}>
                         <Image className={"img-thumbnail img-club-profile"} src={isClub?.image} width={700}
                                height={400} alt={"Club logo"}/>
                         <div className={"ms-4"}>
@@ -79,8 +79,8 @@ export default function Index() {
                             <p className={"text-gray"}>{intl.formatMessage({ id: "page.club.owner" })}: {isClub?.owner.nickname}</p>
                         </div>
                     </div>
-                    <div className={"d-flex"}>
-                        <div className={"w-50 m-2"}>
+                    <div className={"d-flex flex-wrap w-100"}>
+                        <div className={"w-40 min-fit-content m-2"}>
                             <h3>{intl.formatMessage({ id: "page.club.planning" })}</h3>
                             <hr/>
                             {planning?.length === 0 && (
@@ -116,7 +116,7 @@ export default function Index() {
 
                         </div>
 
-                        <div className={"w-50 m-2"}>
+                        <div className={"w-40 min-fit-content m-2 "}>
                             <h3>{intl.formatMessage({ id: "page.club.news" })}</h3>
                             <hr/>
 

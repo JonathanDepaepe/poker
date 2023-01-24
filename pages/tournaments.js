@@ -249,17 +249,17 @@ export default function Home() {
 
                                 {tournamentEnded === true && (<>
                                     <div className="mt-3 d-flex ms-auto me-auto fit-content">
-                                        <div className="mt-5 me-3"><Image src={"/images/icons/2ndPlace.png"} width={68}
+                                        <div className="mt-5 me-3 d-flex flex-column"><Image className="ms-auto me-auto" src={"/images/icons/2ndPlace.png"} width={68}
                                                                           height={80} alt={"secondPlace"}/> <p
                                             className="m-0 fit-content ms-auto me-auto">{tournament?.tournamentEntrys[1].info[0].nickname}</p>
                                             <p className="m-0 fit-content ms-auto me-auto">{tournament?.tournamentEntrys[1].points} points</p>
                                         </div>
-                                        <div className="me-3"><Image src={"/images/icons/1stPlace.png"} width={68}
+                                        <div className="me-3 d-flex flex-column"><Image className="ms-auto me-auto" src={"/images/icons/1stPlace.png"} width={68}
                                                                      height={80} alt={"firstPlace"}/><p
                                             className="m-0 fit-content ms-auto me-auto">{tournament?.tournamentEntrys[0].info[0].nickname}</p>
                                             <p className="m-0 fit-content ms-auto me-auto">{tournament?.tournamentEntrys[0].points} points</p>
                                         </div>
-                                        <div className="mt-5"><Image src={"/images/icons/3thPlace.png"} width={68}
+                                        <div className="mt-5 d-flex flex-column"><Image className="ms-auto me-auto" src={"/images/icons/3thPlace.png"} width={68}
                                                                      height={80} alt={"thirdPlace"}/><p
                                             className="m-0 fit-content ms-auto me-auto">{tournament?.tournamentEntrys[2].info[0].nickname}</p>
                                             <p className="m-0 fit-content ms-auto me-auto">{tournament?.tournamentEntrys[2].points} points</p>
