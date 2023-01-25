@@ -22,7 +22,6 @@ export const NavClub = () => {
         } else {
             clubHref = href[href.length - 1]
         }
-        console.log(clubHref)
         fetch('/api/auth/user')
             .then((res) => res.json())
             .then((fetchUser) => {

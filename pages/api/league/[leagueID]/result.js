@@ -46,7 +46,6 @@ export default async function handler(req, res) {
             return b.points - a.points
         })
     }
-    console.log(league[0])
         for (let member of totalScorePlayers){
             let memberRow = {nickname: member.nickname, tournaments: [], total: member.points}
             for (let tournament of league[0].tournaments){

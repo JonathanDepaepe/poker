@@ -111,7 +111,6 @@ export default function Index() {
                 }
                 position = 0;
                 setTournament(tournament[0])
-                console.log(tournament[0])
                 setOpen(true)
             })
 

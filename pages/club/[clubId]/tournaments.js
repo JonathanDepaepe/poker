@@ -69,7 +69,6 @@ export default function Home() {
         fetch(`/api/club/${clubId}/leagues`, {headers: {'Authorization': "Bearer " + user.user.token}})
             .then((res) => res.json())
             .then((fetchLeagues) => {
-                console.log(fetchLeagues)
                 setClubLeagues(fetchLeagues.sort(function (a,b){return a.name.localeCompare(b.name)}))
                 if (fetchLeagues.length === 0){
 
@@ -95,7 +94,6 @@ export default function Home() {
                         setHasEndedTour(true)
                     }
                 setTournaments(fetchTournaments)
-                console.log(fetchTournaments)
             })
     }
 

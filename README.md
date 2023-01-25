@@ -11,7 +11,7 @@
 - API Swagger: https://pokermanager.games/swagger/index.html
 - API: https://pokermanager.games/api/
 
-## How to run the Web app localy
+## How to run the Web app locally
 
 ### Required
 -  Connection to the [API](https://pokermanager.games/swagger/index.html)
@@ -43,3 +43,8 @@
   ```jsx
   <li><Link className={"text-decoration-none text-white ps-2 d-flex mt-2"} locale={"LOCALE"} href={asPath}><FLAGIMPORT title="" className="flag-icon rounded"/><p className={"ps-2 mt-auto mb-auto"}>LOCALE</p></Link> </li>
   ```
+
+## How to Save club and profile images locally instead of Spaces
+
+- For profile go into `/pages/api/profile/profile.js` change `await uploadProfile(...)` to `await saveFile(...)`
+- For clubs go into `/pages/api/club.js` change `await uploadFile(...)` to `await saveFile(...)`

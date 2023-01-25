@@ -27,7 +27,6 @@ export default function Home() {
             .then((res) => res.json())
             .then((fetchUser) => {
                 setUser(fetchUser)
-                console.log(fetchUser)
             })
         fetch('/api/tournament')
             .then((res) => res.json())
@@ -42,7 +41,6 @@ export default function Home() {
                     }
                 }
                 setTournaments(fetchTournaments)
-                console.log(fetchTournaments)
             })
     }, [])
 

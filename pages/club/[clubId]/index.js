@@ -2,7 +2,6 @@ import {NavClub} from "../../../components/navigation/navClub";
 import {NavTop} from "../../../components/navigation/navTop";
 
 import React, {useEffect, useState} from 'react';
-import {useRouter} from 'next/router'
 import {useIntl} from "react-intl";
 import Head from "next/head";
 import Image from "next/image";
@@ -33,7 +32,6 @@ export default function Index() {
                     }else{
                         data[0].image = data[0].pictureUrl;
                     }
-                        console.log(data)
                         setClub(data[0]);
                     })
 
@@ -46,7 +44,6 @@ export default function Index() {
                     .then((res) => res.json())
                     .then((data) => {
                         setPlanning(data)
-                        console.log(data)
                     })
             })
 

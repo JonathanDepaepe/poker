@@ -3,11 +3,9 @@ import {NavTop} from "../../components/navigation/navTop";
 import Head from "next/head";
 import Image from "next/image";
 import {useState, useEffect} from 'react'
-import {useRouter} from "next/router";
 import {useIntl} from "react-intl";
 
 export default function Index() {
-    const router = useRouter();
     const [user, setUser] = useState(null)
     const [isCreating, setCreating] = useState(false)
     const [saved, setSaved] = useState(false);
@@ -41,8 +39,6 @@ export default function Index() {
                     const email = event.target.email.value;
                     const formData = new FormData();
                     formData.append("newImage", "false");
-                    console.log(user?.user.data.profilePictureUrl[0])
-                    console.log(user?.user.data.profilePictureUrl[0]=== "h")
                     if (user?.user.data.profilePictureUrl[0]=== "h") {
                         formData.append("file", user?.user.data.profilePictureUrl)
                     } else if (!selectedImage){

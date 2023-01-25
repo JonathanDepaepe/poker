@@ -33,7 +33,6 @@ export default function Home() {
             .then((res) => res.json())
             .then((fetchUser) => {
                 setUser(fetchUser)
-                console.log(fetchUser)
                 fetch('/api/club/' + clubHref, {
                     method: "POST",
                     headers: {
@@ -43,7 +42,6 @@ export default function Home() {
                         user: fetchUser
                     })
                 }).then((res) => res.json()).then((fetchClub) => {
-                        console.log(fetchClub[0])
                         setClub(fetchClub[0])
                     })
                 loadLeagues(clubHref, fetchUser)

@@ -45,7 +45,6 @@ const post = async (req, res) => {
             maxPlayerCount: parseInt(body.maxPlayers)
         })
     }).then((resx) =>{
-        console.log(resx)
         return res.status(resx.status).send();
     })
 }

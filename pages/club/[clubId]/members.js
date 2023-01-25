@@ -3,7 +3,6 @@ import {NavTop} from "../../../components/navigation/navTop";
 import React, {useEffect, useState} from 'react';
 
 import Head from "next/head";
-import Image from "next/image";
 import {useIntl} from "react-intl";
 
 
@@ -21,7 +20,6 @@ export default function Home() {
                 })
                     .then((res) => res.json())
                     .then((data) => {
-                        console.log(data)
                         for(let member of data){
                             if (member.profilePictureUrl[0] !== "/" && member.profilePictureUrl[0] !== "h"){
                                 member.image = "/images/logo.png"

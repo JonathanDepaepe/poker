@@ -14,6 +14,16 @@ const s3Client = new S3Client({
     }
 });
 
+const saveFile = async (file, clubName) => {
+    const imageSRC = file.originalFilename.split(".").pop()
+    const fullImageSrc = `/static/${clubName}${Math.floor(Math.random() * 100)}.${imageSRC}`
+    const data = fs.readFileSync(file.filepath);
+    fs.writeFileSync("./public"+fullImageSrc, data);
+    await fs.unlinkSync(file.filepath);
+    return fullImageSrc ;
+};
+
+
 const uploadFile = async (files) => {
     try {
          await s3Client.send(new PutObjectCommand({
@@ -27,10 +37,6 @@ const uploadFile = async (files) => {
         console.log("Error", err);
     }
 };
-
-
-// Step 5: Call the uploadObject function.
-
 
 
 export const config = {

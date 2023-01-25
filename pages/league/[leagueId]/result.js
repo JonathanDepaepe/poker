@@ -15,7 +15,6 @@ export default function Index() {
                 fetch(`/api/league/${leagueID}/result`, {headers: {'Authorization': "Bearer " + fetchUser.user.token}})
                     .then((res) => res.json())
                     .then((league) => {
-                        console.log(league[0])
                         setLeague(league[0])
                     })
             })

@@ -3,7 +3,6 @@ import https from "https";
 export default async function handler(req, res) {
     const header = req.headers;
     const {memberId} = req.query;
-    console.log(memberId)
     const token = header.authorization.split(" ")[1];
     const allTournaments = await getAllTournaments(token);
     let userTournaments = [];

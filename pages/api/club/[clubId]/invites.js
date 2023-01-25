@@ -22,9 +22,7 @@ const post = async (req, res) => {
         }),
         agent: httpsAgent
     })
-    console.log(resx)
     const response = await resx.json()
-    console.log(response)
     return res.status(200).json(response)
 }
 
@@ -60,7 +58,7 @@ const deleteReq = async (req, res) => {
     const httpsAgent = new https.Agent({
         rejectUnauthorized: false,
     });
-    const response = await fetch(url, {
+     await fetch(url, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',

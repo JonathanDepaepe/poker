@@ -41,7 +41,6 @@ const post = async (req, res) => {
         const httpsAgent = new https.Agent({
             rejectUnauthorized: false,
         });
-        console.log(fields)
         if (fields.file === "Default"){
             fullImageSrc = "/static/profile/logo.png"
         } else if (fields.newImage=== "true"){
@@ -75,7 +74,7 @@ const post = async (req, res) => {
     });
 };
 
-const saveFile = async (file, nickname) => {
+const saveFile = async (file, nickname) => { //save file localy
     const imageSRC = file.originalFilename.split(".").pop()
     const fullImageSrc = `/static/profile/${nickname}${Math.floor(Math.random() * 100)}.${imageSRC}`
     const data = fs.readFileSync(file.filepath);

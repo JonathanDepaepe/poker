@@ -51,7 +51,6 @@ export default withSession(async (req, res) => {
             }
             }).then(async function (data) {
             if (data === null || user.token === null) {
-                console.log("here")
                 res.json({
                     isLoggedIn: false,
                 })
@@ -80,7 +79,6 @@ export default withSession(async (req, res) => {
         });
 
     } else {
-        console.log("toggled user logged out")
         res.json({
             isLoggedIn: false,
         })
