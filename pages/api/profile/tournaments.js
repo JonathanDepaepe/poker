@@ -18,7 +18,7 @@ export default async function handler(req, res) {
 }
 
 const getAllTournaments = async (token) => {
-    const urlTournament = `https://pokermanager.games/api/Tournament/`;
+    const urlTournament = `${process.env.URL_API}/Tournament/`;
     const httpsAgent = new https.Agent({
         rejectUnauthorized: false,
     });

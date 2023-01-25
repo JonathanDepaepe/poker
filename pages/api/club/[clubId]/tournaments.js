@@ -4,7 +4,7 @@ const get = async (req, res) => {
     const {clubId} =  req.query
     const header = req.headers;
     const token = header.authorization.split(" ")[1];
-    const urlTournament = `https://pokermanager.games/api/Tournament/ClubTournaments/${clubId}`;
+    const urlTournament = `${process.env.URL_API}/Tournament/ClubTournaments/${clubId}`;
     const httpsAgent = new https.Agent({
         rejectUnauthorized: false,
     });
@@ -24,7 +24,7 @@ const post = async (req, res) => {
     const header = req.headers;
     const token = header.authorization.split(" ")[1];
     const body = JSON.parse(req.body);
-    const url = `https://pokermanager.games/api/Tournament?clubId=${clubId}&leagueId=${body.leagueId}&creatorId=${body.memberId}`;
+    const url = `${process.env.URL_API}/Tournament?clubId=${clubId}&leagueId=${body.leagueId}&creatorId=${body.memberId}`;
     const httpsAgent = new https.Agent({
         rejectUnauthorized: false,
     });

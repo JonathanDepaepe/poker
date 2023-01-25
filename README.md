@@ -1,34 +1,45 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<p align="center"><a href="https://king-prawn-app-ihi8t.ondigitalocean.app/" target="_blank"><img src="https://i.imgur.com/PU5fUtY.png" width="400"></a></p>
 
-## Getting Started
+# Software Engineering - HPTM - Web App
 
-First, run the development server:
+[![Generic badge](https://img.shields.io/badge/Version-Alpha-red.svg)](https://shields.io/)
 
-```bash
-npm run dev
-# or
-yarn dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Useful links
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+- Web app: https://king-prawn-app-ihi8t.ondigitalocean.app/
+- API Swagger: https://pokermanager.games/swagger/index.html
+- API: https://pokermanager.games/api/
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## How to run the Web app localy
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### Required
+-  Connection to the [API](https://pokermanager.games/swagger/index.html)
+-  Latest version of [NodeJs](https://nodejs.org/en/download/)
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+### Installing
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Clone the server into your preferred folder
+    - `git clone https://github.com/silentz420/poker.git`
+- Install the packages
+    - `npm install`
+- Run the Web app
+    -  `npm run build`
+    -  `npm run start`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## How to create a new language
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Create a new file in `./lang/{LANGCODE}.json`
+- Copy the content from `./lang/en.json` into your new file
+- Translate every line
+- Import the file into `_app.js` and add it in `.env` under languages
+- Import the flag into `/compononts/navigation/navTop.jsx` from the `'country-flag-icons/react/3x2'`
+- Add and change in the same file the following into the a tag (change LOCALE and FLAGIMPORT):
+  ```jsx 
+  {locale === LOCALE && (<><FLAGIMPORT title="" className="flag-icon  rounded"/><p className={"height-fit-content ps-2 mt-auto text-white mb-auto"}>LOCALE</p></>)}
+  ```
+- As last add and change in the same file the following into the ul tag (change LOCALE and FLAGIMPORT):
+  ```jsx
+  <li><Link className={"text-decoration-none text-white ps-2 d-flex mt-2"} locale={"LOCALE"} href={asPath}><FLAGIMPORT title="" className="flag-icon rounded"/><p className={"ps-2 mt-auto mb-auto"}>LOCALE</p></Link> </li>
+  ```

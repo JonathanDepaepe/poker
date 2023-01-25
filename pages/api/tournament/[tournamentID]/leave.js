@@ -10,7 +10,7 @@ export default async function handler(req, res) {
         rejectUnauthorized: false,
     });
 
-    const urlJoin = `https://pokermanager.games/api/Tournament/DeletePlayerFromTournament?tournamentId=${tournamentID}&memberId=${body.memberId}`;
+    const urlJoin = `${process.env.URL_API}/Tournament/DeletePlayerFromTournament?tournamentId=${tournamentID}&memberId=${body.memberId}`;
     await fetch(urlJoin, {
         headers: {
             'Authorization': "Bearer " + token,

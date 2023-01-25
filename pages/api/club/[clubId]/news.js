@@ -3,7 +3,7 @@ import https from "https";
 const post = async (req, res) => {
     const {clubId} =  req.query
     const body = JSON.parse(req.body);
-    const url = `https://pokermanager.games/api/Announcement`;
+    const url = `${process.env.URL_API}/Announcement`;
     const httpsAgent = new https.Agent({
         rejectUnauthorized: false,
     });
@@ -30,7 +30,7 @@ const get = async (req, res) => {
     const header = req.headers;
     const body = req.body;
     const token = header.authorization.split(" ")[1];
-    const url = `https://pokermanager.games/api/Announcement/${clubId}/Announcements`;
+    const url = `${process.env.URL_API}/Announcement/${clubId}/Announcements`;
     const httpsAgent = new https.Agent({
         rejectUnauthorized: false,
     });
@@ -50,7 +50,7 @@ const deleteReq = async (req, res) => {
     const body = req.body;
     const header = req.headers;
     const token = header.authorization.split(" ")[1];
-    const url = `https://pokermanager.games/api/Announcement/DeleteAnnouncement`;
+    const url = `${process.env.URL_API}/Announcement/DeleteAnnouncement`;
     const httpsAgent = new https.Agent({
         rejectUnauthorized: false,
     });

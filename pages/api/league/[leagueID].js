@@ -4,7 +4,7 @@ export default async function handler(req, res) {
     const {leagueID} =  req.query
     const header = req.headers;
     const token = header.authorization.split(" ")[1];
-    const url = `https://pokermanager.games/api/League/` + leagueID;
+    const url = `${process.env.URL_API}/League/` + leagueID;
     const httpsAgent = new https.Agent({
         rejectUnauthorized: false,
     });

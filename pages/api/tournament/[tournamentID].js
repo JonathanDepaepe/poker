@@ -4,8 +4,8 @@ export default async function handler(req, res) {
     const {tournamentID} =  req.query
     const header = req.headers;
     const token = header.authorization.split(" ")[1];
-    const URL = `https://pokermanager.games/api/Tournament/` + tournamentID;
-    const userURL = `https://pokermanager.games/api/User/` ;
+    const URL = `${process.env.URL_API}/Tournament/` + tournamentID;
+    const userURL = `${process.env.URL_API}/User/` ;
     const httpsAgent = new https.Agent({
         rejectUnauthorized: false,
     });

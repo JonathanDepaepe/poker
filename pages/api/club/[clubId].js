@@ -3,7 +3,7 @@ import https from "https";
 export default async function handler(req, res) {
     const {clubId} =  req.query
     const body = req.body;
-    const url = `https://pokermanager.games/api/Club/ClubId/` + clubId;
+    const url = `${process.env.URL_API}/Club/ClubId/` + clubId;
     const httpsAgent = new https.Agent({
         rejectUnauthorized: false,
     });

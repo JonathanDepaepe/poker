@@ -4,8 +4,8 @@ import https from "https";
 export default withSession(async (req, res) => {
     const user = req.session.get('user')
     if (user) {
-        const userDataURL = `https://pokermanager.games/api/User/` + user.memberId;
-        const refreshURL = `https://pokermanager.games/api/Auth/refresh-token`
+        const userDataURL = `${process.env.URL_API}/User/` + user.memberId;
+        const refreshURL = `${process.env.URL_API}/Auth/refresh-token`
         const httpsAgent = new https.Agent({
             rejectUnauthorized: false,
         });
@@ -60,7 +60,7 @@ export default withSession(async (req, res) => {
                     rejectUnauthorized: false,
                 });
 
-                await fetch(`https://pokermanager.games/api/Club/MemberId/${user.memberId}`, {
+                await fetch(`${process.env.URL_API}/Club/MemberId/${user.memberId}`, {
                     method: 'get',
                     headers: {
                         'Content-Type': 'application/json',

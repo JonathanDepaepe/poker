@@ -1,13 +1,11 @@
-
 import withSession from '../../../lib/session';
 import https from "https";
-import {error} from "next/dist/build/output/log";
 
 
 
 export default withSession(async (req, res) => {
     const login = JSON.parse(req.body);
-    const url = `https://pokermanager.games/api/Auth/login`;
+    const url = `${process.env.URL_API}/Auth/login`;
     const httpsAgent = new https.Agent({
         rejectUnauthorized: false,
     });

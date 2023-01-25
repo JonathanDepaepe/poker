@@ -10,7 +10,7 @@ export default async function handler(req, res) {
         rejectUnauthorized: false,
     });
 
-    const URL = `https://pokermanager.games/api/Tournament/` + tournamentID;
+    const URL = `${process.env.URL_API}/Tournament/` + tournamentID;
     const resx = await fetch(URL, {
         method: 'GET',
         headers: {
@@ -25,7 +25,7 @@ export default async function handler(req, res) {
     }
 
     const seatNumber = await calculateSeat(tournament[0]);
-    const urlJoin = `https://pokermanager.games/api/Tournament/Reservation?tournamentId=${tournamentID}&memberId=${body.memberId}&seatNumber=${seatNumber}`;
+    const urlJoin = `${process.env.URL_API}/Tournament/Reservation?tournamentId=${tournamentID}&memberId=${body.memberId}&seatNumber=${seatNumber}`;
     await fetch(urlJoin, {
         headers: {
             'Authorization': "Bearer " + token,

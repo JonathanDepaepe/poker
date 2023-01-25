@@ -4,7 +4,7 @@ import https from "https";
 export default async function handler(req, res) {
     const body = req.body;
 
-    const url = `https://pokermanager.games/api/Auth/register`;
+    const url = `${process.env.URL_API}/Auth/register`;
     const httpsAgent = new https.Agent({
         rejectUnauthorized: false,
     });

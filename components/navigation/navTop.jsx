@@ -5,7 +5,6 @@ import React, {useState, useEffect} from 'react'
 import "bootstrap/dist/css/bootstrap.min.css";
 import {useIntl} from "react-intl";
 import {useRouter} from "next/router";
-import Script from "next/script";
 import { US, NL } from 'country-flag-icons/react/3x2'
 
 
@@ -62,7 +61,7 @@ export const NavTop = () => {
                                 </Link>
                         </>
                     )}
-
+                    {/*Dropdown locales */}
                     <div className="nav-item dropdown">
                         <a className="nav-link dropdown-toggle d-flex" href="#" role="button" data-bs-toggle="dropdown"
                            aria-expanded="false">

@@ -14,15 +14,12 @@ import nl from "../lang/nl.json";
 
 config.autoAddCss = false
 
-const messages = {
-    en,
-    nl
-};
+const messages = process.env.LOCALE_AVAILABLE
 
 function MyApp({Component, pageProps: {session, ...pageProps}}) {
     let {locale} = useRouter();
     if (locale === undefined) {
-        locale = "en"
+        locale = process.env.LOCALE_DEFAULT
     }
 
     return (

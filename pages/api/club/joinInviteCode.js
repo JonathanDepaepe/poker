@@ -2,7 +2,7 @@ import https from "https";
 
 export default async function handler(req, res) {
     const data = JSON.parse(req.body);
-    const url = `https://pokermanager.games/api/Club/JoinClubInvite?inviteHash=${data.inviteCode}&memberId=${data.user.user.memberId}`;
+    const url = `${process.env.URL_API}/Club/JoinClubInvite?inviteHash=${data.inviteCode}&memberId=${data.user.user.memberId}`;
     const httpsAgent = new https.Agent({
         rejectUnauthorized: false,
     });

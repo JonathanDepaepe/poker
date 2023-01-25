@@ -3,7 +3,7 @@ import https from "https";
 export default async function handler(req, res) {
     const body = req.body;
     const userInfo = JSON.parse(body)
-    const url = `https://pokermanager.games/api/Club/MemberId/` + userInfo.User.user.memberId;
+    const url = `${process.env.URL_API}/Club/MemberId/` + userInfo.User.user.memberId;
     const httpsAgent = new https.Agent({
         rejectUnauthorized: false,
     });
@@ -18,7 +18,7 @@ export default async function handler(req, res) {
     })
     const clubs = await resx.json()
     for (let club of clubs){
-        await fetch(`https://pokermanager.games/api/Club/ClubId/${club.clubId}/members`, {agent: httpsAgent}).then((res) => res.json())
+        await fetch(`${process.env.URL_API}/Club/ClubId/${club.clubId}/members`, {agent: httpsAgent}).then((res) => res.json())
             .then(async (members) => {
                 club.totalMembers = members.length
             })

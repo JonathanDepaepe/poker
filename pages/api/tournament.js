@@ -1,7 +1,7 @@
 import https from "https";
 
 export default async function handler(req, res) {
-    const urlTournament = `https://pokermanager.games/api/Tournament/public`;
+    const urlTournament = `${process.env.URL_API}/Tournament/public`;
     const httpsAgent = new https.Agent({
         rejectUnauthorized: false,
     });

@@ -3,7 +3,7 @@ import https from "https";
 const post = async (req, res) => {
     const {clubId} =  req.query
     const body = JSON.parse(req.body);
-    const url = `https://pokermanager.games/api/Club/CreateClubInvite`;
+    const url = `${process.env.URL_API}/Club/CreateClubInvite`;
     const httpsAgent = new https.Agent({
         rejectUnauthorized: false,
     });
@@ -32,7 +32,7 @@ const get = async (req, res) => {
     const {clubId} =  req.query
     const header = req.headers;
     const token = header.authorization.split(" ")[1];
-    const url = `https://pokermanager.games/api/Club/ClubId/${clubId}/Invitations`;
+    const url = `${process.env.URL_API}/Club/ClubId/${clubId}/Invitations`;
     const httpsAgent = new https.Agent({
         rejectUnauthorized: false,
     });
@@ -56,7 +56,7 @@ const deleteReq = async (req, res) => {
 
     const header = req.headers;
     const token = header.authorization.split(" ")[1];
-    const url = `https://pokermanager.games/api/Club/DeleteClubInvite?clubId=${clubId}&memberID=${memberId}&hash=${inviteCode}`;
+    const url = `${process.env.URL_API}/Club/DeleteClubInvite?clubId=${clubId}&memberID=${memberId}&hash=${inviteCode}`;
     const httpsAgent = new https.Agent({
         rejectUnauthorized: false,
     });

@@ -5,19 +5,19 @@ import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 
 
 const s3Client = new S3Client({
-    endpoint: "https://ams3.digitaloceanspaces.com",
+    endpoint: process.env.DO_SPACE_ENDPOINT,
     forcePathStyle: false,
-    region: "ams3",
+    region: process.env.DO_SPACE_REGION,
     credentials: {
-        accessKeyId: "DO00GZP3NZNZCE9RP4M6",
-        secretAccessKey: "TrObRgMfGfIV6qy4ZJhrUz8TShXIgtE+To4oyD+N8DA"
+        accessKeyId: process.env.DO_SPACE_CREDENTIALS_ACCESS,
+        secretAccessKey: process.env.DO_SPACE_CREDENTIALS_SECRET
     }
 });
 
 const uploadFile = async (files) => {
     try {
          await s3Client.send(new PutObjectCommand({
-            Bucket: "pokerimages",
+            Bucket: process.env.DO_SPACE_BUCKET,
             Key: files.originalFilename,
             Body: fs.createReadStream(files.filepath),
             ACL: "public-read",
@@ -51,7 +51,7 @@ const post = async (req, res) => {
         } else {
             fullImageSrc = "/static/placeholder.png"
         }
-            const club = await fetch('https://pokermanager.games/api/Club', {
+            const club = await fetch(`${process.env.URL_API}/Club`, {
             body: JSON.stringify({
                 ownerId: fields.memberId,
                 name : fields.clubName,
@@ -78,12 +78,12 @@ const get = async (req, res) => {
     const httpsAgent = new https.Agent({
         rejectUnauthorized: false,
     });
-    await fetch("https://pokermanager.games/api/Club/public",{
+    await fetch(`${process.env.URL_API}/Club/public`,{
         agent: httpsAgent,
     }).then((res) => res.json())
         .then(async (data) => {
             for (let club of data) {
-                await fetch(`https://pokermanager.games/api/Club/ClubId/${club.clubId}/members`, {agent: httpsAgent}).then((res) => res.json())
+                await fetch(`${process.env.URL_API}/Club/ClubId/${club.clubId}/members`, {agent: httpsAgent}).then((res) => res.json())
                     .then(async (members) => {
                         club.totalMembers = members.length
                     })

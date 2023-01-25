@@ -11,19 +11,19 @@ export const config = {
 
 
 const s3Client = new S3Client({
-    endpoint: "https://ams3.digitaloceanspaces.com",
+    endpoint: process.env.DO_SPACE_ENDPOINT,
     forcePathStyle: false,
-    region: "ams3",
+    region: process.env.DO_SPACE_REGION,
     credentials: {
-        accessKeyId: "DO00GZP3NZNZCE9RP4M6",
-        secretAccessKey: "TrObRgMfGfIV6qy4ZJhrUz8TShXIgtE+To4oyD+N8DA"
+        accessKeyId: process.env.DO_SPACE_CREDENTIALS_ACCESS,
+        secretAccessKey: process.env.DO_SPACE_CREDENTIALS_SECRET
     }
 });
 
 const uploadProfile = async (files) => {
     try {
         await s3Client.send(new PutObjectCommand({
-            Bucket: "pokerimages",
+            Bucket: process.env.DO_SPACE_BUCKET,
             Key: "profiles/" + files.originalFilename,
             Body: fs.createReadStream(files.filepath),
             ACL: "public-read",
@@ -46,7 +46,7 @@ const post = async (req, res) => {
         } else {
             fullImageSrc = "/static/profile/logo.png"
         }
-        await fetch('https://pokermanager.games/api/User/update', {
+        await fetch(`${process.env.URL_API}/User/update`, {
             body: JSON.stringify({
                 memberId: fields.memberId,
                 email: fields.email,

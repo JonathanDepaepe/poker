@@ -4,7 +4,7 @@ export default async function handler(req, res) {
     const {leagueID} = req.query
     const header = req.headers;
     const token = header.authorization.split(" ")[1];
-    const url = `https://pokermanager.games/api/League/` + leagueID;
+    const url = `${process.env.URL_API}/League/` + leagueID;
     const httpsAgent = new https.Agent({
         rejectUnauthorized: false,
     });
@@ -21,7 +21,7 @@ export default async function handler(req, res) {
     const tableBody = [];
     league[0].tournaments.sort(function (a,b){return new Date(a.startDateTime) - new Date(b.startDateTime)})
     for (let tournament of league[0].tournaments) {
-        const resY = await fetch("https://pokermanager.games/api/Tournament/" + tournament.tournamentId + "/results", {
+        const resY = await fetch(`${process.env.URL_API}/Tournament/` + tournament.tournamentId + "/results", {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
