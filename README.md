@@ -33,7 +33,7 @@
 - Create a new file in `./lang/{LANGCODE}.json`
 - Copy the content from `./lang/en.json` into your new file
 - Translate every line
-- Import the file into `_app.js` and add it in `.env` under languages
+- Import the file into `_app.js` and add it in the object `const messages`
 - Import the flag into `/compononts/navigation/navTop.jsx` from the `'country-flag-icons/react/3x2'`
 - Add and change in the same file the following into the a tag (change LOCALE and FLAGIMPORT):
   ```jsx 
