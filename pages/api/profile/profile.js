@@ -41,10 +41,13 @@ const post = async (req, res) => {
         const httpsAgent = new https.Agent({
             rejectUnauthorized: false,
         });
-        if (fields.file !== "Default"){
-            fullImageSrc = await uploadProfile(files.file, fields.nickname);
-        } else {
+        console.log(fields)
+        if (fields.file === "Default"){
             fullImageSrc = "/static/profile/logo.png"
+        } else if (fields.newImage=== "true"){
+            fullImageSrc = await uploadProfile(files.file, fields.nickname);
+        }else {
+            fullImageSrc = fields.file
         }
         await fetch(`${process.env.URL_API}/User/update`, {
             body: JSON.stringify({
@@ -61,7 +64,7 @@ const post = async (req, res) => {
             agent: httpsAgent,
             method: 'PUT',
         }).then(async function (respo) {
-            if (respo.status === 202) {
+            if (respo.status === 200) {
                 return res.status(201).send("");
             } else {
                 return res.status(403).send("");

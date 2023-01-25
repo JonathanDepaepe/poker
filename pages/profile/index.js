@@ -10,6 +10,7 @@ export default function Index() {
     const router = useRouter();
     const [user, setUser] = useState(null)
     const [isCreating, setCreating] = useState(false)
+    const [saved, setSaved] = useState(false);
     const [selectedImage, setSelectedImage] = useState();
     const intl = useIntl();
 
@@ -39,9 +40,17 @@ export default function Index() {
                     const nickname = event.target.username.value;
                     const email = event.target.email.value;
                     const formData = new FormData();
-                    !selectedImage ?
-                        formData.append("file", "Default") :
+                    formData.append("newImage", "false");
+                    console.log(user?.user.data.profilePictureUrl[0])
+                    console.log(user?.user.data.profilePictureUrl[0]=== "h")
+                    if (user?.user.data.profilePictureUrl[0]=== "h") {
+                        formData.append("file", user?.user.data.profilePictureUrl)
+                    } else if (!selectedImage){
+                        formData.append("file", "Default")
+                    } else {
+                        formData.append("newImage", "true");
                         formData.append("file", selectedImage)
+                    }
                     formData.append("token", data.user.token);
                     formData.append("memberId", data.user.memberId);
                     formData.append("nickname", nickname);
@@ -53,9 +62,10 @@ export default function Index() {
                     }).then(function (response) {
                         if (response.status === 201) {
                             setCreating(false)
+                            setSaved(true)
                             setTimeout(function () {
-                                router.reload()
-                            }, 1200)
+                                setSaved(false)
+                            }, 2000)
                         }
                     })
                 });
@@ -133,8 +143,12 @@ export default function Index() {
                                                defaultValue={user?.user.data.email}/>
                                     </div>
                                     <div className="d-flex justify-content-end ">
-                                        <button className="btn btn-primary bg-color-primary"
-                                                type="submit">{intl.formatMessage({id: "page.profile.saveChanges"})}</button>
+                                        {!saved && !isCreating &&(<button className="btn btn-primary bg-color-primary"
+                                                                                   type="submit">{intl.formatMessage({id: "page.profile.saveChanges"})}</button>)}
+                                        {!saved && isCreating &&(<button className="btn btn-primary bg-color-primary disabled"
+                                                                          type="submit">{intl.formatMessage({id: "page.profile.saving"})}</button>)}
+                                        {saved && !isCreating &&(<button className="btn btn-primary bg-color-green disabled"
+                                                                         type="submit">{intl.formatMessage({id: "page.profile.saved"})}</button>)}
                                     </div>
                                 </div>
                             </div>

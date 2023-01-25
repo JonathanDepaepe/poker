@@ -57,6 +57,8 @@
   "page.profile.noLargerThan5Mb": "No larger than 5Mb",
   "page.profile.email": "Email",
   "page.profile.saveChanges": "Save Changes",
+  "page.profile.saving": "Saving...",
+  "page.profile.saved": "Saved",
   "page.profile.wins": "Wins",
   "page.profile.total": "Total",
   "page.profile.thisMonth": "This Month",

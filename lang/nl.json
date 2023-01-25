@@ -57,6 +57,8 @@
   "page.profile.noLargerThan5Mb": "Niet groter dan 5Mb",
   "page.profile.email": "Email",
   "page.profile.saveChanges": "Opslaan",
+  "page.profile.saving": "Opslaan...",
+  "page.profile.saved": "Opgeslaan",
   "page.profile.wins": "Gewonnen",
   "page.profile.total": "Totaal",
   "page.profile.thisMonth": "Deze maand",
