@@ -28,16 +28,10 @@ export default function Index() {
                     })
 
                 }).then((res) => res.json()).then((data) => {
-                    if (data[0].pictureUrl[0] !== "/"){
+                    if (data[0].pictureUrl[0] !== "/" && data[0].pictureUrl[0] !== "h"){
                         data[0].image = "/static/placeholder.png"
                     }else{
-                        try{
-                            require( "../../../public" +data[0].pictureUrl)
-                            data[0].image = data[0].pictureUrl;
-                        }
-                        catch(err){
-                            data[0].image = "/static/placeholder.png"
-                        }
+                        data[0].image = data[0].pictureUrl;
                     }
                         console.log(data)
                         setClub(data[0]);
@@ -60,7 +54,7 @@ export default function Index() {
     return (
         <>
             <Head>
-                <title>Poker Manager | Club</title>
+                <title>Poker Manager | Club </title>
                 <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
             </Head>
             <div>
@@ -72,7 +66,7 @@ export default function Index() {
 
                 <main className="p-4 w-100">
                     <div className={"d-flex flex-wrap"}>
-                        <Image className={"img-thumbnail img-club-profile"} src={isClub?.image} width={700}
+                        <img className={"img-thumbnail img-club-profile"} src={isClub?.image} width={700}
                                height={400} alt={"Club logo"}/>
                         <div className={"ms-4"}>
                             <h2>{isClub?.name}</h2>

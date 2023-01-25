@@ -23,16 +23,10 @@ export default function Home() {
                     .then((data) => {
                         console.log(data)
                         for(let member of data){
-                            if (member.profilePictureUrl[0] !== "/"){
+                            if (member.profilePictureUrl[0] !== "/" && member.profilePictureUrl[0] !== "h"){
                                 member.image = "/images/logo.png"
                             }else{
-                                try{
-                                    require( "../../../public" +member.profilePictureUrl)
-                                    member.image = member.profilePictureUrl;
-                                }
-                                catch(err){
-                                    member.image = "/images/logo.png"
-                                }
+                                member.image = member.profilePictureUrl
                             }
                         }
                         setMembers(data);
@@ -42,7 +36,7 @@ export default function Home() {
     return (
         <>
             <Head>
-                <title>Poker Manager | Club</title>
+                <title>Poker Manager | Club Members</title>
                 <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
             </Head>
             <div>
@@ -57,7 +51,7 @@ export default function Home() {
                     <article className={'d-flex flex-wrap'}>
                         {isMembers?.map((members)=>(
                             <section className={'d-flex flex-column shadow rounded p-4 me-3 mb-3'}>
-                                <Image className={"img-club-member m-auto"} src={members.image} width={100} height={100} alt={"profile"}/>
+                                <img className={"img-club-member m-auto"} src={members.image} width={100} height={100} alt={"profile"}/>
                                 <h4 className={"text-center"}>{members.nickname}</h4>
                                 <p className={"text-center"}>-</p>
                             </section>

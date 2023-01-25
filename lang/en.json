@@ -74,6 +74,7 @@
   "error.club.noNews": "There are no Ended tournaments",
   "error.tournament.noCurrent": "There are no current tournaments",
   "error.tournament.noEnded": "De club heeft geen nieuws.",
+  "error.tournament.noLeagues": "You need a league first!",
   "error.league.noCurrent": "There are no current leagues",
   "error.league.noEnded": "There are no ended leagues",
 

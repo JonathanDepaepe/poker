@@ -1,10 +1,36 @@
 import formidable from "formidable";
 import fs from "fs";
 import https from "https";
+import {PutObjectCommand, S3Client} from "@aws-sdk/client-s3";
 
 export const config = {
     api: {
         bodyParser: false
+    }
+};
+
+
+const s3Client = new S3Client({
+    endpoint: "https://ams3.digitaloceanspaces.com",
+    forcePathStyle: false,
+    region: "ams3",
+    credentials: {
+        accessKeyId: "DO00GZP3NZNZCE9RP4M6",
+        secretAccessKey: "TrObRgMfGfIV6qy4ZJhrUz8TShXIgtE+To4oyD+N8DA"
+    }
+});
+
+const uploadProfile = async (files) => {
+    try {
+        await s3Client.send(new PutObjectCommand({
+            Bucket: "pokerimages",
+            Key: "profiles/" + files.originalFilename,
+            Body: fs.createReadStream(files.filepath),
+            ACL: "public-read",
+        }));
+        return "https://pokerimages.ams3.digitaloceanspaces.com/profiles/" + files.originalFilename
+    } catch (err) {
+        console.log("Error", err);
     }
 };
 
@@ -16,7 +42,7 @@ const post = async (req, res) => {
             rejectUnauthorized: false,
         });
         if (fields.file !== "Default"){
-            fullImageSrc = await saveFile(files.file, fields.nickname);
+            fullImageSrc = await uploadProfile(files.file, fields.nickname);
         } else {
             fullImageSrc = "/static/profile/logo.png"
         }

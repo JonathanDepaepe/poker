@@ -10,6 +10,7 @@
     "ssl:setup": "node scripts/create-ssl-certs.js"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.257.0",
     "@fortawesome/fontawesome-svg-core": "^6.2.1",
     "@fortawesome/free-solid-svg-icons": "^6.2.1",
     "@fortawesome/react-fontawesome": "^0.2.0",

@@ -120,7 +120,7 @@ export default function Index() {
     return (
         <>
             <Head>
-                <title>Poker Manager | league</title>
+                <title>Poker Manager | League</title>
                 <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
             </Head>
             <NavTop/>
@@ -129,13 +129,13 @@ export default function Index() {
                 <main className="ms-auto me-auto">
                     <header className="d-flex justify-content-between mt-4">
                         <div className="d-flex flex-wrap">
-                            {league?.club.pictureUrl[0] === "/" ? (
+                            {league?.club.pictureUrl[0] !== "/" && league?.club.pictureUrl[0] !== "h"? (
                                     <Image className="d-none d-sm-inline img-thumbnail img-club-profile" alt="Club Image" width={700}
                                            height={400}
-                                           src={league?.club.pictureUrl}/>)
-                                : (<Image className="d-none d-sm-inline img-thumbnail img-club-profile" alt="Club Image" width={700}
+                                           src="/images/placeholder.png"/>)
+                                : (<img className="d-none d-sm-inline img-thumbnail img-club-profile" alt="Club Image" width={700}
                                           height={400}
-                                          src="/images/placeholder.png"/>)
+                                          src={league?.club.pictureUrl}/>)
                             }
 
                             <div className=" ms-3">

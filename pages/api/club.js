@@ -1,6 +1,37 @@
 import formidable from "formidable";
 import fs from "fs";
 import https from "https";
+import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
+
+
+const s3Client = new S3Client({
+    endpoint: "https://ams3.digitaloceanspaces.com",
+    forcePathStyle: false,
+    region: "ams3",
+    credentials: {
+        accessKeyId: "DO00GZP3NZNZCE9RP4M6",
+        secretAccessKey: "TrObRgMfGfIV6qy4ZJhrUz8TShXIgtE+To4oyD+N8DA"
+    }
+});
+
+const uploadFile = async (files) => {
+    try {
+         await s3Client.send(new PutObjectCommand({
+            Bucket: "pokerimages",
+            Key: files.originalFilename,
+            Body: fs.createReadStream(files.filepath),
+            ACL: "public-read",
+            }));
+        return "https://pokerimages.ams3.digitaloceanspaces.com/" + files.originalFilename
+    } catch (err) {
+        console.log("Error", err);
+    }
+};
+
+
+// Step 5: Call the uploadObject function.
+
+
 
 export const config = {
     api: {
@@ -16,11 +47,10 @@ const post = async (req, res) => {
             rejectUnauthorized: false,
         });
          if (fields.file !== "Default"){
-            fullImageSrc = await saveFile(files.file, fields.clubName);
+            fullImageSrc = await uploadFile(files.file, fields.clubName);
         } else {
             fullImageSrc = "/static/placeholder.png"
         }
-            return res.status(201).send("");
             const club = await fetch('https://pokermanager.games/api/Club', {
             body: JSON.stringify({
                 ownerId: fields.memberId,
@@ -62,15 +92,6 @@ const get = async (req, res) => {
         })
 
 }
-
-const saveFile = async (file, clubName) => {
-    const imageSRC = file.originalFilename.split(".").pop()
-    const fullImageSrc = `/static/${clubName}${Math.floor(Math.random() * 100)}.${imageSRC}`
-    const data = fs.readFileSync(file.filepath);
-    fs.writeFileSync("./public"+fullImageSrc, data);
-    await fs.unlinkSync(file.filepath);
-    return fullImageSrc ;
-};
 
 export default (req, res) => {
     req.method === "POST"

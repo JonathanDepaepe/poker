@@ -22,15 +22,8 @@ export default function Index() {
         fetch('/api/auth/user')
             .then((res) => res.json())
             .then((data) => {
-                if (data.user.data.profilePictureUrl[0] !== "/") {
+                if (data.user.data.profilePictureUrl[0] !== "/" && data.user.data.profilePictureUrl[0] !== "h") {
                     data.user.data.profilePictureUrl = "/images/logo.png"
-                } else {
-                    try {
-                        require("../../public" + data.user.data.profilePictureUrl)
-                    } catch (err) {
-                        data.user.data.profilePictureUrl = "/images/logo.png"
-                        console.log(err)
-                    }
                 }
                 setUser(data)
             })

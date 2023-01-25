@@ -27,16 +27,10 @@ export default function Home() {
                     .then((res) => res.json())
                     .then((data) => {
                         for (const element of data) {
-                            if (element.pictureUrl[0] !== "/"){
+                            if (element.pictureUrl[0] !== "/" && element.pictureUrl[0] !== "h"){
                                 element.image = "/static/placeholder.png"
                             }else{
-                                try{
-                                    require( "../../public" +element.pictureUrl)
-                                    element.image = element.pictureUrl;
-                                }
-                                catch(err){
-                                    element.image = "/static/placeholder.png"
-                                }
+                                element.image = element.pictureUrl
                             }
                         }
                         data.length === 0?
@@ -49,7 +43,7 @@ export default function Home() {
     return (
         <>
             <Head>
-                <title>Poker Manager | Profile</title>
+                <title>Poker Manager | Profile Clubs</title>
                 <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
             </Head>
             <div>

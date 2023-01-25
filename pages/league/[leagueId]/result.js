@@ -23,7 +23,7 @@ export default function Index() {
     return (
         <>
             <Head>
-                <title>Poker Manager | league</title>
+                <title>Poker Manager | League Result</title>
                 <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
             </Head>
 
@@ -58,6 +58,7 @@ export default function Index() {
                                 ))}
                         </tbody>
                     </table>
+                    <button className="btn btn-primary bg-color-primary"  onClick={()=> {window.print();} }>Print</button>
                 </main>
             </div>
         </>

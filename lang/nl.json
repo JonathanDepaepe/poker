@@ -74,8 +74,10 @@
   "error.club.noNews": "De club heeft geen nieuws.",
   "error.tournament.noCurrent": "Er zijn geen actieve tournaments.",
   "error.tournament.noEnded": "Er zijn geen tournaments beëindigd.",
+  "error.tournament.noLeagues": "U hebt eerst een league nodig!",
   "error.league.noCurrent": "Er zijn actieve leagues",
   "error.league.noEnded": "Er zijn geen leagues beëindigd",
+
 
   "table.date": "Datum",
   "table.name": "Naam",

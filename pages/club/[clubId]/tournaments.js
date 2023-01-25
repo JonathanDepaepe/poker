@@ -22,7 +22,7 @@ export default function Home() {
     const [club, setClub] = useState();
     const [error, setError] = useState(null);
     const [leaveButton, setLeaveButton] = useState(false);
-    const [clubLeagues, setClubLeagues] = useState();
+    const [clubLeagues, setClubLeagues] = useState([]);
     const [tournamentEnded, setTournamentEnded] = useState(false);
     const [open, setOpen] = useState(false);
     const [openCreate, setOpenCreate] = useState(false);
@@ -71,6 +71,9 @@ export default function Home() {
             .then((fetchLeagues) => {
                 console.log(fetchLeagues)
                 setClubLeagues(fetchLeagues.sort(function (a,b){return a.name.localeCompare(b.name)}))
+                if (fetchLeagues.length === 0){
+
+                }
             })
     }
 
@@ -191,7 +194,7 @@ export default function Home() {
     return (
         <>
             <Head>
-                <title>Poker Manager | Club</title>
+                <title>Poker Manager | Club Tournaments</title>
                 <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
             </Head>
             <div>
@@ -453,9 +456,12 @@ export default function Home() {
                                             <input  type="checkbox" className="ms-2 form-check-input" name="isPrivate"
                                                     id="club-private"/>
                                         </div>
-                                        <div className="modal-footer">
-                                            {!isCreating && !isCreated && (<button type="submit"
+                                        <div className="modal-footer d-flex justify-content-between flex-nowrap">
+
+                                            {!isCreating && !isCreated && clubLeagues?.length !== 0 &&(<button type="submit"
                                                                                    className="btn btn-primary bg-color-primary">{intl.formatMessage({ id: "page.club.tournament.create" })}</button>)}
+                                            {!isCreating && !isCreated && clubLeagues?.length === 0 && (<> <p className="text-danger">{intl.formatMessage({ id: "error.tournament.noLeagues" })}</p> <button type="submit"
+                                                                                   className={"btn btn-primary bg-color-primary disabled"}>{intl.formatMessage({ id: "page.club.tournament.create" })}</button></>)}
                                             {isCreating && !isCreated && (<button disabled={"true"} type="submit"
                                                                                   className="btn btn-primary bg-color-primary">Creating...</button>)}
                                             {!isCreating && isCreated && (<button disabled={"true"} type="submit"
